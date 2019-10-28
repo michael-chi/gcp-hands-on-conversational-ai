@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: dialogflow-fulfillment
+spec:
+  selector:
+    app: dialogflow-fulfillment
+  ports:
+  - protocol: TCP
+    port: 33333
+    targetPort: 3000
+    #nodePort: 33333
+  type: LoadBalancer
