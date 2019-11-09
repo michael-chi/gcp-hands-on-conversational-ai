@@ -9,8 +9,8 @@ class Translator {
         this.projectId = config.projectId;
         this.location = config.location;
         this.keyFile = config.keyFile;
-        //this.translationClient = new TranslationServiceClient({keyFilename:this.keyFile});
-        this.translationClient = new TranslationServiceClient();
+        this.translationClient = new TranslationServiceClient({keyFilename:this.keyFile});
+        //this.translationClient = new TranslationServiceClient();
     }
     async translateText(text) {
         // Construct request
