@@ -6,6 +6,9 @@
 
 架構大致設計如下
 
+>安裝[Chrome Mermaid extension](https://chrome.google.com/webstore/detail/mermaid-diagrams/phfcghedmopjadpojhmmaffjmfiakfil)以顯示下列Sequence Diagram
+
+
 ```mermaid
 sequenceDiagram
 
