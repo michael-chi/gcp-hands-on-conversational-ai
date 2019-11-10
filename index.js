@@ -28,7 +28,8 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
             {
                 projectId: process.env.PROJECT_ID, 
                 location: process.env.LOCATION,
-                targetLanguageCode: GetLanguageCode(agent.parameters.translate_target_language)
+                targetLanguageCode: GetLanguageCode(agent.parameters.translate_target_language),
+                keyFile: 'keys/service-account-key.json'
             });
         var v = await translator.translateText(agent.parameters.translate_target_script);
         agent.add(v);
