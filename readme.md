@@ -4,8 +4,10 @@
 
 接著我會把Cloud Function改為GKE以Container方式包裝我的後端服務，然後部署到GKE上，並設置相關的防火牆規則等．在過程中，如果有遇到覺得有疑問或可能有其他做法的地方，我會把它列在[這裡](./to-be-investigated.md)
 
-####    [Environment Setup](doc/env-setup.md)
 
-####    Create DialogFlow Agent(to-do/doc/dgflow-create-agent.md)
+-   [Environment Setup](doc/env-setup.md)
 
-####    [DialogFlow API Local Test and Deploy to Cloud Functions](doc/dgflow-cloud-finctions.md)
+-   [Translatiojn API Local Test and Deploy to Cloud Functions](doc/dgflow-cloud-functions.md)
+
+-   [Create DialogFlow Agent](doc/dgflow-create-agent.md)
+
