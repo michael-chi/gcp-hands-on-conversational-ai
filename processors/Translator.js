@@ -1,6 +1,7 @@
 
 // Imports the Google Cloud Translation library
 const {TranslationServiceClient} = require('@google-cloud/translate').v3beta1;
+const fs = require('fs');
 // Instantiates a client
 class Translator {
     //keyFilename
@@ -9,8 +10,11 @@ class Translator {
         this.projectId = config.projectId;
         this.location = config.location;
         this.keyFile = config.keyFile;
-        this.translationClient = new TranslationServiceClient({keyFilename:this.keyFile});
-        //this.translationClient = new TranslationServiceClient();
+        
+        if(this.keyFile && fs.existsSync(this.keyFile))
+            this.translationClient = new TranslationServiceClient({keyFilename:this.keyFile});
+        else
+            this.translationClient = new TranslationServiceClient();
     }
     async translateText(text) {
         // Construct request

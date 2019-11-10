@@ -11,7 +11,7 @@ var translator = new Translator(
         targetLanguageCode:GetLanguageCode('日語'),
         projectId:projectId, 
         location:location,
-        keyFile:'../keys/kalschi-demo-001-1ed2581b433f.json'
+        keyFile:'../keys/service-account-key.json'
     });
 translator.translateText('我愛你').then(v => console.log(`got:${v}`));
 

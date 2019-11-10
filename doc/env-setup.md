@@ -7,28 +7,17 @@
 
     -   [MacOS](https://www.chrisjmendez.com/2018/02/07/install/)
 
--   下載並安裝 [Google Cloud SDK](https://cloud.google.com/sdk/docs/downloads-interactive)
+-   透過nvm安裝node.js
 
-#### Setup Git SSH Key on Windows
-
--   打開cmd，執行以下指令
-
-```shell
-ssh-keygen -t rsa 
+```bash
+nvm install 10.17.0
 ```
 
--   根據指示輸入密碼
-
--   到GCP console](https://source.cloud.google.com/user/ssh_keys?register=true), 建立一個SSH Key
-
--   打開 C:\users\[your name]\.ssh\id_rsa.pub 檔案，複製所有內容
-
--   將複製的內容貼到GCP Console的SSH Key
-
--   儲存並註冊
-
+-   下載並安裝 [Google Cloud SDK](https://cloud.google.com/sdk/docs/downloads-interactive)
 
 ####    Create Service Account
+
+Service Account跟Azure上的Service Principal類似；在GCP上，我們透過Service Account操作各種服務，同時針對Service Account指定權限，決定他們可以與哪些服務互動．在這裡，我們會建立一個Service Account並賦予它相對應的權限存取需要的服務．
 
 -   到GCP Console, IAM, Service Account, 建立一個新的Service Account
 
@@ -38,19 +27,9 @@ ssh-keygen -t rsa
 
 <img src="./img/service-account-roles.png"/>
 
--   建立完成後，選擇剛剛的Service Account，建立一個新的Key；這會下載一個Json檔案，將檔案複製到keys目錄中．
+-   建立完成後，選擇剛剛的Service Account，建立一個新的Key；這會下載一個Json檔案，將檔案改名為service-account-key.json後複製到keys目錄中．
+
+    -   為了確保安全性，在Production環境中，我們不會把Service Account Key發佈到生產環境；而是透過指定服務的Service Account的方式，指定GCP用哪一個Service Account操作這些服務．這裡只是為了本機測試需要才將檔案下載．
 
 <img src="./img/service-account-create-key.png"/>
 
->
-#### Service Account Setting
-
--   到[DialogFlow](https://dialogflow.cloud.google.com/)介面建立一個新的Agent, 並記下Service Account
-
-<img src="./img/df-service-account.jpg"/>
-
--   回到GCP Console，確認Translation API已經啟用，並將剛剛的Service Account加入必要的角色
-
-    -   Translation API使用者
-
-<img src="./img/add-dialogflow-sa-to-translation-api-role.jpg"/>
