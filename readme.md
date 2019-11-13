@@ -27,6 +27,8 @@ Cloud Functions -->> Translation API: Consume
 
 -   [Create REST API and containerize it](doc/dgflow-rest-api.md)
 
+-   [Create private GKE cluster and deploy our application to it](doc/gke-create-cluster.md)
+
 ## References
 
 -   https://blog.johnwu.cc/article/gcp-kubernetes-connect-to-cloudsql.html
