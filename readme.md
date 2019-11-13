@@ -18,6 +18,7 @@ Cloud Functions -->> Translation API: Consume
 ```
 
 ##  Table of Content
+
 -   [Environment Setup](doc/env-setup.md)
 
 -   [Translatiojn API Local Test and Deploy to Cloud Functions](doc/dgflow-cloud-functions.md)
@@ -25,3 +26,12 @@ Cloud Functions -->> Translation API: Consume
 -   [Create DialogFlow Agent](doc/dgflow-create-agent.md)
 
 -   [Create REST API and containerize it](doc/dgflow-rest-api.md)
+
+## References
+
+-   https://blog.johnwu.cc/article/gcp-kubernetes-connect-to-cloudsql.html
+
+-   https://github.com/GoogleCloudPlatform/kubernetes-bigquery-python/blob/master/pubsub/pubsub-pipe-image/utils.py#L37
+
+-   https://cloud.google.com/docs/authentication/production?hl=zh-tw
+

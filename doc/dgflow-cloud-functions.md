@@ -2,7 +2,7 @@
 
 -   到[GCP Console](https://console.cloud.google.com), API & Services, Library找到Cloud Translation API並確認已經Enable
 
-<img src="./img/enable-translation-api.png"/>
+<img src="./img/enable-translation-api.png"  style="width:30%;height:30%"/>
 
 ####    Create DialogFlow API Layer
 
@@ -26,7 +26,19 @@ node test-translationAPI.js
 
 ##### 部署到Cloud Functions
 
-執行以下命令以部署Cloud Functions其中的
+Cloud Functions程式中如果有需要有參數，可以透過GCP Console或是Gcloud命令設定；設定的參數在執行時程式可以以環境變數的方式取得
+
+在這裡的程式中，我們共需要兩個環境變數，Node.Js程式會以如下的方式取得
+
+```javascript
+var translator = new Translator(
+    {
+        projectId: process.env.PROJECT_ID, 
+        location: process.env.LOCATION
+    });
+```
+
+-   執行以下命令以部署Cloud Functions其中的
 
     -   <Function Name>必須為index.js中export的函式名稱；以這個例子來說，為dialogflowFirebaseFulfillment
 
@@ -40,4 +52,4 @@ node test-translationAPI.js
 ```bash
 gcloud functions deploy <Function Name> --runtime nodejs10 --trigger-http --service-account <SERVICE_ACCOUNT_ID> --set-env-vars PROJECT_ID=<PROJECT_ID>,LOCATION=global
 ```
-<img src="doc/img/cf-service-account-config.jpg"/>
+<img src="doc/img/cf-service-account-config.jpg"  style="width:30%;height:30%"/>

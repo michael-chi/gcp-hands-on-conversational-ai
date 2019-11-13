@@ -77,7 +77,7 @@
 
 -   當進入對話後，指定Content
 
-<img src="./img/df-agent-update-welcome-intent.png"/>
+<img src="./img/df-agent-update-welcome-intent.png"  style="width:30%;height:30%"/>
 
 
 ####    Configure Fulfillment
@@ -88,14 +88,14 @@
 gcloud functions describe <CLOUD FUNCTIONS NAME>
 ```
 
-<img src="./img/get-cloud-functions-url.png"/>
+<img src="./img/get-cloud-functions-url.png"  style="width:30%;height:30%"/>
 
 -   回到Dialogflow console，切換到Fulfillment頁籤，指定Webhook URL為剛剛取得的Cloud Functions URL
 
-<img src="./img/df-fulfillment-webhook-config.png"/>
+<img src="./img/df-fulfillment-webhook-config.png"  style="width:30%;height:30%"/>
 
 -   結束後儲存
 
 -   接著可以在旁邊的測試欄位測試是否可以正常翻譯
 
-<img src="./img/df-agent-test.png"/>
+<img src="./img/df-agent-test.png"  style="width:30%;height:30%"/>

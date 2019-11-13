@@ -21,15 +21,15 @@ Service Account跟Azure上的Service Principal類似；在GCP上，我們透過S
 
 -   到GCP Console, IAM, Service Account, 建立一個新的Service Account
 
-<img src="./img/create-service-account.png"/>
+<img src="./img/create-service-account.png"  style="width:30%;height:30%"/>
 
 -   給與Cloud Functions Admin與Translation API User角色，並記下Serivce Account Id
 
-<img src="./img/service-account-roles.png"/>
+<img src="./img/service-account-roles.png"  style="width:30%;height:30%"/>
 
 -   建立完成後，選擇剛剛的Service Account，建立一個新的Key；這會下載一個Json檔案，將檔案改名為service-account-key.json後複製到keys目錄中．
 
     -   為了確保安全性，在Production環境中，我們不會把Service Account Key發佈到生產環境；而是透過指定服務的Service Account的方式，指定GCP用哪一個Service Account操作這些服務．這裡只是為了本機測試需要才將檔案下載．
 
-<img src="./img/service-account-create-key.png"/>
+<img src="./img/service-account-create-key.png"  style="width:30%;height:30%"/>
 

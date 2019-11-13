@@ -171,14 +171,14 @@ curl -X POST \
 
 - 應該可以看到以下結果
 
-<img src="./img/container-local-test.png"/>
+<img src="./img/container-local-test.png"  style="width:30%;height:30%"/>
 
 
 ####  Setup container registry
 
 - 在這裡我使用GCP Container Registry作為Container Image存放位置．到GCP確定Container Registry API已經啟用
 
-<img src="./img/api-enable-container-registry.png"/>
+<img src="./img/api-enable-container-registry.png"  style="width:30%;height:30%"/>
 
 - 回到Cloud Shell或是Console，執行以下指令
 
