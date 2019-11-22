@@ -10,29 +10,30 @@ class MetricsManager {
         this.projectId = config.projectId;
     }
     async createTargetLanguageMetric() {
-        const request = {
-            name: client.projectPath(this.projectId),
-            metricDescriptor: {
-              description: 'Translation Target Language',
-              displayName: 'Target Language',
-              type: 'custom.googleapis.com/translation/target_language',
-              metricKind: 'GAUGE',
-              valueType: 'INT64',
-              unit: '{Request}',
-              labels: [
-                {
-                  key: 'target_language',
-                  valueType: 'STRING',
-                  description: 'Target Language of this translation request.',
+        try
+        {
+            const request = {
+                name: client.projectPath(this.projectId),
+                metricDescriptor: {
+                description: 'Translation Target Language',
+                displayName: 'Target Language',
+                type: 'custom.googleapis.com/translation/target_language',
+                metricKind: 'GAUGE',
+                valueType: 'INT64',
+                unit: '{Request}',
+                labels: [
+                        {
+                        key: 'target_language',
+                        valueType: 'STRING',
+                        description: 'Target Language of ßthis translation request.',
+                        },
+                    ],
                 },
-              ],
-            },
-          };
-          const [descriptor] = await client.createMetricDescriptor(request);
-          descriptor.labels.forEach(label => {
-            console.log(`  ${label.key} (${label.valueType}) - ${label.description}`);
-          });
-          console.log('===> created target_language metrics <===');
+            };
+          ß
+        }catch(ex){
+            console.log(`Exception: ${ex}`);
+        }
     }
     async targetLanguage(target_language){
         // Imports the Google Cloud client library
@@ -40,6 +41,7 @@ class MetricsManager {
 
         // Creates a client
         const client = new monitoring.MetricServiceClient();
+        
         const dataPoint = {
                 interval: {
                     endTime: {
