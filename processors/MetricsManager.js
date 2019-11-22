@@ -22,7 +22,7 @@ class MetricsManager {
 
         const EXPORT_INTERVAL = 60;
         const MEASURE_TARGET_LANGUAGE = globalStats.createMeasureInt64(
-            'translation_request',
+            'custom.googleapis.com/translation/translation_request',
             MeasureUnit.UNIT,
             'Translation Requests'
         );
@@ -34,7 +34,27 @@ class MetricsManager {
           MEASURE_TARGET_LANGUAGE,
           AggregationType.COUNT,
           [],
-          'Requested translation'
+          'Requested translation',
+          [
+            0,
+            1,
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096,
+            8192,
+            16384,
+            32768,
+            65536,
+          ]
         );
         
         // Then finally register the views
