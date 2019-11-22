@@ -4,6 +4,7 @@ const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
 const Translator = require('./processors/Translator');
 const GetLanguageCode = require('./processors/LanguageCodeConverter');
+const MetricsManager = require('./processors/MetricsManager');
 
 process.env.DEBUG = 'dialogflow:debug';
 
@@ -24,14 +25,17 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
     }
   
     async function intent_translate(agent) {
-        var translator = new Translator(
-            {
-                projectId: process.env.PROJECT_ID, 
-                location: process.env.LOCATION,
-                targetLanguageCode: GetLanguageCode(agent.parameters.translate_target_language),
-                keyFile: 'keys/service-account-key.json'
-            });
+        const config = {
+            projectId: process.env.PROJECT_ID, 
+            location: process.env.LOCATION,
+            targetLanguageCode: GetLanguageCode(agent.parameters.translate_target_language),
+            keyFile: 'keys/service-account-key.json'
+        };
+        var translator = new Translator(config);
+        var metrics = new MetricsManager(config);
+        await metrics.createTargetLanguageMetric();
         var v = await translator.translateText(agent.parameters.translate_target_script);
+        await metrics.targetLanguage(config.targetLanguageCode);
         agent.add(v);
     }
     // // Uncomment and edit to make your own intent handler
