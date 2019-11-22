@@ -58,6 +58,7 @@ class MetricsManager {
         
         // Pass the created exporter to Stats
         globalStats.registerExporter(exporter);
+        
         const tags = new TagMap();
         tags.set('target_language', {value: target_language});
         //container_name namespace_name
