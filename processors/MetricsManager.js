@@ -22,7 +22,7 @@ class MetricsManager {
 
         const EXPORT_INTERVAL = 60;
         const MEASURE_TARGET_LANGUAGE = globalStats.createMeasureInt64(
-            'custom.googleapis.com/translation/translation_request',
+            'https://custom.googleapis.com/translation/translation_request',
             MeasureUnit.UNIT,
             'Translation Requests'
         );
