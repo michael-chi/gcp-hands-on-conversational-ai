@@ -60,12 +60,16 @@ class MetricsManager {
         globalStats.registerExporter(exporter);
         const tags = new TagMap();
         tags.set('target_language', {value: target_language});
+        //container_name namespace_name
+        tags.set('container_name','fulfillment');
+        tags.set('namespace_name','default');
         globalStats.record([
             {
               measure: MEASURE_TARGET_LANGUAGE,
               value: 1,
             },
           ],
+          tags
           );
         
         /**
