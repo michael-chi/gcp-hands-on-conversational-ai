@@ -17,7 +17,7 @@ class MetricsManager {
               displayName: 'Target Language',
               type: 'custom.googleapis.com/translation/target_language',
               metricKind: 'GAUGE',
-              valueType: 'DOUBLE',
+              valueType: 'INT64',
               unit: '{Request}',
               labels: [
                 {

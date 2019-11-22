@@ -27,6 +27,16 @@ docker push asia.gcr.io/kalschi-demo-001/conversational-ai-demo:latest
 ```bash
 kubectl set image deployment dialogflow-fulfillment dialogflow-fulfillment=asia.gcr.io/kalschi-demo-001/conversational-ai-demo:latest
 ```
+
+-   Now we also need to grant our service account permission to create custom metric. We do this by editing permission of our service account on GCP console
+
+<img src="../../doc/img/stackdriver-grant-permission.png" style="width:30%;height:30%"/>
+
+-   Finally, rollout new images
+```bash
+kubectl rollout restart deployment/<Deployment Name>
+# kubectl rollout restart deployment/dialogflow-fulfillment
+```
 ##  References
 
 -   [Resize nodes](https://cloud.google.com/kubernetes-engine/docs/how-to/resizing-a-cluster)
