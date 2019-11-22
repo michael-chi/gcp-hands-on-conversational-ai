@@ -76,8 +76,14 @@ class MetricsManager {
           };
           
           // Writes time series data
-          const result = await client.createTimeSeries(request);
-          console.log(`Done writing time series data.`, result);
+          try
+          {
+            const result = await client.createTimeSeries(request);
+            console.log(`Done writing time series data.`, result);
+          }catch{
+            //  To address this error : 3 INVALID_ARGUMENT: One or more TimeSeries could not be written: One or more points were written more frequently th
+            //                          an the maximum sampling period configured for the metric. {Metric: custom.googleapis.com/translation/target_language
+          }
     }
 }
 module.exports = MetricsManager;
