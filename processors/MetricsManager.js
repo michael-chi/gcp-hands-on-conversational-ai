@@ -22,9 +22,9 @@ class MetricsManager {
 
         const EXPORT_INTERVAL = 60;
         const MEASURE_TARGET_LANGUAGE = globalStats.createMeasureInt64(
-            'translation_target_language',
+            'translation_request',
             MeasureUnit.UNIT,
-            'Target Language'
+            'Translation Requests'
         );
         
         // Register the view. It is imperative that this step exists,
@@ -57,7 +57,7 @@ class MetricsManager {
         globalStats.registerExporter(exporter);
         
         const tags = new TagMap();
-        tags.set('target_language', {value: target_language});
+        tags.set('requested_target_language', {value: target_language});
         //container_name namespace_name
         //tags.set('container_name','fulfillment');
         //tags.set('namespace_name','default');
