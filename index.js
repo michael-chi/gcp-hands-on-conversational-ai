@@ -33,9 +33,11 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
         };
         var translator = new Translator(config);
         var metrics = new MetricsManager(config);
+        console.log('===> createTargetLanguageMetric() <===');
         await metrics.createTargetLanguageMetric();
         var v = await translator.translateText(agent.parameters.translate_target_script);
         await metrics.targetLanguage(config.targetLanguageCode);
+        console.log('===> targetLanguage() <===');
         agent.add(v);
     }
     // // Uncomment and edit to make your own intent handler

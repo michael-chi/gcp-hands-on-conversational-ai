@@ -32,6 +32,7 @@ class MetricsManager {
           descriptor.labels.forEach(label => {
             console.log(`  ${label.key} (${label.valueType}) - ${label.description}`);
           });
+          console.log('===> created target_language metrics <===');
     }
     async targetLanguage(target_language){
         // Imports the Google Cloud client library
