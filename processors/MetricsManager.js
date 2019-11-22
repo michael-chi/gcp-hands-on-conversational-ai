@@ -32,12 +32,9 @@ class MetricsManager {
         const view = globalStats.createView(
           'target_language_distribution',
           MEASURE_TARGET_LANGUAGE,
-          AggregationType.DISTRIBUTION,
+          AggregationType.COUNT,
           [],
-          'The distribution of translation target language.',
-          // Latency in buckets:
-          // [>=0ms, >=100ms, >=200ms, >=400ms, >=1s]
-          [0, 100, 200, 400, 1000]
+          'Requested translation target language.'
         );
         
         // Then finally register the views
@@ -62,8 +59,8 @@ class MetricsManager {
         const tags = new TagMap();
         tags.set('target_language', {value: target_language});
         //container_name namespace_name
-        tags.set('container_name','fulfillment');
-        tags.set('namespace_name','default');
+        //tags.set('container_name','fulfillment');
+        //tags.set('namespace_name','default');
         globalStats.record([
             {
               measure: MEASURE_TARGET_LANGUAGE,
