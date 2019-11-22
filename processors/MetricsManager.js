@@ -50,6 +50,7 @@ class MetricsManager {
                 },
                 value: {
                     int64Value: 1,
+                    doubleValue: 1
                 },
             };
           
