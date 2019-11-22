@@ -30,11 +30,11 @@ class MetricsManager {
         // Register the view. It is imperative that this step exists,
         // otherwise recorded metrics will be dropped and never exported.
         const view = globalStats.createView(
-          'target_language_distribution',
+          'translation_requests',
           MEASURE_TARGET_LANGUAGE,
           AggregationType.COUNT,
           [],
-          'Requested translation target language.'
+          'Requested translation'
         );
         
         // Then finally register the views
