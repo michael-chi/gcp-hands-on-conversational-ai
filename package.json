@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@opencensus/core":"*",
+    "opencensus/exporter-stackdriver":"*",
     "@google-cloud/monitoring":"*",
     "@google-cloud/functions-framework": "^1.3.2",
     "@google-cloud/translate": "^4.1.3",

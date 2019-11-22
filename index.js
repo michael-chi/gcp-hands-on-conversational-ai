@@ -35,6 +35,7 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
         var metrics = new MetricsManager(config);
         console.log('===> createTargetLanguageMetric() <===');
         await metrics.createTargetLanguageMetric();
+        await metrics.opencensusTargetLanguage(config.targetLanguageCode);
         var v = await translator.translateText(agent.parameters.translate_target_script);
         await metrics.targetLanguage(config.targetLanguageCode);
         console.log('===> targetLanguage() <===');
