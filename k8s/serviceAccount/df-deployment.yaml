@@ -15,6 +15,7 @@ spec:
             containers:
             -   name: dialogflow-fulfillment
                 image: asia.gcr.io/kalschi-demo-001/conversational-ai-demo:latest
+                imagePullPolicy: Always
                 ports:
                     -   name: http
                         containerPort: 3000

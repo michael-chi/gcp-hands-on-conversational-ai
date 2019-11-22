@@ -68,7 +68,7 @@ class MetricsManager {
           };
           
           const request = {
-            name: client.projectPath(projectId),
+            name: client.projectPath(this.projectId),
             timeSeries: [timeSeriesData],
           };
           
