@@ -17,8 +17,8 @@ class MetricsManager {
 
     async opencensusTargetLanguage(target_language){
         'use strict';
-        const exporter = new StackdriverTraceExporter({projectId: this.projectId});
-        tracing.registerExporter(exporter).start();
+        //const exporter = new StackdriverTraceExporter({projectId: this.projectId});
+        //tracing.registerExporter(exporter).start();
 
         const EXPORT_INTERVAL = 60;
         const MEASURE_TARGET_LANGUAGE = globalStats.createMeasureInt64(
@@ -49,13 +49,6 @@ class MetricsManager {
         // for more details.
         // Expects ADCs to be provided through the environment as ${GOOGLE_APPLICATION_CREDENTIALS}
         // A Stackdriver workspace is required and provided through the environment as ${GOOGLE_PROJECT_ID}
-        const projectId = process.env.GOOGLE_PROJECT_ID;
-        
-        // GOOGLE_APPLICATION_CREDENTIALS are expected by a dependency of this code
-        // Not this code itself. Checking for existence here but not retaining (as not needed)
-        if (!projectId || !process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-          throw Error('Unable to proceed without a Project ID');
-        }
         
         // The minimum reporting period for Stackdriver is 1 minute.
         const exporter = new StackdriverStatsExporter({
