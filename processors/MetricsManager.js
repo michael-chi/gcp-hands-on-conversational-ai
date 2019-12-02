@@ -22,19 +22,19 @@ class MetricsManager {
 
         const EXPORT_INTERVAL = 60;
         const MEASURE_TARGET_LANGUAGE = globalStats.createMeasureInt64(
-            'https://custom.googleapis.com/translation/translation_request',
+            'https://custom.googleapis.com/translation/dialogflow_translation_requests',
             MeasureUnit.UNIT,
-            'Translation Requests'
+            'Dialogflow Translation Requests'
         );
         
         // Register the view. It is imperative that this step exists,
         // otherwise recorded metrics will be dropped and never exported.
         const view = globalStats.createView(
-          'translation_requests',
+          'dialogflow_translation_requests',
           MEASURE_TARGET_LANGUAGE,
           AggregationType.COUNT,
           [],
-          'Requested translation',
+          'Dialogflow Requested translation',
           [
             0,
             1,
