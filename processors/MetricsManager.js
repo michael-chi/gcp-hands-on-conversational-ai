@@ -24,21 +24,21 @@ class MetricsManager {
 
       const EXPORT_INTERVAL = 60;
       const MEASURE_REQUEST_COUNT = globalStats.createMeasureInt64(
-        'https://custom.googleapis.com/michaelchi_demo/translation_request',
+        'https://custom.googleapis.com/michaelchi_demo/translation',
         MeasureUnit.UNIT,
         'Custom Translation Requests'
       );
       console.log(`[Info]Target Language ${target_language}`);
       var tags = new TagMap();
-      tags.set('requested_target_language', { value: target_language });
+      tags.set('demo_target_language', { value: target_language });
 
       // Register the view. It is imperative that this step exists,
       // otherwise recorded metrics will be dropped and never exported.
       const view = globalStats.createView(
-        'requested_target_language',
+        'demo_target_language',
         MEASURE_REQUEST_COUNT,
         AggregationType.SUM,
-        [{ name: 'requested_target_language' }],
+        [{ name: 'demo_target_language' }],
         'Dialogflow Requested translation target language'
       );
 
