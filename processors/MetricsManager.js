@@ -28,17 +28,20 @@ class MetricsManager {
         MeasureUnit.UNIT,
         'Custom Translation Requests'
       );
+      const LANG_TAG_NAME = 'target_language_2';
       console.log(`[Info]Target Language ${target_language}`);
       var tags = new TagMap();
-      tags.set({name:'target_language'}, { value: target_language });
+      tags.set({name:LANG_TAG_NAME}, { value: target_language });
+      tags.set({name:'TEST'}, { value: 'Michael' });
+
 
       // Register the view. It is imperative that this step exists,
       // otherwise recorded metrics will be dropped and never exported.
       const view = globalStats.createView(
-        'michael_target_language',
+        'michael_target_language_2',
         MEASURE_REQUEST_COUNT,
         AggregationType.SUM,
-        [{ name: 'target_language' }],
+        [{ name: LANG_TAG_NAME }, {name:'TEST'}],
         'Dialogflow Requested translation target language'
       );
 
