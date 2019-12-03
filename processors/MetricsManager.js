@@ -37,7 +37,7 @@ class MetricsManager {
       const view = globalStats.createView(
         'michael_target_language',
         MEASURE_REQUEST_COUNT,
-        AggregationType.COUNT,
+        AggregationType.SUM,
         [{ name: 'target_language' }],
         'Dialogflow Requested translation target language'
       );
@@ -68,7 +68,7 @@ class MetricsManager {
         {
           measure: MEASURE_REQUEST_COUNT,
           value: 1,
-        },
+        }
       ],
         tags
       );
