@@ -19,42 +19,26 @@ class MetricsManager {
         'use strict';
         //const exporter = new StackdriverTraceExporter({projectId: this.projectId});
         //tracing.registerExporter(exporter).start();
+        try
+        {
 
         const EXPORT_INTERVAL = 60;
-        const MEASURE_TARGET_LANGUAGE = globalStats.createMeasureInt64(
-            'https://custom.googleapis.com/translation/dialogflow_translation_requests',
+        const MEASURE_REQUEST_COUNT = globalStats.createMeasureInt64(
+            'https://custom.googleapis.com/michaelchi_demo/intent_detection_request',
             MeasureUnit.UNIT,
-            'Dialogflow Translation Requests'
+            'Dialogflow Intent Requests'
         );
+        const tags = new TagMap();
+        tags.set('requested_target_language', {value: target_language});
         
         // Register the view. It is imperative that this step exists,
         // otherwise recorded metrics will be dropped and never exported.
         const view = globalStats.createView(
-          'dialogflow_translation_requests',
-          MEASURE_TARGET_LANGUAGE,
+          'michaelchi_demo_request_count',
+          MEASURE_REQUEST_COUNT,
           AggregationType.COUNT,
           [],
-          'Dialogflow Requested translation',
-          [
-            0,
-            1,
-            2,
-            4,
-            8,
-            16,
-            32,
-            64,
-            128,
-            256,
-            512,
-            1024,
-            2048,
-            4096,
-            8192,
-            16384,
-            32768,
-            65536,
-          ]
+          'Dialogflow Requested translation'
         );
         
         // Then finally register the views
@@ -76,14 +60,12 @@ class MetricsManager {
         // Pass the created exporter to Stats
         globalStats.registerExporter(exporter);
         
-        const tags = new TagMap();
-        tags.set('requested_target_language', {value: target_language});
         //container_name namespace_name
         //tags.set('container_name','fulfillment');
         //tags.set('namespace_name','default');
         globalStats.record([
             {
-              measure: MEASURE_TARGET_LANGUAGE,
+              measure: MEASURE_REQUEST_COUNT,
               value: 1,
             },
           ],
@@ -99,6 +81,9 @@ class MetricsManager {
         setTimeout(() => {
           console.log('Done recording metrics.');
         }, EXPORT_INTERVAL * 1000);
+      }catch(ex){
+        console.error(`[ERROR]${ex}`);
+      }
     }
 
 
