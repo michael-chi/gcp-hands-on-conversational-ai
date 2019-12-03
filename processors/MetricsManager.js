@@ -37,7 +37,7 @@ class MetricsManager {
           'michaelchi_demo_request_count',
           MEASURE_REQUEST_COUNT,
           AggregationType.COUNT,
-          [],
+          [{name:'requested_target_language'}],
           'Dialogflow Requested translation'
         );
         
@@ -78,12 +78,15 @@ class MetricsManager {
          * metrics that must be collected, or some risk being lost if they are recorded
          * after the last export.
          */
+        /*
         setTimeout(() => {
           console.log('Done recording metrics.');
         }, EXPORT_INTERVAL * 1000);
+        */
       }catch(ex){
         console.error(`[ERROR]${ex}`);
       }
+      
     }
 
     async opencensusTargetLanguage2(target_language){
@@ -108,7 +111,7 @@ class MetricsManager {
         'michaelchi_demo_request_count_2',
         MEASURE_REQUEST_COUNT,
         AggregationType.COUNT,
-        [],
+        [{name:'requested_target_language_2'}],
         'Dialogflow Requested translation 2'
       );
       
@@ -148,6 +151,68 @@ class MetricsManager {
       console.error(`[ERROR]${ex}`);
     }
   }
+  async opencensusTargetLanguage3(target_language){
+    'use strict';
+    //const exporter = new StackdriverTraceExporter({projectId: this.projectId});
+    //tracing.registerExporter(exporter).start();
+    try
+    {
+
+    const EXPORT_INTERVAL = 60;
+    const MEASURE_REQUEST_COUNT = globalStats.createMeasureInt64(
+        'https://custom.googleapis.com/michaelchi_demo/intent_detection_request_3',
+        MeasureUnit.UNIT,
+        'Dialogflow Intent Requests 3'
+    );
+    const tags = new TagMap();
+    tags.set('requested_target_language_3', {value: target_language});
+    
+    // Register the view. It is imperative that this step exists,
+    // otherwise recorded metrics will be dropped and never exported.
+    const view = globalStats.createView(
+      'michaelchi_demo_request_count_3',
+      MEASURE_REQUEST_COUNT,
+      AggregationType.SUM,
+      [{name:'requested_target_language_3'}],
+      'Dialogflow Requested translation 3'
+    );
+    
+    // Then finally register the views
+    globalStats.registerView(view);
+    
+    // Enable OpenCensus exporters to export metrics to Stackdriver Monitoring.
+    // Exporters use Application Default Credentials (ADCs) to authenticate.
+    // See https://developers.google.com/identity/protocols/application-default-credentials
+    // for more details.
+    // Expects ADCs to be provided through the environment as ${GOOGLE_APPLICATION_CREDENTIALS}
+    // A Stackdriver workspace is required and provided through the environment as ${GOOGLE_PROJECT_ID}
+    
+    // The minimum reporting period for Stackdriver is 1 minute.
+    const exporter = new StackdriverStatsExporter({
+      projectId: this.projectId,
+      period: EXPORT_INTERVAL * 1000,
+    });
+    
+    // Pass the created exporter to Stats
+    globalStats.registerExporter(exporter);
+    
+    //container_name namespace_name
+    //tags.set('container_name','fulfillment');
+    //tags.set('namespace_name','default');
+    globalStats.record([
+        {
+          measure: MEASURE_REQUEST_COUNT,
+          value: 1,
+        },
+      ],
+      tags
+      );
+    
+    
+  }catch(ex){
+    console.error(`[ERROR]${ex}`);
+  }
+}
     async createTargetLanguageMetric() {
         try
         {
