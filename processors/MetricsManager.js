@@ -30,7 +30,7 @@ class MetricsManager {
       );
       console.log(`[Info]Target Language ${target_language}`);
       var tags = new TagMap();
-      tags.set('target_language', { value: target_language });
+      tags.set({name:'target_language'}, { value: target_language });
 
       // Register the view. It is imperative that this step exists,
       // otherwise recorded metrics will be dropped and never exported.
