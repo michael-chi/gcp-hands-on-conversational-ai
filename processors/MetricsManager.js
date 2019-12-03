@@ -30,9 +30,9 @@ class MetricsManager {
       );
       const LANG_TAG_NAME = 'target_language_2';
       console.log(`[Info]Target Language ${target_language}`);
-      var tags = new TagMap();
-      tags.set({name:LANG_TAG_NAME}, { value: target_language });
-      tags.set({name:'TEST'}, { value: 'Michael' });
+      var labels = new TagMap();
+      labels.set({name:LANG_TAG_NAME}, { value: target_language });
+      labels.set({name:'TEST'}, { value: 'Michael' });
 
 
       // Register the view. It is imperative that this step exists,
@@ -67,13 +67,15 @@ class MetricsManager {
       //container_name namespace_name
       //tags.set('container_name','fulfillment');
       //tags.set('namespace_name','default');
-      globalStats.record([
-        {
-          measure: MEASURE_REQUEST_COUNT,
-          value: 1,
-        }
-      ],
-        tags
+      globalStats.record(
+        [
+          {
+            measure: MEASURE_REQUEST_COUNT,
+            value: 1,
+          }
+        ],
+        labels,
+        null
       );
 
 
