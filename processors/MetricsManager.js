@@ -86,7 +86,68 @@ class MetricsManager {
       }
     }
 
+    async opencensusTargetLanguage2(target_language){
+      'use strict';
+      //const exporter = new StackdriverTraceExporter({projectId: this.projectId});
+      //tracing.registerExporter(exporter).start();
+      try
+      {
 
+      const EXPORT_INTERVAL = 60;
+      const MEASURE_REQUEST_COUNT = globalStats.createMeasureInt64(
+          'https://custom.googleapis.com/michaelchi_demo/intent_detection_request_2',
+          MeasureUnit.UNIT,
+          'Dialogflow Intent Requests 2'
+      );
+      const tags = new TagMap();
+      tags.set('requested_target_language_2', {value: target_language});
+      
+      // Register the view. It is imperative that this step exists,
+      // otherwise recorded metrics will be dropped and never exported.
+      const view = globalStats.createView(
+        'michaelchi_demo_request_count_2',
+        MEASURE_REQUEST_COUNT,
+        AggregationType.COUNT,
+        [],
+        'Dialogflow Requested translation 2'
+      );
+      
+      // Then finally register the views
+      globalStats.registerView(view);
+      
+      // Enable OpenCensus exporters to export metrics to Stackdriver Monitoring.
+      // Exporters use Application Default Credentials (ADCs) to authenticate.
+      // See https://developers.google.com/identity/protocols/application-default-credentials
+      // for more details.
+      // Expects ADCs to be provided through the environment as ${GOOGLE_APPLICATION_CREDENTIALS}
+      // A Stackdriver workspace is required and provided through the environment as ${GOOGLE_PROJECT_ID}
+      
+      // The minimum reporting period for Stackdriver is 1 minute.
+      const exporter = new StackdriverStatsExporter({
+        projectId: this.projectId,
+        period: EXPORT_INTERVAL * 1000,
+      });
+      
+      // Pass the created exporter to Stats
+      globalStats.registerExporter(exporter);
+      
+      //container_name namespace_name
+      //tags.set('container_name','fulfillment');
+      //tags.set('namespace_name','default');
+      globalStats.record([
+          {
+            measure: MEASURE_REQUEST_COUNT,
+            value: 1,
+          },
+        ],
+        tags
+        );
+      
+      
+    }catch(ex){
+      console.error(`[ERROR]${ex}`);
+    }
+  }
     async createTargetLanguageMetric() {
         try
         {
