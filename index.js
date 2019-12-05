@@ -32,6 +32,7 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
           location: agent.parameters['@sys.location']['street-address'] ? agent.parameters['@sys.location']['street-address'] : agent.parameters['@sys.location']['business-name'],
           keyFile: 'keys/service-account-key.json'
       };
+      console.log(`You want to got to ${config.location} at ${config.time}`);
       agent.add(`You want to got to ${config.location} at ${config.time}`);
     }
   
