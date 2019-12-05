@@ -27,9 +27,9 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
       const config = {
           projectId: process.env.PROJECT_ID, 
           location: process.env.LOCATION,
-          date: agent.parameters['@sys.date'] ? new Date(agent.parameters['@sys.date']) : null,
-          time: agent.parameters['@sys.time'] ? new Date(agent.parameters['@sys.time']) : null,
-          location: agent.parameters['@sys.location']['street-address'] ? agent.parameters['@sys.location']['street-address'] : agent.parameters['@sys.location']['business-name'],
+          date: agent.parameters.date ? new Date(agent.parameters.date) : null,
+          time: agent.parameters.time ? new Date(agent.parameters.time) : null,
+          location: agent.parameters.location['street-address'] ? agent.parameters.location['street-address'] : agent.parameters.location['business-name'],
           keyFile: 'keys/service-account-key.json'
       };
       console.log(`You want to got to ${config.location} at ${config.time}`);

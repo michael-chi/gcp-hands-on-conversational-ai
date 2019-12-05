@@ -1,12 +1,19 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
+  labels:
+    app: dialogflow-fulfillment
   name: dialogflow-fulfillment
+  namespace: default
 spec:
+  ports:
+  - nodePort: 30301
+    port: 3000
+    protocol: TCP
+    targetPort: 8080
   selector:
     app: dialogflow-fulfillment
-  ports:
-  - protocol: TCP
-    port: 33333
-    targetPort: 3000
-  type: LoadBalancer
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
