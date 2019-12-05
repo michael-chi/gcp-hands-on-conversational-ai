@@ -15,7 +15,6 @@ class MetricsManager {
     this.projectId = config.projectId;
   }
 
-
   async opencensusTargetLanguage(target_language) {
     'use strict';
     //const exporter = new StackdriverTraceExporter({projectId: this.projectId});
@@ -31,8 +30,8 @@ class MetricsManager {
       const LANG_TAG_NAME = 'target_language_2';
       console.log(`[Info]Target Language ${target_language}`);
       var labels = new TagMap();
-      labels.set({name:LANG_TAG_NAME}, { value: target_language });
-      labels.set({name:'TEST'}, { value: 'Michael' });
+      labels.set({ name: LANG_TAG_NAME }, { value: target_language });
+      labels.set({ name: 'TEST' }, { value: 'Michael' });
 
 
       // Register the view. It is imperative that this step exists,
@@ -41,7 +40,7 @@ class MetricsManager {
         'michael_target_language_2',
         MEASURE_REQUEST_COUNT,
         AggregationType.COUNT,
-        [{ name: LANG_TAG_NAME }, {name:'TEST'}],
+        [{ name: LANG_TAG_NAME }, { name: 'TEST' }],
         'Dialogflow Requested translation target language'
       );
 
