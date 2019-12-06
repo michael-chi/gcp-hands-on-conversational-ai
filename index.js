@@ -37,16 +37,17 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
     }
     async function intent_RequestPermissions(agent){
         const conv = agent.conv();
-        console.log(`==========\r\n${JSON.stringify(conv)}`);
-        if(!conv.device || conv.device == {})
+        
+        console.log(`==========\r\n${JSON.stringify(conv)}\r\n${JSON.stringify(agnet)}`);
+        //if(!conv.device || conv.device == {})
         {
           conv.ask(`I need yout location`);
           conv.ask(new Suggestions([
             'Place'
           ]));
-        }else{
-          agent.add(`You are at ${JSON.stringify(conv.device)}`);
-        }
+        //}else{
+        //  agent.add(`You are at ${JSON.stringify(conv.device)}`);
+        //}
     }
     // app.intent('Permission', (conv, params, confirmationGranted) => {
     //   // Also, can access latitude and longitude
