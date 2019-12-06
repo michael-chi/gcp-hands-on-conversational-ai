@@ -38,7 +38,7 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
     async function intent_RequestPermissions(agent){
         const conv = agent.conv();
         
-        console.log(`==========\r\n${JSON.stringify(conv)}\r\n${JSON.stringify(agnet)}`);
+        console.log(`==========\r\n${JSON.stringify(conv)}\r\n`);
         //if(!conv.device || conv.device == {})
         {
           conv.ask(`I need yout location`);
