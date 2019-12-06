@@ -35,7 +35,7 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
       console.log(`You want to got to ${config.location} at ${config.time}`);
       agent.add(`You want to got to ${config.location} at ${config.time}`);
     }
-    await function intent_RequestPermissions(agent){
+    async function intent_RequestPermissions(agent){
         const conv = agent.conv();
         if(!conv.device)
         {
