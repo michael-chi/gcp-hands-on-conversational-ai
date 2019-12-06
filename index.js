@@ -44,7 +44,7 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
             'Place'
           ]));
         }else{
-          agent.add(`You are at ${conv.device}`);
+          agent.add(`You are at ${JSON.stringify(conv.device)}`);
         }
     }
     // app.intent('Permission', (conv, params, confirmationGranted) => {
