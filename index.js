@@ -35,9 +35,40 @@ exports.dialogflowFirebaseFulfillment = ((request, response) => {
       console.log(`You want to got to ${config.location} at ${config.time}`);
       agent.add(`You want to got to ${config.location} at ${config.time}`);
     }
-  
+    await function intent_RequestPermissions(agent){
+        const conv = agent.conv();
+        if(!conv.device)
+        {
+          conv.ask(`I need yout location`);
+          conv.ask(new Suggestions([
+            'Place'
+          ]));
+        }else{
+          agent.add(`You are at ${conv.device}`);
+        }
+    }
+    // app.intent('Permission', (conv, params, confirmationGranted) => {
+    //   // Also, can access latitude and longitude
+    //   // const { latitude, longitude } = location.coordinates;
+    //   const {location} = conv.device;
+    //   const {name} = conv.user;
+    //   if (confirmationGranted && name && location) {
+    //     conv.ask(`Okay ${name.display}, I see you're at ` +
+    //       `${location.formattedAddress}`);
+    //   } else {
+    //     conv.ask(`Looks like I can't get your information.`);
+    //   }
+    //   conv.ask(`Would you like to try another helper?`);
+    //   conv.ask(new Suggestions([
+    //     'Confirmation',
+    //     'DateTime',
+    //     'Place',
+    //   ]));
+    // });
+
     // Run the proper function handler based on the matched Dialogflow intent name
     let intentMap = new Map();
     intentMap.set('RequestTaxi', intent_RequestTaxi);
+    intentMap.set('Default Welcome Intent',intent_RequestPermissions);
     agent.handleRequest(intentMap);
   });
