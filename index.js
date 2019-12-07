@@ -39,6 +39,7 @@ app.intent('Default Welcome Intent', (conv) => {
     permissions.push('DEVICE_PRECISE_LOCATION');
     //context += ' and know your location';
   }
+  let context = '';
   const options = {
     context,
     permissions,
