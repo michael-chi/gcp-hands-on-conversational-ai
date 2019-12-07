@@ -39,20 +39,22 @@ app.intent('RequestTaxi', async (conv, params) => {
   var fromLocation = conv.device.location.coordinates;
   var url = await map.getStaticMap(config.location, coordinates);
   console.log(`[Info]${url}`);
-  conv.ask(new BasicCard({
-    //text: `目的地：${config.location}`,
+  //https://actions-on-google.github.io/actions-on-google-nodejs/classes/conversation_helper.confirmation.html
+  var card = new BasicCard({
     subtitle: `${config.location}`,
     title: '目的地',
-    // buttons: new Button({
-    //   title: 'This is a button',
-    //   url: 'https://assistant.google.com/',
-    // }),
+    buttons: new Button({
+      title: `${config.location}`,
+      url: url,
+    }),
     image: new Image({
       url: url,
       alt: `${config.location}`
     }),
     display: 'CROPPED',
-  }));
+  });
+  console.log(`[Info]Card=${JSON.stringify(card)}`);
+  conv.ask(card);
   conv.ask(new Confirmation('請問是否確定要叫車？'))
 });
 
