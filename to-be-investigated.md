@@ -1,1 +1,3 @@
 -   Any better way to authenticate & authorize fulfillment invoker ? at the moment I am granting "allusers" to cloud functions user, which leads to potential unwanted invocations
+
+-   How to do OAuth with Cloud Run endpoint ?
