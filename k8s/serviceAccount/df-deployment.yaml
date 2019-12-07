@@ -18,7 +18,7 @@ spec:
                 imagePullPolicy: Always
                 ports:
                     -   name: http
-                        containerPort: 3000
+                        containerPort: 8080
                 env:
                     -   name: PROJECT_ID
                         value: kalschi-demo-001
