@@ -31,7 +31,8 @@ app.intent('RequestTaxi', async (conv, params) => {
   console.log(`You want to got to ${config.location} at ${config.time}`);
   const map = new GoogleMap(config);
   const coordinates = await map.getGeoCoordinates(config.location);
-  conv.ask(`你要到 ${config.location}，座標:${JSON.stringify(coordinates)} 在 ${config.time}`);
+  console.log(`You want to got to ${config.location} at ${coordinates}`);
+  conv.ask(`你要到 ${config.location}，座標:${(coordinates)} 在 ${config.time}`);
 });
 
 app.intent('Default Welcome Intent', (conv) => {

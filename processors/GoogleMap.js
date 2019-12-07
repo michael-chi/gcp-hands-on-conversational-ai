@@ -12,10 +12,10 @@ class GoogleMap {
         try {
             const response = await fetch(url);
             const json = await response.json();
-            console.log(json);
+            console.log(`[Info]GoogleMap result:${json}`);
             return json;
         } catch (error) {
-            console.log(error);
+            console.log(`[Error]${error}`);
         }
     };
 
@@ -23,11 +23,12 @@ class GoogleMap {
         const location = encodeURIComponent(human_readable_location);
         const request = `${this.MAPAPI_URL}${location}&key=${this.config.key}`;
         console.log(request);
-        var text = await this.httpGet(request);
-        var json = JSON.parse(text);
+        var json = await this.httpGet(request);
+        //var json = JSON.parse(text);
         try {
             return json.results[0].geometry.location;
         } catch (ex) {
+            console.error(`[Error]${ex}`);
             return null;
         }
     }
