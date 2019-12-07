@@ -46,7 +46,7 @@ app.intent('Default Welcome Intent', (conv) => {
   };
   conv.ask(new Permission(options));
 });
-app.intent('Permission Handler', (conv, params, confirmationGranted) => {
+app.intent('Default Welcome Intent - yes', (conv, params, confirmationGranted) => {
   // Also, can access latitude and longitude
   // const { latitude, longitude } = location.coordinates;
   const {location} = conv.device;
