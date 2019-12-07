@@ -35,7 +35,7 @@ app.intent('RequestTaxi', async (conv, params) => {
   conv.ask(`你要到 ${config.location}，座標:[${(coordinates.lat)},${coordinates.lng}] 在 ${config.time}`);
   
   var fromLocation = conv.device.location.coordinates;
-  var url = map.getStaticMap(config.location, coordinates);
+  var url = await map.getStaticMap(config.location, coordinates);
   console.log(`[Info]${url}`);
 });
 
