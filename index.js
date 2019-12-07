@@ -10,7 +10,7 @@ const {
 
 require('dotenv').config()
 
-const GoogleMap = require('processors/GoogleMap.js');
+const GoogleMap = require('./processors/GoogleMap.js');
 const functions = require('firebase-functions');
 const app = dialogflow();
 

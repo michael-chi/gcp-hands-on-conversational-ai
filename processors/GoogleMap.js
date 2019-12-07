@@ -1,7 +1,7 @@
-import { throws } from "assert";
+//import { throws } from "assert";
 const fetch = require("node-fetch");
 
-class GoogleMapManager {
+class GoogleMap {
 
     constructor(config) {
         this.MAPAPI_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
@@ -20,7 +20,10 @@ class GoogleMapManager {
     };
 
     async getGeoCoordinates(human_readable_location) {
-        var text = await this.httpGet(`${this.MAPAPI_URL}${human_readable_location}&key=${this.config.key}`)
+        const location = encodeURIComponent(human_readable_location);
+        const request = `${this.MAPAPI_URL}${location}&key=${this.config.key}`;
+        console.log(request);
+        var text = await this.httpGet(request);
         var json = JSON.parse(text);
         try {
             return json.results[0].geometry.location;
