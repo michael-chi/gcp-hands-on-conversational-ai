@@ -8,15 +8,19 @@ const {
   List,
 } = require('actions-on-google');
 
+require('dotenv').config()
+
+const GoogleMap = require('processors/GoogleMap.js');
 const functions = require('firebase-functions');
 const app = dialogflow();
 
-app.intent('RequestTaxi', (conv, params) => {
+app.intent('RequestTaxi', async (conv, params) => {
   console.log('====>Request Taxi');
   console.log(JSON.stringify(conv));
   const config = {
       //projectId: process.env.PROJECT_ID, 
       //location: process.env.LOCATION,
+      key: process.env.MAP_KEY,
       date: params.date ? new Date(params.date) : null,
       time: params.time ? new Date(params.time) : null,
       location: params.location['street-address'] ? 
@@ -25,7 +29,9 @@ app.intent('RequestTaxi', (conv, params) => {
       keyFile: 'keys/service-account-key.json'
   };  
   console.log(`You want to got to ${config.location} at ${config.time}`);
-  conv.ask(`你要到 ${config.location} 在 ${config.time}`);
+  const map = new GoogleMap(config);
+  const coordinates = await map.getGeoCoordinates(config.location);
+  conv.ask(`你要到 ${config.location}，座標:${JSON.stringify(coordinates)} 在 ${config.time}`);
 });
 
 app.intent('Default Welcome Intent', (conv) => {
