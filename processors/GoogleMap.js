@@ -18,7 +18,15 @@ class GoogleMap {
             console.log(`[Error]${error}`);
         }
     };
+    async getStaticMap(address, coordinates){
+        const location = encodeURIComponent(address);
+        const STATIC_MAP_URL = 'https://maps.googleapis.com/maps/api/staticmap?center=';
+        const url = `${STATIC_MAP_URL}${encodeURIComponent(address)}&&size=600x300&maptype=roadmap
+        &markers=color:red%7Clabel:D%7C${coordinates.lat}${coordinates.lng}`;
 
+        return url;
+    }
+    //https://developers.google.com/maps/documentation/geocoding/intro
     async getGeoCoordinates(human_readable_location) {
         const location = encodeURIComponent(human_readable_location);
         const request = `${this.MAPAPI_URL}${location}&key=${this.config.key}`;

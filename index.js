@@ -18,8 +18,8 @@ app.intent('RequestTaxi', async (conv, params) => {
   console.log('====>Request Taxi');
   console.log(JSON.stringify(conv));
   const config = {
-      //projectId: process.env.PROJECT_ID, 
-      //location: process.env.LOCATION,
+      projectId: process.env.PROJECT_ID, 
+      location: process.env.LOCATION,
       key: process.env.MAP_KEY,
       date: params.date ? new Date(params.date) : null,
       time: params.time ? new Date(params.time) : null,
@@ -31,8 +31,12 @@ app.intent('RequestTaxi', async (conv, params) => {
   console.log(`You want to got to ${config.location} at ${config.time}`);
   const map = new GoogleMap(config);
   const coordinates = await map.getGeoCoordinates(config.location);
-  console.log(`You want to got to ${config.location} at ${coordinates}`);
-  conv.ask(`你要到 ${config.location}，座標:${(coordinates)} 在 ${config.time}`);
+  console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
+  conv.ask(`你要到 ${config.location}，座標:[${(coordinates.lat)},${coordinates.lng}] 在 ${config.time}`);
+  
+  var fromLocation = conv.device.location.coordinates;
+  var url = map.getStaticMap(config.location, coordinates);
+  console.log(`[Info]${url}`);
 });
 
 app.intent('Default Welcome Intent', (conv) => {
