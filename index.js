@@ -2,7 +2,6 @@ const {
   dialogflow,
   Image,
 } = require('actions-on-google');
-
 const functions = require('firebase-functions');
 // Create an app instance
 const app = dialogflow();
@@ -22,7 +21,6 @@ app.intent('RequestTaxi', (conv, params) => {
   console.log(`You want to got to ${config.location} at ${config.time}`);
   conv.ask(`You want to got to ${config.location} at ${config.time}`);
 });
-
 app.intent('Default Welcome Intent', (conv, params, confirmationGranted) => {
       // Also, can access latitude and longitude
       // const { latitude, longitude } = location.coordinates;
@@ -43,4 +41,3 @@ app.intent('Default Welcome Intent', (conv, params, confirmationGranted) => {
       ]));
     });
 exports.agent = app;
-//exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
