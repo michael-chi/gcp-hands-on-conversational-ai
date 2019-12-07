@@ -1,7 +1,12 @@
 const {
   dialogflow,
+  Suggestions,
+  Carousel,
   Image,
+  Table,
+  List,
 } = require('actions-on-google');
+
 const functions = require('firebase-functions');
 // Create an app instance
 const app = dialogflow();
