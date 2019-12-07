@@ -6,6 +6,8 @@ const {
   Image,
   Table,
   List,
+  BasicCard,
+  Confirmation
 } = require('actions-on-google');
 
 require('dotenv').config()
@@ -37,7 +39,30 @@ app.intent('RequestTaxi', async (conv, params) => {
   var fromLocation = conv.device.location.coordinates;
   var url = await map.getStaticMap(config.location, coordinates);
   console.log(`[Info]${url}`);
+  conv.ask(new BasicCard({
+    //text: `目的地：${config.location}`,
+    subtitle: `${config.location}`,
+    title: '目的地',
+    // buttons: new Button({
+    //   title: 'This is a button',
+    //   url: 'https://assistant.google.com/',
+    // }),
+    image: new Image({
+      url: url,
+      alt: `${config.location}`
+    }),
+    display: 'CROPPED',
+  }));
+  conv.ask(new Confirmation('請問是否確定要叫車？'))
 });
+
+app.intent('actions.intent.CONFIRMATION', (conv, input, confirmation) => {
+  if (confirmation) {
+    conv.close(`已經為您叫車，車號：1688-TW`);
+  } else {
+    conv.close(`希望下次有機會為您服務`);
+  }
+})
 
 app.intent('Default Welcome Intent', (conv) => {
   const permissions = ['NAME'];
