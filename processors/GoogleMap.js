@@ -21,8 +21,7 @@ class GoogleMap {
     async getStaticMap(address, coordinates){
         const location = encodeURIComponent(address);
         const STATIC_MAP_URL = 'https://maps.googleapis.com/maps/api/staticmap?center=';
-        const url = `${STATIC_MAP_URL}${encodeURIComponent(address)}&&size=600x300&zoom=16&maptype=roadmap
-        &markers=color:red%7Clabel:D%7C${coordinates.lat},${coordinates.lng}&key=${this.config.key}`;
+        const url = `${STATIC_MAP_URL}${encodeURIComponent(address)}&size=600x300&zoom=16&maptype=roadmap&markers=color:red%7Clabel:D%7C${coordinates.lat},${coordinates.lng}&key=${this.config.key}`;
 
         return url;
     }

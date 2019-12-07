@@ -7,6 +7,7 @@ const {
   Table,
   List,
   BasicCard,
+  Button,
   Confirmation
 } = require('actions-on-google');
 
@@ -55,7 +56,7 @@ app.intent('RequestTaxi', async (conv, params) => {
   });
   console.log(`[Info]Card=${JSON.stringify(card)}`);
   conv.ask(card);
-  conv.ask(new Confirmation('請問是否確定要叫車？'))
+  //conv.ask(new Confirmation('請問是否確定要叫車？'))
 });
 
 app.intent('actions.intent.CONFIRMATION', (conv, input, confirmation) => {
