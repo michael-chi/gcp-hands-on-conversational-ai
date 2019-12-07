@@ -27,8 +27,14 @@ Cloud Functions -->> Translation API: Consume
 
 -   [Create REST API and containerize it](doc/dgflow-rest-api.md)
 
--   [Create private GKE cluster and deploy our application to it](doc/gke-create-cluster.md)
+-   [Create a DialogFlow Agent helps to book TAXI]()
 
+-   Deploy Fulfillment
+
+    -   [Create private GKE cluster and deploy our application to it](doc/gke-create-cluster.md)
+
+    -   [Deploy Fulfillment to Cloud Run](doc/run-deploy.md)
+    
 ## References
 
 -   https://blog.johnwu.cc/article/gcp-kubernetes-connect-to-cloudsql.html
@@ -37,3 +43,4 @@ Cloud Functions -->> Translation API: Consume
 
 -   https://cloud.google.com/docs/authentication/production?hl=zh-tw
 
+－  https://developers.google.com/assistant/actions/reference/nodejsv2/overview

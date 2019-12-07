@@ -1,13 +1,10 @@
-var dialogflowFirebaseFulfillment = require('./index').dialogflowFirebaseFulfillment;
+var agent = require('./index').agent;
 var express = require('express')
 var bodyParser = require('body-parser')
-var app = express()
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
-app.use(bodyParser.json())
-app.use(function (req, res) {
-    dialogflowFirebaseFulfillment(req,res);
-})
-app.listen(3000);
-console.log('listening on http://localhost:3000');
+const expressApp = express().use(bodyParser.json());
+expressApp.post('/fulfillment', agent);
+expressApp.get('/test', (req,res) => {
+        res.send(req.body);
+    }
+);
+expressApp.listen(8080);

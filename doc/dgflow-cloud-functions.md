@@ -51,5 +51,18 @@ var translator = new Translator(
     
 ```bash
 gcloud functions deploy <Function Name> --runtime nodejs10 --trigger-http --service-account <SERVICE_ACCOUNT_ID> --set-env-vars PROJECT_ID=<PROJECT_ID>,LOCATION=global
+
+# gcloud functions deploy taxibotbackend --runtime nodejs10 --trigger-http --service-account kalschi-dialogflow-serviceacco@kalschi-demo-001.iam.gserviceaccount.com --set-env-vars PROJECT_ID=kalschi-demo-001,LOCATION=global
 ```
 <img src="doc/img/cf-service-account-config.jpg"  style="width:30%;height:30%"/>
+
+
+#### Troubleshooting
+
+-   Include module files during deploying
+
+>ERROR: (gcloud.functions.deploy) OperationError: code=13, message=Error setting up the execution environment for your function. Please try deploying again after a few minutes.
+
+```bash
+--include-ignored-files
+```
