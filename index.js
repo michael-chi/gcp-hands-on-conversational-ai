@@ -49,6 +49,9 @@ app.intent('Default Welcome Intent', (conv) => {
 app.intent('Default Welcome Intent - yes', (conv, params, confirmationGranted) => {
   // Also, can access latitude and longitude
   // const { latitude, longitude } = location.coordinates;
+  console.log('======> YES <=====');
+
+  console.log(JSON.stringify(conv));
   const {location} = conv.device;
   const {name} = conv.user;
   if (confirmationGranted && name && location) {
