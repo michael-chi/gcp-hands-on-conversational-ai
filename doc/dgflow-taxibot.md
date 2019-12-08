@@ -19,7 +19,6 @@ Dialogflow -->> Google Assistant: Request Permissions
 Google Assistant -->> User: Request Permissions
 User ->> Google Assistant: Grant Permissions
 
-
 ```
 
 -   要求使用者提供目的地資訊
