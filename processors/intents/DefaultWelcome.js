@@ -1,11 +1,5 @@
 const {
-    dialogflow,
-    Suggestions,
-    Permission,
-    Image,
-    BasicCard,
-    Button,
-    Confirmation
+    Permission
 } = require('actions-on-google');
 
 module.exports = {
@@ -33,6 +27,7 @@ module.exports = {
             if (confirmationGranted && name && location) {
                 conv.ask(`好的， ${name.display}, 我將您的上車地點設定為 ` +
                     `${location.formattedAddress}`);
+                conv.ask(`請告訴我您的目的地`);
             } else {
                 conv.ask(`很抱歉，我需要您的地址才能為您服務`);
                 conv.close();

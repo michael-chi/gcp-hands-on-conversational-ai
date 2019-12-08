@@ -1,63 +1,42 @@
 const {
-    dialogflow,
-    Suggestions,
-    Permission,
     Image,
     BasicCard,
     Button,
-    Confirmation
+    Confirmation,
+    Suggestions
 } = require('actions-on-google');
 
 const GoogleMap = require('../GoogleMap.js');
 module.exports = {
     setup: function (app) {
         app.intent('RequestTaxi', async (conv, params) => {
-            console.log('====>Request Taxi');
+            console.log('====>RequestTaxi');
             console.log(JSON.stringify(conv));
-            const config = {
-                projectId: process.env.PROJECT_ID,
-                location: process.env.LOCATION,
-                key: process.env.MAP_KEY,
-                date: params.date ? new Date(params.date) : null,
-                time: params.time ? new Date(params.time) : null,
-                location: params.location['street-address'] ?
-                    params.location['street-address'] :
-                    params.location['business-name'],
-                keyFile: 'keys/service-account-key.json'
-            };
-            console.log(`You want to got to ${config.location} at ${config.time}`);
-            const map = new GoogleMap(config);
-            const coordinates = await map.getGeoCoordinates(config.location);
-            console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
-            conv.ask(`你要到 ${config.location}，座標:[${(coordinates.lat)},${coordinates.lng}] 在 ${config.time}`);
-
-            var fromLocation = conv.device.location.coordinates;
-            var url = await map.getStaticMap(config.location, coordinates);
-            console.log(`[Info]${url}`);
+            if (!conv.screen) {
+                conv.ask('抱歉，你必須在手機上使用這個服務');
+                return;
+            }
             //https://actions-on-google.github.io/actions-on-google-nodejs/classes/conversation_helper.confirmation.html
             var card = new BasicCard({
-                subtitle: `${config.location}`,
+                text: '以下是您的目的地位置資訊',
                 title: '目的地',
-                buttons: new Button({
-                    title: `${config.location}`,
-                    url: url,
-                }),
                 image: new Image({
-                    url: url,
-                    alt: `${config.location}`
+                    url: process.env.TEST_URL,
+                    alt: '目的地'
                 }),
                 display: 'CROPPED',
             });
             console.log(`[Info]Card=${JSON.stringify(card)}`);
+            //  Must have a simple response before sending cards in Google Assistant 
+            //  per https://developers.google.com/assistant/conversational/responses#visual_selection_responses
+            conv.ask(`以下是您的目的地資訊，確定要叫車嗎？`);
             conv.ask(card);
-            //conv.ask(new Confirmation('請問是否確定要叫車？'))
+            conv.ask(new Suggestions(['是', '否']));
         });
-        app.intent('actions.intent.CONFIRMATION', (conv, input, confirmation) => {
-            if (confirmation) {
-                conv.close(`已經為您叫車，車號：1688-TW`);
-            } else {
-                conv.close(`希望下次有機會為您服務`);
-            }
+        app.intent('Request_Confirmation_Yes', (conv) => {
+            console.log('=====>Request_Confirmation_Yes');
+            console.log(`[Info]conv=${JSON.stringify(conv)}`);
+            conv.close(`已經為您叫車，車號：1688-TW`);
         });
     }
 }
