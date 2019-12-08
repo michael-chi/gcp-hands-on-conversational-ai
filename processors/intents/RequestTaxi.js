@@ -8,7 +8,7 @@ const {
 
 const GoogleMap = require('../GoogleMap.js');
 module.exports = {
-    setup: function (app) {
+    setup: async function (app) {
         app.intent('RequestTaxi', async (conv, params) => {
             console.log('====>RequestTaxi');
             console.log(JSON.stringify(conv));
@@ -16,17 +16,36 @@ module.exports = {
                 conv.ask('抱歉，你必須在手機上使用這個服務');
                 return;
             }
+            const config = {
+                projectId: process.env.PROJECT_ID,
+                location: process.env.LOCATION,
+                key: process.env.MAP_KEY,
+                date: params.date ? new Date(params.date) : null,
+                time: params.time ? new Date(params.time) : null,
+                location: `${params.location['city']} ${params.location['subadmin-area']} ${params.location['street-address']} ${params.location['business-name']}`,
+            };
+            console.log(`${JSON.stringify(config)}`);
+            console.log(`You want to got to ${config.location} at ${config.time}`);
+            const map = new GoogleMap(config);
+            const coordinates = await map.getGeoCoordinates(config.location);
+            console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
+            conv.ask(`你要到 ${config.location}，座標:[${(coordinates.lat)}`);
+            var fromLocation = conv.device.location.coordinates;
+            var url = await map.getStaticMap(config.location, coordinates);
+            console.log(`[Info]${url}`);
+
             //https://actions-on-google.github.io/actions-on-google-nodejs/classes/conversation_helper.confirmation.html
             var card = new BasicCard({
                 text: '以下是您的目的地位置資訊',
                 title: '目的地',
                 image: new Image({
-                    url: process.env.TEST_URL,
+                    url: url,
                     alt: '目的地'
                 }),
                 display: 'CROPPED',
             });
             console.log(`[Info]Card=${JSON.stringify(card)}`);
+            
             //  Must have a simple response before sending cards in Google Assistant 
             //  per https://developers.google.com/assistant/conversational/responses#visual_selection_responses
             conv.ask(`以下是您的目的地資訊，確定要叫車嗎？`);
