@@ -7,6 +7,7 @@
 
 -   在對話開始時要求使用者位置資訊
 
+
 ```mermaid
 sequenceDiagram
 
@@ -16,7 +17,9 @@ Dialogflow ->> Fulfillment: Webhook
 Fulfillment -->> Dialogflow: Request Permissions
 Dialogflow -->> Google Assistant: Request Permissions
 Google Assistant -->> User: Request Permissions
-User ->> Google Assistant: Grant Permissions 
+User ->> Google Assistant: Grant Permissions
+
+
 ```
 
 -   要求使用者提供目的地資訊
@@ -32,6 +35,7 @@ Fulfillment -->> Dialogflow: Respond to User
 Dialogflow -->> Google Assistant: Respond to User
 Google Assistant -->> User: Respond to User
 User ->> Google Assistant: Confirmation
+
 ```
 
 ####    Create Intents
