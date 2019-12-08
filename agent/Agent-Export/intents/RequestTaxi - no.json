@@ -1,0 +1,40 @@
+{
+  "id": "3b2993ef-14c8-491b-8cfb-1703ceffdd5f",
+  "parentId": "fdaf6235-75cf-447b-aa17-19014d1ba982",
+  "rootParentId": "fdaf6235-75cf-447b-aa17-19014d1ba982",
+  "name": "RequestTaxi - no",
+  "auto": true,
+  "contexts": [
+    "RequestTaxi-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "RequestTaxi.RequestTaxi-no",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "zh-tw",
+          "condition": "",
+          "speech": "好的，希望下次有機會為您服務"
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [
+    {
+      "name": "actions_intent_OPTION"
+    }
+  ],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

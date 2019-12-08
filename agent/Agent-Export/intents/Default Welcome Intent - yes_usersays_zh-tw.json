@@ -1,0 +1,122 @@
+[
+  {
+    "id": "7b769721-b7f1-4462-8a3d-afa7a91e999d",
+    "data": [
+      {
+        "text": "正確",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "07f4f51f-717c-4180-b6a8-257568794c3a",
+    "data": [
+      {
+        "text": "執行",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "84acf6a5-8a11-41d7-ae6b-affe20781c0a",
+    "data": [
+      {
+        "text": "沒錯",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "c04ab481-5946-4088-840c-2f9c957025f4",
+    "data": [
+      {
+        "text": "確認",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "dbce25a2-d808-4ee6-9d6d-629650cb4b0e",
+    "data": [
+      {
+        "text": "好",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "53e61b7f-d8cd-4dbb-b051-114dee35a208",
+    "data": [
+      {
+        "text": "可以",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "4c057469-5dc6-4812-bebe-b3869543a756",
+    "data": [
+      {
+        "text": "我同意",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "64db6e0f-6e7b-4f87-96f0-4a7f58fbd083",
+    "data": [
+      {
+        "text": "好啊",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "99e7af03-8fb9-495b-8d0f-4064f611a483",
+    "data": [
+      {
+        "text": "是",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "61709491-f43b-4e26-a6e5-b6c36022a0a1",
+    "data": [
+      {
+        "text": "好的",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

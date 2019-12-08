@@ -1,0 +1,38 @@
+{
+  "id": "933f9eb7-de6a-48b1-9bb9-82c62facf1cc",
+  "name": "Default Fallback Intent",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "input.unknown",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "zh-tw",
+          "condition": "",
+          "speech": [
+            "請告訴我你要去哪裡。",
+            "請你再說一遍。",
+            "我怕我聽不懂你的話。",
+            "請告訴我您什麼時候要去哪裡",
+            "請再講一次好嗎？我需要您的目的地"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": true,
+  "events": [],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

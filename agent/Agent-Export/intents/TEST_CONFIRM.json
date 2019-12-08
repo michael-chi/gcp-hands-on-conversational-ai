@@ -1,0 +1,40 @@
+{
+  "id": "c5daf8a9-7d8c-441c-ac0f-6aa7a9f0698e",
+  "parentId": "8b68d0d3-e84f-4085-8205-458eccfb88c6",
+  "rootParentId": "8b68d0d3-e84f-4085-8205-458eccfb88c6",
+  "name": "TEST_CONFIRM",
+  "auto": true,
+  "contexts": [
+    "Test-followup"
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "Test.Test-yes",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "zh-tw",
+          "condition": "",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [
+    {
+      "name": "actions_intent_OPTION"
+    }
+  ],
+  "conditionalResponses": [],
+  "condition": "",
+  "conditionalFollowupEvents": []
+}

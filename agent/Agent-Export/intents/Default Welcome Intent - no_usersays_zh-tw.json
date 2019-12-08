@@ -1,0 +1,110 @@
+[
+  {
+    "id": "aaef2611-9019-463c-b98f-a32651a82f70",
+    "data": [
+      {
+        "text": "我不同意",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "a0b6a3c9-f6d0-4b2b-808c-3ff152018ce5",
+    "data": [
+      {
+        "text": "不用了，謝謝",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "4e287986-aac6-4350-9896-93a86a752e3b",
+    "data": [
+      {
+        "text": "我不想",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "782e035d-5a81-4182-ad9a-a98dead1a613",
+    "data": [
+      {
+        "text": "否",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "38ed5ae5-98fb-4a4e-9c8d-99fa20e8f520",
+    "data": [
+      {
+        "text": "不要執行",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "c7500cb2-6b91-4920-85e4-cebc37ebcf66",
+    "data": [
+      {
+        "text": "不必了",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "8e44e9e7-56d3-417b-a11e-ce2bab6765b8",
+    "data": [
+      {
+        "text": "我不願意",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "924411ce-1f82-4d05-899e-97d50cf65aa0",
+    "data": [
+      {
+        "text": "絕對不要",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "8eed9cfd-7018-487e-bb1d-c8d190b5d2dc",
+    "data": [
+      {
+        "text": "不感興趣",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]
