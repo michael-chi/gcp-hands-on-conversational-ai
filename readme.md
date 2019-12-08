@@ -31,6 +31,10 @@ Cloud Functions -->> Translation API: Consume
 
 -   Deploy Fulfillment
 
+    -   [Modify Fulfillment to meet new requirements](doc/run-integrate-google-assistant-and-map.md)
+
+            包含Google Assistant與Google Map整合
+
     -   [Create private GKE cluster and deploy our application to it](doc/gke-create-cluster.md)
 
     -   [Deploy Fulfillment to Cloud Run](doc/run-deploy.md)
