@@ -5,18 +5,32 @@ info:
   title: "Dialogflow Fulfillment API schema"
   license:
     name: "MIT"
-host: dialogflow-demo-api-endpoints-fd5tyopnsa-an.a.run.app
+host: conversational-ai-webhook-endpoints
 schemes:
 - "https"
 produces:
   - application/json
 x-google-backend:
-  address: https://dialogflow-demo-api-fd5tyopnsa-an.a.run.app/fulfillment
+  address: https://conversational-ai-demo-fd5tyopnsa-uc.a.run.app
 paths:
   /fulfillment:
     post:
       operationId: "fulfillment"
       summary: "Invoke Fulfillment Handler"
+      parameters:
+        - in: body
+          name: body
+          schema:
+              $ref: "#/definitions/FulfillmentRequest"
+      responses:
+        200:
+          description: "OK"
+      security:
+        - apikey: []
+  /test:
+    post:
+      operationId: "test"
+      summary: "Invoke test Handler"
       parameters:
         - in: body
           name: body

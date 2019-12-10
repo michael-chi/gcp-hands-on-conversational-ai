@@ -19,7 +19,7 @@ gcloud beta run deploy CLOUD_RUN_SERVICE_NAME \
     --image="gcr.io/endpoints-release/endpoints-runtime-serverless:1.30.0" \
     --allow-unauthenticated \
     --project=ESP_PROJECT_ID
-#   gcloud beta run deploy dialogflow-demo-api-endpoints --image="gcr.io/endpoints-release/endpoints-runtime-serverless:1.30.0"  --allow-unauthenticated  --project=kalschi-demo-001
+#   gcloud beta run deploy conversational-ai-webhook-endpoints --image="gcr.io/endpoints-release/endpoints-runtime-serverless:1.30.0"  --allow-unauthenticated  --project=kalschi-demo-001
 ```
 
 -   建立[Swagger檔案描述](../yaml/cloud-run-def.yaml)Cloud Run (Fulfillment)API
@@ -72,8 +72,36 @@ gcloud beta run services update CLOUD_RUN_SERVICE_NAME  \
        --set-env-vars ENDPOINTS_SERVICE_NAME=YOUR_SERVICE_NAME \
        --project ESP_PROJECT_ID
 
-gcloud beta run services update dialogflow-demo-api-endpoints --set-env-vars ENDPOINTS_SERVICE_NAME=dialogflow-demo-api --project kalschi-demo-001
+gcloud beta run services update conversational-ai-webhook-endpoints --set-env-vars ENDPOINTS_SERVICE_NAME=conversational-ai-webhook-endpoints-fd5tyopnsa-uc.a.run.app --project kalschi-demo-001
 ```
+
+-   Grant Permission
+
+```bash
+gcloud beta run services add-iam-policy-binding BACKEND_SERVICE_NAME \
+    --member "serviceAccount:ESP_PROJECT_NUMBER-compute@developer.gserviceaccount.com" \
+    --role "roles/run.invoker" \
+    --project BACKEND_PROJECT_ID
+
+# gcloud beta run services add-iam-policy-binding conversational-ai-demo --member "serviceAccount:967804060464-compute@developer.gserviceaccount.com" --role "roles/run.invoker" --project kalschi-demo-001
+```
+
+-   Enable APIs
+
+```bash
+gcloud services enable servicemanagement.googleapis.com
+gcloud services enable servicecontrol.googleapis.com
+gcloud services enable endpoints.googleapis.com
+```
+
+-   Goto Developer Portal, Get a Key. Request URL must have ?key=<API_KEY> query string in order to work
+
+-   Remove "allUsers" from Fulfillment Cloud Run Invoker Role
+
+-   Change Dialogflow Fulfillment Url to new Url
+
+>https://conversational-ai-webhook-endpoints-fd5tyopnsa-uc.a.run.app/fulfillment?key=xxxxxxxx
+
 ##  Reference
 
 -   https://cloud.google.com/endpoints/docs/openapi/get-started-cloud-run

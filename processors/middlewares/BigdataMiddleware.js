@@ -7,9 +7,11 @@ const config = {
     topic: process.env.BIGDATA_TOPICNAME
 };
 
-async function processRequest(conv, config){
+async function processRequest(conv, config) {
+    console.log('Middleware Processing request...');
     //  conversationId
     const conversationId = this.conv.request.user.conversation.conversationId;
+    console.log(`Conversation Id:${conversationId}`);
     /*
     {
         "location":{
@@ -46,39 +48,43 @@ async function processRequest(conv, config){
         }
     }
     */
-    const {to} = conv.contexts.input['requesttaxi-followup'].parameters;
-    const map = new GoogleMap(config);
-    const coordinates = await map.getGeoCoordinates(to);
-    console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
-    const message = {
-        conversationId: conversationId,
-        time: new Date(new Date().toUTCString()),
-        from: {
-            coordinates: {
-                latitude: from.location.coordinates.latitude,
-                longitude: from.location.coordinates.longitude
+    try {
+        const { to } = conv.contexts.input['requesttaxi-followup'].parameters;
+        const map = new GoogleMap(config);
+        const coordinates = await map.getGeoCoordinates(to);
+        console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
+        const message = {
+            conversationId: conversationId,
+            time: new Date(new Date().toUTCString()),
+            from: {
+                coordinates: {
+                    latitude: from.location.coordinates.latitude,
+                    longitude: from.location.coordinates.longitude
+                },
+                address: from.location.formattedAddress
             },
-            address: from.location.formattedAddress
-        },
-        to: {
-            coordinates: {
-                latitude: coordinates.lat,
-                longitude: coordinates.lng
-            },
-            address: to['location.original']
-        }
-    };
+            to: {
+                coordinates: {
+                    latitude: coordinates.lat,
+                    longitude: coordinates.lng
+                },
+                address: to['location.original']
+            }
+        };
 
-    //  Publish event to Pub/Sub
-    const publisher = new EventPublisher(config);
-    await publisher.publish(topic, JSON.stringify(message));
+        //  Publish event to Pub/Sub
+        const publisher = new EventPublisher(config);
+        await publisher.publish(topic, JSON.stringify(message));
+    } catch (ex) {
+        console.error(`[ERROR]Failed to process middleware request`);
+        console.error(`[ERROR]${ex}`);
+    }
 }
 //module.exports.BigdataMiddleware = BigdataMiddleware;
 module.exports.setup = function (app) {
     app.middleware((conv) => {
         if (conv.action == 'RequestTaxi.RequestTaxi-yes') {
-            const middleware = new LocationParser(conv);
-            middleware.process(conv, config);
+            processRequest(conv, config);
         }
     });
 }
