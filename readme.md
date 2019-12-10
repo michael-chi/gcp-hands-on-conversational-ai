@@ -48,3 +48,5 @@ Cloud Functions -->> Translation API: Consume
 -   https://cloud.google.com/docs/authentication/production?hl=zh-tw
 
 －  https://developers.google.com/assistant/actions/reference/nodejsv2/overview
+
+-   [Actions on Google Message Flow and Architecture](https://developers.google.com/assistant/actions/reference/nodejsv2/overview)

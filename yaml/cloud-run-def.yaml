@@ -1,0 +1,37 @@
+swagger: "2.0"
+info:
+  description: "Dialogflow Fulfillment API schema"
+  version: "1.0.0"
+  title: "Dialogflow Fulfillment API schema"
+  license:
+    name: "MIT"
+host: dialogflow-demo-api-endpoints-fd5tyopnsa-an.a.run.app
+schemes:
+- "https"
+produces:
+  - application/json
+x-google-backend:
+  address: https://dialogflow-demo-api-fd5tyopnsa-an.a.run.app/fulfillment
+paths:
+  /fulfillment:
+    post:
+      operationId: "fulfillment"
+      summary: "Invoke Fulfillment Handler"
+      parameters:
+        - in: body
+          name: body
+          schema:
+              $ref: "#/definitions/FulfillmentRequest"
+      responses:
+        200:
+          description: "OK"
+      security:
+        - apikey: []
+securityDefinitions:
+  apikey:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+definitions:
+  FulfillmentRequest:
+    type: "object"
