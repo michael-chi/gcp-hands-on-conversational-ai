@@ -1,5 +1,5 @@
 const EventPublisher = require('../EventPublisher.js');
-
+const GoogleMap = require('../GoogleMap.js');
 const config = {
     projectId: process.env.PROJECT_ID,
     location: process.env.LOCATION,
@@ -10,7 +10,7 @@ const config = {
 async function processRequest(conv, config) {
     console.log('Middleware Processing request...');
     //  conversationId
-    const conversationId = this.conv.request.user.conversation.conversationId;
+    const conversationId = conv.request.conversation.conversationId;
     console.log(`Conversation Id:${conversationId}`);
     /*
     {

@@ -12,7 +12,7 @@ class GoogleMap {
         try {
             const response = await fetch(url);
             const json = await response.json();
-            console.log(`[Info]GoogleMap result:${json}`);
+            console.log(`[Info]GoogleMap result:${JSON.stringify(json)}`);
             return json;
         } catch (error) {
             console.log(`[Error]${error}`);
@@ -35,6 +35,7 @@ class GoogleMap {
         try {
             return json.results[0].geometry.location;
         } catch (ex) {
+            console.log(`[ERROR]Cannot get geo coordinates for ${human_readable_location}`);
             console.error(`[Error]${ex}`);
             return null;
         }
