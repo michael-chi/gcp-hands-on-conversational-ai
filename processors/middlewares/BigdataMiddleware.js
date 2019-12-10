@@ -26,7 +26,8 @@ async function processRequest(conv, config) {
         }
     }
     */
-    const { from } = conv.device;
+    const from = conv.device;
+    console.log(`[INFO]from=${JSON.stringify(from)}`);
     /*
     {
         "location":{
@@ -49,7 +50,7 @@ async function processRequest(conv, config) {
     }
     */
     try {
-        const { to } = conv.contexts.input['requesttaxi-followup'].parameters;
+        const to = conv.contexts.input['requesttaxi-followup'].parameters;
         const map = new GoogleMap(config);
         const coordinates = await map.getGeoCoordinates(to);
         console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
@@ -74,7 +75,9 @@ async function processRequest(conv, config) {
 
         //  Publish event to Pub/Sub
         const publisher = new EventPublisher(config);
-        await publisher.publish(topic, JSON.stringify(message));
+        console.log(`[INFO]Config:${JSON.stringify(config)}`);
+        console.log(`[INFO]topic = ${config.topic}`);
+        await publisher.publish(config.topic, JSON.stringify(message));
     } catch (ex) {
         console.error(`[ERROR]Failed to process middleware request`);
         console.error(`[ERROR]${ex}`);
