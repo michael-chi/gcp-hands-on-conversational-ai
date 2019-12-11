@@ -38,6 +38,10 @@ Cloud Functions -->> Translation API: Consume
     -   [Create private GKE cluster and deploy our application to it](doc/gke-create-cluster.md)
 
     -   [Deploy Fulfillment to Cloud Run](doc/run-deploy.md)
+
+-   Ingest Book Taxi information to data warehouse
+
+    -   [Create Pub/Sub Topic to receive Taxi inforamtio](doc/pubsub-setup.md)
     
 ## References
 

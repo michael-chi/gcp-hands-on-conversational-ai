@@ -7,10 +7,12 @@
 sequenceDiagram
 
 Dialogflow ->> Cloud Endpoints: Fulfillment call
+Note right of Dialogflow: API Key authentication
 Cloud Endpoints ->> Cloud Run: Fulfillment call
+Note right of Cloud Endpoints: IAM authentication
 ```
 
-####    Setup Endpoints
+####    建立Endpoints
 
 -   Deploy ESP to Cloud Run
 
@@ -19,20 +21,23 @@ gcloud beta run deploy CLOUD_RUN_SERVICE_NAME \
     --image="gcr.io/endpoints-release/endpoints-runtime-serverless:1.30.0" \
     --allow-unauthenticated \
     --project=ESP_PROJECT_ID
+
 #   gcloud beta run deploy conversational-ai-webhook-endpoints --image="gcr.io/endpoints-release/endpoints-runtime-serverless:1.30.0"  --allow-unauthenticated  --project=kalschi-demo-001
 ```
 
 -   建立[Swagger檔案描述](../yaml/cloud-run-def.yaml)Cloud Run (Fulfillment)API
 
--   執行以下指令
+    Cloud Endpoints使用ESP(Extensible Service Proxy)管理API, 我們透過Swagger定義檔在ESP上設定後端API的資訊
+
+>   <mark>注意!</mark> 在YAML中，API Key名稱必須是key, 必須在query string, 否則會報以下錯誤
+
+-   執行以下指令將定義檔部署到Endpoints ESP上
 
 ```bash
 gcloud endpoints services deploy cloud-run-def.yaml --project kalschi-demo-001
 ```
 
-####    Troubleshoot
-
--   API Key名稱必須是key, 必須在query string, 否則會報以下錯誤
+-   如果在Swagger定義中API Key名稱不符合要求，會出現以下錯誤
 
 ```bash
 ERROR: (gcloud.endpoints.services.deploy) INVALID_ARGUMENT: Cannot convert to service config.
@@ -44,38 +49,34 @@ irement Objects (https://github.com/OAI/OpenAPI-Specification/blob/master/versio
  SecurityDefinition of type : \'apiKey\'."
  location: "unknown location"
 kind: ERROR
-message: "http: In path template \'/fulfillment/\': unexpected end of input \'/\'."
-'
+message: "http: In path template \'/fulfillment/\': unexpected end of input \'/\'."'
 ```
 
--   Successfuly
+-   成功部署後會看到以下訊息
 
 ```bash
-kalschi@cloudshell:~ (kalsch-demo-001)$ gcloud endpoints services deploy cloud-run-def.yaml --project kalschi-demo-001
-Waiting for async operation operations/serviceConfigs.dialogflow-demo-api-endpoints-fd5tyopnsa-an.a.run.app:7959e012-4cf3-4f66-acd9-047c76f771ee to complete...
+Waiting for async operation operations/serviceConfigs.dialogflow-demo-api-endpoints-xxxxxxxx-an.a.run.app:xxxxx-xxxx-xxxx-xxxx-xxxx to complete...
 Operation finished successfully. The following command can describe the Operation details:
- gcloud endpoints operations describe operations/serviceConfigs.dialogflow-demo-api-endpoints-fd5tyopnsa-an.a.run.app:7959e012-4cf3-4f66-acd9-047c76f771ee
+gcloud endpoints operations describe operations/serviceConfigs.dialogflow-demo-api-endpoints-xxxxxxxx-an.a.run.app:xxxxx-xxxx-xxxx-xxxx-xxxx
 
-Waiting for async operation operations/rollouts.dialogflow-demo-api-endpoints-fd5tyopnsa-an.a.run.app:91b5120f-7f38-4c2d-b026-0d2a3fe54020 to complete...
-Operation finished successfully. The following command can describe the Operation details:
- gcloud endpoints operations describe operations/rollouts.dialogflow-demo-api-endpoints-fd5tyopnsa-an.a.run.app:91b5120f-7f38-4c2d-b026-0d2a3fe54020
-
-Service Configuration [2019-12-10r0] uploaded for service [dialogflow-demo-api-endpoints-fd5tyopnsa-an.a.run.app]
+Service Configuration [2019-12-10r0] uploaded for service [dialogflow-demo-api-endpoints-xxxxxx-an.a.run.app]
 
 To manage your API, go to: https://console.cloud.google.com/endpoints/api/dialogflow-demo-api-endpoints-fd5tyopnsa-an.a.run.app/overview?project=kalschi-demo-001
 ```
 
 ####    設定Endpoints
 
+-  接下來，我們要在Endpoint Cloud Run Container(不是Fulfillment Cloud Run)上指定ESP服務資訊
+
 ```bash
-gcloud beta run services update CLOUD_RUN_SERVICE_NAME  \
-       --set-env-vars ENDPOINTS_SERVICE_NAME=YOUR_SERVICE_NAME \
+gcloud beta run services update \<ENDPOINTS_SERVICE_NAME\>  \
+       --set-env-vars ENDPOINTS_SERVICE_NAME=\<ENDPOINT_SERVICE_HOST\> \
        --project ESP_PROJECT_ID
 
-gcloud beta run services update conversational-ai-webhook-endpoints --set-env-vars ENDPOINTS_SERVICE_NAME=conversational-ai-webhook-endpoints-fd5tyopnsa-uc.a.run.app --project kalschi-demo-001
+# gcloud beta run services update conversational-ai-webhook-endpoints --set-env-vars ENDPOINTS_SERVICE_NAME=conversational-ai-webhook-endpoints-fd5tyopnsa-uc.a.run.app --project kalschi-demo-001
 ```
 
--   Grant Permission
+-   設定權限，讓Endpoint Cloud Run的Service Account可以呼叫後端的Cloud Run
 
 ```bash
 gcloud beta run services add-iam-policy-binding BACKEND_SERVICE_NAME \
@@ -86,7 +87,7 @@ gcloud beta run services add-iam-policy-binding BACKEND_SERVICE_NAME \
 # gcloud beta run services add-iam-policy-binding conversational-ai-demo --member "serviceAccount:967804060464-compute@developer.gserviceaccount.com" --role "roles/run.invoker" --project kalschi-demo-001
 ```
 
--   Enable APIs
+-   啟用以下的API
 
 ```bash
 gcloud services enable servicemanagement.googleapis.com
@@ -94,15 +95,20 @@ gcloud services enable servicecontrol.googleapis.com
 gcloud services enable endpoints.googleapis.com
 ```
 
--   Goto Developer Portal, Get a Key. Request URL must have ?key=<API_KEY> query string in order to work
+####    使用API
 
--   Remove "allUsers" from Fulfillment Cloud Run Invoker Role
+到這裡我們已經將Endpoint設定完成了，接下來我們要透過Endpoints提供的Developer Portal註冊並取得API Key
 
--   Change Dialogflow Fulfillment Url to new Url
+-   到Developer Portal. 網址應該是 https://endpointsportal.<PROJECT-NAME>.cloud.goog
 
->https://conversational-ai-webhook-endpoints-fd5tyopnsa-uc.a.run.app/fulfillment?key=xxxxxxxx
+<img src="img/endpoints-developer-portal-get-key.png" style="width:40%;height:30%" />
+
+-   到Fulfillment Cloud Run設定頁面上移除"allUsers"的存取
+
+-   將Dialogflow的Fulfillment Url改為新的位址如下
+
+>https://\<YOUR-ENDPOINTS-CLOUD-RUN-URL\>/fulfillment?key=\<YOUR API KEY\>
 
 ##  Reference
 
--   https://cloud.google.com/endpoints/docs/openapi/get-started-cloud-run
--   
+-   [Get Started Cloud Run](https://cloud.google.com/endpoints/docs/openapi/get-started-cloud-run)
