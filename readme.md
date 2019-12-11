@@ -39,6 +39,8 @@ Cloud Functions -->> Translation API: Consume
 
     -   [Deploy Fulfillment to Cloud Run](doc/run-deploy.md)
 
+    -   [Secure Fulfillment Cloud Run with Endpoints](doc/run-secure-cloud-run.md)
+
 -   Ingest Book Taxi information to data warehouse
 
     -   [Create Pub/Sub Topic to receive Taxi inforamtio](doc/pubsub-setup.md)
