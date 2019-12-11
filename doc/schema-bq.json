@@ -1,0 +1,48 @@
+[
+    {
+        "name": "conversationId",
+        "type": "STRING"
+    },
+    {
+        "name": "time",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "from",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "latitude",
+                "type": "NUMERIC"
+            },
+            {
+                "name": "longitude",
+                "type": "NUMERIC"
+            },
+            {
+                "name": "address",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "to",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "latitude",
+                "type": "NUMERIC"
+            },
+            {
+                "name": "longitude",
+                "type": "NUMERIC"
+            },
+            {
+                "name": "address",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    }
+]

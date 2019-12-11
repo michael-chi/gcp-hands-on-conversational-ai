@@ -45,6 +45,10 @@ Cloud Functions -->> Translation API: Consume
 
     -   [Create Pub/Sub Topic to receive Taxi inforamtio](doc/pubsub-setup.md)
     
+    -   [Ingest Data into Bigquery with DataFlow](doc/dataflow-ingest-data-to-bigquery.md)
+
+    -   []()
+    
 ## References
 
 -   https://blog.johnwu.cc/article/gcp-kubernetes-connect-to-cloudsql.html

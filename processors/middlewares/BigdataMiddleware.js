@@ -58,17 +58,13 @@ async function processRequest(conv, config) {
             conversationId: conversationId,
             time: new Date(new Date().toUTCString()),
             from: {
-                coordinates: {
-                    latitude: from.location.coordinates.latitude,
-                    longitude: from.location.coordinates.longitude
-                },
+                latitude: from.location.coordinates.latitude,
+                longitude: from.location.coordinates.longitude,
                 address: from.location.formattedAddress
             },
             to: {
-                coordinates: {
-                    latitude: coordinates.lat,
-                    longitude: coordinates.lng
-                },
+                latitude: coordinates.lat,
+                longitude: coordinates.lng,
                 address: to['location.original']
             }
         };

@@ -12,7 +12,6 @@ gcloud pubsub topic create book-taxi
 
 -   我們資料收取的架構看起來會像這樣，因此我們需要設定權限讓Cloud Run可以存取Pub/Sub
 
-
 ```mermaid
 sequenceDiagram
 
@@ -39,6 +38,7 @@ gcloud beta pubsub topics get-iam-policy projects/kalschi-demo-001/topics/kalsch
 ```
 
 ```json
+//  成功訊息
 {
   "bindings": [
     {
@@ -59,3 +59,15 @@ gcloud beta pubsub topics get-iam-policy projects/kalschi-demo-001/topics/kalsch
   "version": 1
 }
 ```
+
+-   建立一個Subscription收取Topic中的資料
+
+```bash
+gcloud pubsub subscriptions create \<SUBSCRIPTION NAME\> --topic \<TOPIC NAME\>
+```
+
+
+
+##  References
+
+-   [Streaming Pub/Sub messages to BigQuery using Dataflow Template](https://cloud.google.com/dataflow/docs/guides/templates/provided-streaming?hl=zh-tw#cloudpubsubsubscriptiontobigquery)
