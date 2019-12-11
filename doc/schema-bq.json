@@ -13,11 +13,11 @@
         "fields": [
             {
                 "name": "latitude",
-                "type": "NUMERIC"
+                "type": "FLOAT"
             },
             {
                 "name": "longitude",
-                "type": "NUMERIC"
+                "type": "FLOAT"
             },
             {
                 "name": "address",
@@ -32,11 +32,11 @@
         "fields": [
             {
                 "name": "latitude",
-                "type": "NUMERIC"
+                "type": "FLOAT"
             },
             {
                 "name": "longitude",
-                "type": "NUMERIC"
+                "type": "FLOAT"
             },
             {
                 "name": "address",

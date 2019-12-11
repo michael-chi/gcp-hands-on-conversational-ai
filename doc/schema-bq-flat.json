@@ -1,0 +1,36 @@
+[
+    {
+        "name": "conversationId",
+        "type": "STRING"
+    },
+    {
+        "name": "time",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "from_latitude",
+        "type": "FLOAT"
+    },
+    {
+        "name": "from_longitude",
+        "type": "FLOAT"
+    },
+    {
+        "name": "from_address",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "to_latitude",
+        "type": "FLOAT"
+    },
+    {
+        "name": "to_longitude",
+        "type": "FLOAT"
+    },
+    {
+        "name": "to_address",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    }
+]

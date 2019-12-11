@@ -57,16 +57,12 @@ async function processRequest(conv, config) {
         const message = {
             conversationId: conversationId,
             time: new Date(new Date().toUTCString()),
-            from: {
-                latitude: from.location.coordinates.latitude,
-                longitude: from.location.coordinates.longitude,
-                address: from.location.formattedAddress
-            },
-            to: {
-                latitude: coordinates.lat,
-                longitude: coordinates.lng,
-                address: to['location.original']
-            }
+            from_latitude: from.location.coordinates.latitude,
+            from_longitude: from.location.coordinates.longitude,
+            address: from.location.formattedAddress,
+            to_latitude: coordinates.lat,
+            to_longitude: coordinates.lng,
+            address: to['location.original']
         };
 
         //  Publish event to Pub/Sub
