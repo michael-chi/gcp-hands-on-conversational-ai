@@ -38,6 +38,16 @@ Cloud Functions -->> Translation API: Consume
     -   [Create private GKE cluster and deploy our application to it](doc/gke-create-cluster.md)
 
     -   [Deploy Fulfillment to Cloud Run](doc/run-deploy.md)
+
+    -   [Secure Fulfillment Cloud Run with Endpoints](doc/run-secure-cloud-run.md)
+
+-   Ingest Book Taxi information to data warehouse
+
+    -   [Create Pub/Sub Topic to receive Taxi inforamtio](doc/pubsub-setup.md)
+    
+    -   [Ingest Data into Bigquery with DataFlow](doc/dataflow-ingest-data-to-bigquery.md)
+
+    -   []()
     
 ## References
 
@@ -48,3 +58,5 @@ Cloud Functions -->> Translation API: Consume
 -   https://cloud.google.com/docs/authentication/production?hl=zh-tw
 
 －  https://developers.google.com/assistant/actions/reference/nodejsv2/overview
+
+-   [Actions on Google Message Flow and Architecture](https://developers.google.com/assistant/actions/reference/nodejsv2/overview)

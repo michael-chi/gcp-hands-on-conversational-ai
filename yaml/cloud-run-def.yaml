@@ -1,0 +1,51 @@
+swagger: "2.0"
+info:
+  description: "Dialogflow Fulfillment API schema"
+  version: "1.0.0"
+  title: "Dialogflow Fulfillment API schema"
+  license:
+    name: "MIT"
+host: conversational-ai-webhook-endpoints
+schemes:
+- "https"
+produces:
+  - application/json
+x-google-backend:
+  address: https://conversational-ai-demo-fd5tyopnsa-uc.a.run.app
+paths:
+  /fulfillment:
+    post:
+      operationId: "fulfillment"
+      summary: "Invoke Fulfillment Handler"
+      parameters:
+        - in: body
+          name: body
+          schema:
+              $ref: "#/definitions/FulfillmentRequest"
+      responses:
+        200:
+          description: "OK"
+      security:
+        - apikey: []
+  /test:
+    post:
+      operationId: "test"
+      summary: "Invoke test Handler"
+      parameters:
+        - in: body
+          name: body
+          schema:
+              $ref: "#/definitions/FulfillmentRequest"
+      responses:
+        200:
+          description: "OK"
+      security:
+        - apikey: []
+securityDefinitions:
+  apikey:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+definitions:
+  FulfillmentRequest:
+    type: "object"

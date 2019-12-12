@@ -1,0 +1,14 @@
+{
+    "conversationId": "xxx",
+    "time": "2019-12-11T10:00:21.000000Z",
+    "from": {
+        "latitude": 234.123,
+        "longitude": 567.876,
+        "address": "xxx"
+    },
+    "to": {
+        "latitude": 234.123,
+        "longitude": 567.876,
+        "address": "xxx"
+    }
+}

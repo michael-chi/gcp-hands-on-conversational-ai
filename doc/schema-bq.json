@@ -1,0 +1,61 @@
+[
+    {
+        "name": "conversationId",
+        "type": "STRING"
+    },
+    {
+        "name": "time",
+        "type": "TIMESTAMP"
+    },
+    {
+        "name": "plate_no",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "distance_km",
+        "type": "FLOAT"
+    },
+    {
+        "name": "customer_hash",
+        "type": "STRING"
+    },
+    {
+        "name": "from",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "latitude",
+                "type": "FLOAT"
+            },
+            {
+                "name": "longitude",
+                "type": "FLOAT"
+            },
+            {
+                "name": "address",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "to",
+        "type": "RECORD",
+        "fields": [
+            {
+                "name": "latitude",
+                "type": "FLOAT"
+            },
+            {
+                "name": "longitude",
+                "type": "FLOAT"
+            },
+            {
+                "name": "address",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    }
+]
