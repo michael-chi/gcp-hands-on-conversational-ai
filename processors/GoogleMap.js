@@ -45,7 +45,8 @@ class GoogleMap {
         const url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=$ORIGIN&destinations=$DEST&key=$KEY'
         const request = url.replace('$KEY', this.config.key).replace('$ORIGIN',`${origin.lat},${origin.lng}`).replace('$DEST',`${destiontion.lat},${destiontion.lng}`);
         console.log(request);
-        var result = await this.httpGet(encodeURIComponent(request));
+        //result = await this.httpGet(encodeURIComponent(request));
+        var result = await this.httpGet(request);
         return result.rows[0].elements[0].distance.value / 1000;
     }
 }

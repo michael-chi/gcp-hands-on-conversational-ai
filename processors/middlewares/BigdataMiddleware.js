@@ -62,7 +62,11 @@ async function processRequest(conv, config) {
         console.log(`[INFO][BigdataMiddleware]]Parameter in RequestTaxi-followup: ${JSON.stringify(conv.contexts.input['requesttaxi-followup'])}`);
         
         const map = new GoogleMap(config);
-        const distance = await map.getDistance(from.location.coordinates, to);
+        const origin = {
+            lat: from.location.coordinates.latitude,
+            lng: from.location.coordinates.longitude
+        };
+        const distance = await map.getDistance(origin, to);
         console.log(`You want to got to [${(to.lat)},${to.lng}] at ${to}`);
         var user = '';
         try{
