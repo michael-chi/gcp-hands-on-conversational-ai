@@ -1,0 +1,14 @@
+{
+    "conversationId": "307",
+    "time": "2019-12-11 10:00:21 UTC",
+    "from_latitude": 234.123,
+    "from_longitude": 567.876,
+    "from_address": "xxx",
+    "to_latitude": 234.123,
+    "to_longitude": 567.876,
+    "to_address": "xxx",
+    "plate_no":"1688-TWN",
+    "distance_km": 9
+}
+
+

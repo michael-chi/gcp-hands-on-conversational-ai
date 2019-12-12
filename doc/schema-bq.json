@@ -8,6 +8,15 @@
         "type": "TIMESTAMP"
     },
     {
+        "name": "plate_no",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "distance_km",
+        "type": "FLOAT"
+    },
+    {
         "name": "from",
         "type": "RECORD",
         "fields": [

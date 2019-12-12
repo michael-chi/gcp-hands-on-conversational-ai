@@ -9,25 +9,23 @@
 ```json
 {
     "conversationId": "xxx",
-    "time": "2019-12-11T10:00:21.000000Z+8:00",
-    "from": {
-        "coordinates": {
-            "latitude": 234.123,
-            "longitude": 567.876
-        },
-        "address": "xxx"
-    },
-    "to": {
-        "coordinates": {
-            "latitude": 234.123,
-            "longitude": 567.876
-        },
-        "address": "xxx"
-    }
+    "time": "2019-12-11T10:00:21.000000Z",
+    "from_latitude": 234.123,
+    "from_longitude": 567.876,
+    "from_address": "xxx",
+    "to_latitude": 234.123,
+    "to_longitude": 567.876,
+    "to_address": "xxx"
 }
 ```
 
--   我預先建立了一個[BigQuery Table定義檔](./schema-bq.json)
+####    建立DataSet並設定權限
+
+-   在BigQuery建立DataSet並將BigQuery Editor角色指定給Service Account，接下來我們會用同樣的Service Account建立Dataflow pipeline
+
+<img src="./img/bq-dataset-level-permission.png" style="width:40%;height:30%"/>
+
+-   我預先建立了一個[BigQuery Table定義檔](./schema-bq-flat.json)
 
 ####    建立BigQuery Table
 
@@ -74,3 +72,35 @@ gsutil mb gs://kalschi-temp
 -   回到Pub/Sub Subscription，設定Dataflow權限給Service Account
 
 <img src="./img/pubsub-subscription-service-account.png" style="width:40%;height:30%"/>
+
+```bash
+gcloud dataflow jobs run ingestion-20191212-3 --gcs-location gs://dataflow-templates/latest/PubSub_Subscription_to_BigQuery --parameters inputSubscription=projects/kalschi-demo-001/subscriptions/taxi_ingestion,outputTableSpec=kalschi-demo-001:conversational_ai_anaytics.BookEvents --service-account-email kalschi-dialogflow-serviceacco@kalschi-demo-001.iam.gserviceaccount.com  --max-workers 1 --region asia-east1
+
+```
+
+
+##  Troubleshooting
+
+####   確認權限設定是否正確
+
+    以我的範例，我的Dataflow, Pub/Sub的Service Account都是kalschi-dialogflow-serviceacco@kalschi-demo-001.iam.gserviceaccount.com
+
+    -   Dataflow必須可以存取Pub/Sub Subscriptions
+
+        Service Account必須是Topic與Subscriptions的Editor
+
+<img src="img/pubsub-topic-permissions.png" style="width:40%;height:30%"/>
+<br/>
+<img src="img/pubsub-subscriptions-oermissions.png" style="width:40%;height:30%"/>
+
+    -   Dataflow必須可以存取BigQuery Dataset
+
+        Service Account必須是BigQuery Editor & BigQuery Viewer
+
+<img src="img/bq-dataset-level-permission.png" style="width:40%;height:30%"/>
+
+####    Stackdriver
+
+-   在Stackdriver可以查到相關錯誤訊息
+
+<img src="img/bq-dataflow-troubleshooting.png" style="width:40%;height:30%"/>

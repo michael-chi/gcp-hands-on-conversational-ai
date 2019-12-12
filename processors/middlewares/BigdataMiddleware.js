@@ -56,18 +56,20 @@ async function processRequest(conv, config) {
         console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
         const message = {
             conversationId: conversationId,
-            time: new Date(new Date().toUTCString()),
+            time: new Date(new Date().toISOString()),
             from_latitude: from.location.coordinates.latitude,
             from_longitude: from.location.coordinates.longitude,
-            address: from.location.formattedAddress,
+            from_address: from.location.formattedAddress,
             to_latitude: coordinates.lat,
             to_longitude: coordinates.lng,
-            address: to['location.original']
+            to_address: to['location.original'],
+            distance_km: 9,     //TODO:should be calculated
+            plate_no: "1688-TW" //TODO:should retrieve from bigquery ?
         };
 
         //  Publish event to Pub/Sub
         const publisher = new EventPublisher(config);
-        console.log(`[INFO]Config:${JSON.stringify(config)}`);
+        console.log(`[INFO]Message:${JSON.stringify(message)}`);
         console.log(`[INFO]topic = ${config.topic}`);
         await publisher.publish(config.topic, JSON.stringify(message));
     } catch (ex) {
