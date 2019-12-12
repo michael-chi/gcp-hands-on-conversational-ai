@@ -41,5 +41,10 @@
     {
         "name": "distance_km",
         "type": "FLOAT"
+    },
+    {
+        "name": "customer_hash",
+        "type": "STRING"
     }
+    
 ]

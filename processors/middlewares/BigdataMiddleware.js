@@ -63,8 +63,9 @@ async function processRequest(conv, config) {
             to_latitude: coordinates.lat,
             to_longitude: coordinates.lng,
             to_address: to['location.original'],
-            distance_km: 9,     //TODO:should be calculated
-            plate_no: "1688-TW" //TODO:should retrieve from bigquery ?
+            distance_km: 9,         //TODO:should be calculated
+            plate_no: "1688-TW",    //TODO:should retrieve from bigquery ?
+            customer_hash: ""       //TODO:hash for customer identification
         };
 
         //  Publish event to Pub/Sub

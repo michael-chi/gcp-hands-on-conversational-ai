@@ -17,6 +17,10 @@
         "type": "FLOAT"
     },
     {
+        "name": "customer_hash",
+        "type": "STRING"
+    },
+    {
         "name": "from",
         "type": "RECORD",
         "fields": [
