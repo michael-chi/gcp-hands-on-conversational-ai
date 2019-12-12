@@ -2,6 +2,13 @@
 
 接下來我要建立一個Dataflow Pipeline把Pub/Sub中的叫車事件寫到BigQuery中
 
+```mermaid
+sequenceDiagram
+
+Pub/Sub ->> Dialogflow: Read events
+Dialogflow ->> BigQuery: Writes
+```
+
 ####    事件格式
 
 -   在我的範例中，前端會傳回以下的事件到Pub/Sub Topic中
