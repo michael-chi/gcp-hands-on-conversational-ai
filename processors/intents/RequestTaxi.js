@@ -26,10 +26,19 @@ module.exports = {
             };
             console.log(`${JSON.stringify(config)}`);
             console.log(`You want to got to ${config.location} at ${config.time}`);
+
+            //  Update context
+            const lifespan = 5;
+            const contextParameters = {
+              destination: config.location,
+            };
+            conv.contexts.set('RequestTaxi-followup', lifespan, contextParameters);
+            console.log(`[INFO]===> Updated RequestTaxi-followup: ${JSON.stringify(contextParameters)}`);
+
             const map = new GoogleMap(config);
             const coordinates = await map.getGeoCoordinates(config.location);
             console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
-            conv.ask(`你要到 ${config.location}，座標:[${(coordinates.lat)}`);
+            conv.ask(`你要到 ${config.location}`);
             var fromLocation = conv.device.location.coordinates;
             var url = await map.getStaticMap(config.location, coordinates);
             console.log(`[Info]${url}`);

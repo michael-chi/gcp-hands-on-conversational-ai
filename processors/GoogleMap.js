@@ -12,6 +12,7 @@ class GoogleMap {
         try {
             const response = await fetch(url);
             const json = await response.json();
+            console.log(`[Info]GoogleMap request:${url}`);
             console.log(`[Info]GoogleMap result:${JSON.stringify(json)}`);
             return json;
         } catch (error) {
@@ -39,6 +40,13 @@ class GoogleMap {
             console.error(`[Error]${ex}`);
             return null;
         }
+    }
+    async getDistance(origin, destiontion){
+        const url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=$ORIGIN&destinations=$DEST&key=$KEY'
+        const request = url.replace('$KEY', this.config.key).replace('$ORIGIN',`${origin.lat},${origin.lng}`).replace('$DEST',`${destiontion.lat},${destiontion.lng}`);
+        console.log(request);
+        var result = await this.httpGet(encodeURIComponent(request));
+        return result.rows[0].elements[0].distance.value / 1000;
     }
 }
 

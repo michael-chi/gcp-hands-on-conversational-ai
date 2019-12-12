@@ -50,7 +50,11 @@ async function processRequest(conv, config) {
     }
     */
     try {
-        const to = conv.contexts.input['requesttaxi-followup'].parameters;
+        const to = conv.contexts.input['requesttaxi-followup'].destination;
+
+        console.log(`[INFO][BigdataMiddleware]]Parameter in RequestTaxi-followup: ${JSON.stringify(to)}`);
+        console.log(`[INFO][BigdataMiddleware]]Parameter in RequestTaxi-followup: ${JSON.stringify(conv.contexts.input['requesttaxi-followup'])}`);
+        
         const map = new GoogleMap(config);
         const coordinates = await map.getGeoCoordinates(to);
         console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
