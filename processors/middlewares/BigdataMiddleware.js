@@ -56,26 +56,32 @@ async function processRequest(conv, config) {
     }
     */
     try {
-        const to = conv.contexts.input['requesttaxi-followup'].destination;
+        const to = conv.contexts.input['requesttaxi-followup'].parameters.destination;
 
         console.log(`[INFO][BigdataMiddleware]]Parameter in RequestTaxi-followup: ${JSON.stringify(to)}`);
         console.log(`[INFO][BigdataMiddleware]]Parameter in RequestTaxi-followup: ${JSON.stringify(conv.contexts.input['requesttaxi-followup'])}`);
         
         const map = new GoogleMap(config);
-        const coordinates = await map.getGeoCoordinates(to);
-        console.log(`You want to got to [${(coordinates.lat)},${coordinates.lng}] at ${coordinates}`);
+        const distance = await map.getDistance(from.location.coordinates, to);
+        console.log(`You want to got to [${(to.lat)},${to.lng}] at ${to}`);
+        var user = '';
+        try{
+            user = conv.request.user.profile.displayName;
+        }catch{
+
+        }
         const message = {
             conversationId: conversationId,
             time: new Date(new Date().toISOString()),
             from_latitude: from.location.coordinates.latitude,
             from_longitude: from.location.coordinates.longitude,
             from_address: from.location.formattedAddress,
-            to_latitude: coordinates.lat,
-            to_longitude: coordinates.lng,
-            to_address: to['location.original'],
-            distance_km: 9,         //TODO:should be calculated
+            to_latitude: to.lat,
+            to_longitude: to.lng,
+            to_address: conv.contexts.input['requesttaxi-followup'].parameters['location.original'],
+            distance_km: distance,         //TODO:should be calculated
             plate_no: "1688-TW",    //TODO:should retrieve from bigquery ?
-            customer_hash: ""       //TODO:hash for customer identification
+            customer_hash:user        //TODO:hash for customer identification
         };
 
         //  Publish event to Pub/Sub
