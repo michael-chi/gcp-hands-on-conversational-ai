@@ -15,7 +15,10 @@
     "from_address": "xxx",
     "to_latitude": 234.123,
     "to_longitude": 567.876,
-    "to_address": "xxx"
+    "to_address": "xxx",
+    "plate_no":"1688-TW",
+    "distance":9.6,
+    "customer_hash":"some hash"
 }
 ```
 
