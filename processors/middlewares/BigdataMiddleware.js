@@ -11,6 +11,12 @@ async function processRequest(conv, config) {
     console.log('Middleware Processing request...');
     //  conversationId
     const conversationId = conv.request.conversation.conversationId;
+    try{
+        console.log(`conv.request=${JSON.stringify(conv.request)}`);
+        console.log(`conv.request=${JSON.stringify(conv.request)}`);
+    }catch{
+
+    }
     console.log(`Conversation Id:${conversationId}`);
     /*
     {
