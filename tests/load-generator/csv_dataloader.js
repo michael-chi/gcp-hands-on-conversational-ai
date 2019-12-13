@@ -1,46 +1,56 @@
 const csv = require('csv-parser');
 const fs = require('fs');
 const GoogleMap = require('../../processors/GoogleMap.js');
-var dataFiles = ['./data/a_lvr_land_a.csv', './data/f_lvr_land_a.csv', './data/h_lvr_land_a.csv'];
-var resultFiles = ['./data/2_result_taipei.json', './data/2_result_newtaipei.json', './data/2_result_taoyuan.json'];
 const config = require('../../keys/config.json');
 var gmap = new GoogleMap(config);
-var map = new Map();
 
-map.set('taipei', './data/a_lvr_land_a.csv');
-map.set('newtaipei', './data/f_lvr_land_a.csv');
-map.set('taoyuan', './data/h_lvr_land_a.csv');
+const keys = ['taipei', 'newtaipei', 'taoyuan'];
+const dataFiles = ['./data/a_lvr_land_a.csv', './data/f_lvr_land_a.csv', './data/h_lvr_land_a.csv'];
 
-map.forEach((value, key) => {
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+var items = [];
+
+for (var i = 0; i < dataFiles.length; i++) {
+    key = keys[i];
     var result = [];
-    var isHeader = true;
-    index = 0;
-    fs.createReadStream(value)
-        .pipe(csv())
-        .on('data', async (row) => {
-            if(isHeader){
-                isHeader = false;
-                return;
-            }
-            //console.log(row);
-            const addresses = row['土地區段位置建物區段門牌'];
-            const address = addresses.split('~')[0] + '號';
 
-            //  Avoid exceed quota
-            index++;
-            if(index % 50 == 0){
-                Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 3);
-            }
-            
-            const coordinates = await gmap.getGeoCoordinates(address);
-            result.push({
-                address:address,
-                coordinates: coordinates
+    if (!fs.exists(`data/result_${key}.json`, exists => {
+        if (!exists) {
+            //fs.openSync(`./data/result_${key}.json`);
+            fs.writeFileSync(`./data/result_${key}.json`, '');
+        }
+    }))
+
+        fs.createReadStream(dataFiles[i])
+            .pipe(csv())
+            .on('data', async (row) => {
+                //console.log(row);
+                const addresses = row['土地區段位置建物區段門牌'];
+                const address = addresses.split('~')[0] + '號';
+
+                const record = {
+                    address: address,
+                    coordinates: null
+                };
+                items.push(record);
+                //fs.appendFileSync(`./data/result_${key}.json`, JSON.stringify(record));
+            })
+            .on('end', async () => {
+                for (var i = 1; i < items.length; i++) {
+                    var address = items[i].address;
+                    result = await gmap.getGeoCoordinates(address);
+                    
+                    items[i].coordinates = result;
+                    fs.appendFileSync(`./data/result.json`, 
+                                            JSON.stringify(items[i]) + ',',
+                                            () => {});
+                    if(++i % 10 == 0)
+                        require('sleep').sleep(3);
+                }
+                console.log('CSV file successfully processed');
             });
-        })
-        .on('end', () => {
-            console.log('CSV file successfully processed');
-            console.log(key);
-            fs.writeFile(`./data/result_${key}.json`, JSON.stringify(result), () => { console.log('wrote to output file.');});
-        });
-});
+};
+
