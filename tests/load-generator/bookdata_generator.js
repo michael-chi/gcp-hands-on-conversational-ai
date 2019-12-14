@@ -1,12 +1,12 @@
 const fs = require('fs');
 
-const newtaipei = require('./data/result_newtaipei.json');
-const taipei = require('./data/result_taipei.json');
-const taoyuan = require('./data/result_taoyuan.json');
-
 const times = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1];
 const time_chances = [0.03, 0.05, 0.2, 0.3, 0.5, 0.6, 0.5, 0.4, 0.5, 0.6, 0.6, 0.6, 0.4, 0.4, 0.7, 0.7, 0.6, 0.8, 0.5, 0.5, 0.02, 0.02]
+const addresses = require('./data/simulation_addresses.json');
 
+function random(max){
+    return Math.floor(Math.random() * Math.floor(max));
+}
 
 function buildChanceTable(hours, chances) {
     if (hours.length != chances.length) {
@@ -123,20 +123,33 @@ function generateDailyTable(date, chanceTable, customers, taxis) {
                 if (v.available && v.chance >= Math.random() && currentChangeOfTakingTaxiByTime >= Math.random()) {
                     //  I need a Taxi now
                     console.log(`${v.id} is requesting Taxi...`);
+                    
                     var taxi = getNextAvailableTaxi(taxis, currentTime);
                     if (!taxi) {
                         console.log(`No available Taxi found`);
                     } else if (taxi &&
                         taxi.chance * Math.random() >= Math.random() * Math.random()) {
                         console.log(`found an available Taxi:${taxi.plate} for ${v.id} at ${currentTime}`);
-
+                        
                         //  Got a Taxi
                         console.log(`Taxi ${taxi.plate} take customer ${v.id}`);
                         //  Generate result record
+                        //  Decide where am I and where to go
+                        const origin = addresses[random(addresses.length)];
+                        const destination = addresses[random(addresses.length)];
+                        console.log(`from ${JSON.stringify(origin)} to ${JSON.stringify(destination)}`);
+                        
                         var result = {
                             time: currentTime,
                             customer: k,
-                            plate: taxi.plate
+                            plate: taxi.plate,
+                            from_address: origin.address,
+                            from_lontitude: origin.coordinates.lng,
+                            from_latitude: origin.coordinates.lat,
+                            to_address: destination.address,
+                            to_lontitude: destination.coordinates.lng,
+                            to_latitude: destination.coordinates.lat,
+                            distance: getDistance(origin.coordinates.lat,origin.coordinates.lng,destination.coordinates.lat,destination.coordinates.lng)
                         };
                         results.push(result);
                         //  Take 1 hour for this customer, update Taxi
@@ -148,7 +161,7 @@ function generateDailyTable(date, chanceTable, customers, taxis) {
                         console.log(`Updated status of Taxi[${taxi.plate}] to unavailable till ${taxi.unavailableUntil}`);
                         //  Update Cutomer
                         v.available = false;
-                        newTime = currentTime.setMinutes(currentTime.getMinutes() + 60 * Math.random(3));
+                        newTime = currentTime.setMinutes(currentTime.getMinutes() + 60 * Math.random(8));
                         v.unavailableUntil = new Date(newTime);
                         //customers.set(v.id, v);
                         updateCustomer(customers, v.id, v);
@@ -176,6 +189,6 @@ var chanceTable = buildChanceTable(times, time_chances);
 var customers = buildCustomers(12561);
 var taxi = buildTaxis(876);
 
-var results = generateDailyTable(new Date(2019, 1, 1), chanceTable, customers, taxi);
-fs.writeFile('./data/output.json', JSON.stringify(results), () => { });
-console.log(`>> Result <<\r\n${JSON.stringify(results)}`);
+const date = new Date(2019, 1, 1);
+var results = generateDailyTable(date, chanceTable, customers, taxi);
+fs.writeFile(`./data/book_simulation_output_${date.getFullYear()}-${date.getMonth()}-${date.getDay()}.json`, JSON.stringify(results), () => { });

@@ -17,40 +17,31 @@ for (var i = 0; i < dataFiles.length; i++) {
     key = keys[i];
     var result = [];
 
-    if (!fs.exists(`data/result_${key}.json`, exists => {
-        if (!exists) {
-            //fs.openSync(`./data/result_${key}.json`);
-            fs.writeFileSync(`./data/result_${key}.json`, '');
-        }
-    }))
+    fs.createReadStream(dataFiles[i])
+        .pipe(csv())
+        .on('data', async (row) => {
+            const addresses = row['土地區段位置建物區段門牌'];
+            const address = addresses.split('~')[0] + '號';
 
-        fs.createReadStream(dataFiles[i])
-            .pipe(csv())
-            .on('data', async (row) => {
-                //console.log(row);
-                const addresses = row['土地區段位置建物區段門牌'];
-                const address = addresses.split('~')[0] + '號';
+            const record = {
+                address: address,
+                coordinates: null
+            };
+            items.push(record);
+        })
+        .on('end', async () => {
+            for (var i = 1; i < items.length; i++) {
+                var address = items[i].address;
+                result = await gmap.getGeoCoordinates(address);
 
-                const record = {
-                    address: address,
-                    coordinates: null
-                };
-                items.push(record);
-                //fs.appendFileSync(`./data/result_${key}.json`, JSON.stringify(record));
-            })
-            .on('end', async () => {
-                for (var i = 1; i < items.length; i++) {
-                    var address = items[i].address;
-                    result = await gmap.getGeoCoordinates(address);
-                    
-                    items[i].coordinates = result;
-                    fs.appendFileSync(`./data/result.json`, 
-                                            JSON.stringify(items[i]) + ',',
-                                            () => {});
-                    if(++i % 10 == 0)
-                        require('sleep').sleep(3);
-                }
-                console.log('CSV file successfully processed');
-            });
+                items[i].coordinates = result;
+                fs.appendFileSync(`./data/result.json`,
+                    JSON.stringify(items[i]) + ',',
+                    () => { });
+                if (++i % 10 == 0)
+                    require('sleep').sleep(3);
+            }
+            console.log('CSV file successfully processed');
+        });
 };
 
