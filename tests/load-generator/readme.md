@@ -4,6 +4,6 @@
 
 -   [產生中繼Json資料](csv_dataloader.js)
 
--   [清理資料產生模擬程式所需的路名檔](result_clean.js)
+-   [產生模擬程式所需的路名檔](result_clean.js)
 
 -   [模擬計程車載客](bookdata_generator.js)
