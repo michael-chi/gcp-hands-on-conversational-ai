@@ -12,9 +12,25 @@
 ```mermaid
 sequenceDiagram
 
-App -->> Cloud Functions: Invoke
-Note right of Cloud Functions: GKE or VM...etc
-Cloud Functions -->> Translation API: Consume
+
+User ->> Google Assistant: Hello
+Google Assistant ->> Dialogflow: Welcome Intent
+Dialogflow ->> Fulfillment: Webhook
+Fulfillment -->> Dialogflow: Request Permissions
+Dialogflow -->> Google Assistant: Request Permissions
+Google Assistant -->> User: Request Permissions
+User ->> Google Assistant: Grant Permissions
+Google Assistant ->> User: Request Destination Info.
+User ->> Google Assistant: Provide Destination
+Google Assistant ->> Dialogflow: Intent detection
+Dialogflow ->> Fulfillment: Invoke Webhook
+Fulfillment ->> Google Map API: Get Address Details
+Google Map API ->> Fulfillment: Reture Info.
+Fulfillment ->> Fulfillment: Construct Rich Response
+Fulfillment ->> Dialogflow: Response with Rich message
+Dialogflow ->> Google Assistant: Response
+Google Assistant ->> User: Response
+
 ```
 
 ##  Table of Content

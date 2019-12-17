@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const times = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1];
-const time_chances = [0.03, 0.05, 0.2, 0.3, 0.5, 0.6, 0.5, 0.4, 0.5, 0.6, 0.6, 0.6, 0.4, 0.4, 0.7, 0.7, 0.6, 0.8, 0.5, 0.5, 0.02, 0.02]
+const time_chances = [0.03, 0.05, 0.2, 0.3, 0.5, 0.6, 0.5, 0.4, 0.5, 0.4, 0.4, 0.4, 0.4, 0.5, 0.6, 0.6, 0.5, 0.05, 0.02, 0.02, 0.02, 0.02]
 const addresses = require('./data/simulation_addresses.json');
 const uuidv1 = require('uuid/v1');
 
@@ -124,8 +124,8 @@ function generateDailyTable(date, chanceTable, customers, taxis, func) {
             var currentTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), key, min, 0);
 
             //  People don't like to take TAXI on Sunday and Saturday
-            var currentChangeOfTakingTaxiByTime = currentTime.getDay() == 0 ? value / 3 : value;
-            var currentChangeOfTakingTaxiByTime = currentTime.getDay() == 6 ? value / 2 : value;
+            var currentChangeOfTakingTaxiByTime = currentTime.getDay() == 0 ? value / 4 : value;
+            currentChangeOfTakingTaxiByTime = currentTime.getDay() == 6 ? value / 3 : value;
             
             //  Is there anyone requesting a Taxi ?
             for (var k = 0; k < customers.length; k++) {
