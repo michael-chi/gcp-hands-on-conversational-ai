@@ -12,9 +12,16 @@ class GoogleMap {
         try {
             const response = await fetch(url);
             const json = await response.json();
-            console.log(`[Info]GoogleMap request:${url}`);
-            console.log(`[Info]GoogleMap result:${JSON.stringify(json)}`);
             return json;
+        } catch (error) {
+            console.log(`[Error]${error}`);
+        }
+    };
+    async httpGetRaw(url) {
+        try {
+            const response = await fetch(url);
+            const text = await response.text();
+            return text();
         } catch (error) {
             console.log(`[Error]${error}`);
         }
