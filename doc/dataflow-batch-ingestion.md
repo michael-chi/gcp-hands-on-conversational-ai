@@ -1,5 +1,11 @@
 ##  Overview
 
+```mermaid
+sequenceDiagram
+
+Storage Bucket ->> Dataflow: Read files
+Dataflow ->> Pub/Sub: Publish events
+```
 
 ####    Steps
 
@@ -14,7 +20,7 @@ gsutil cp ./dod/schema-bq-flat.json gs://<STORAGE BUCKET>/schema-bq-flat.json
 ```bash
 gsutil cp ../scripts/batch-jscript-handler.js gs://kaslchi-taxi-demo
 ```
--   將Storage Bucket中的檔案發佈到Pub/Sub
+-   透過Dataflow將Storage Bucket中的檔案發佈到Pub/Sub
 
 ```bash
 gcloud dataflow jobs run ingestion-batch \
