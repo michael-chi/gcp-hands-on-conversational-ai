@@ -6,7 +6,7 @@ const TaxiManager = require('./TaxiManager.js');
 const CustomerManager = require('./CustomerManager.js');
 
 var taxisMgr = new TaxiManager(10000);
-var customersMgr = new CustomerManager(10);
+var customersMgr = new CustomerManager(50000);
 
 function random(max) {
     return Math.floor(Math.random() * Math.floor(max));
