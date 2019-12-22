@@ -44,8 +44,48 @@ module.exports = class CustomerManager {
         } else {
             newTime.setMinutes(currentTime.getMinutes() + distance * 7 + 60 * random(4));
         }
-        customer.unavailableUntil = newTime;//new Date(newTime);
+        customer.unavailableUntil = newTime;
+        var i = 0;
+        this.customers.find((c, index) => {
+            if(c.id == customer.id){
+                this.customers[index] = customer;
+                i = index;
+            }
+        });
+        console.log(`**** UPDATED ****\r\n${JSON.stringify(this.customers[i])}\r\n***************`);
+            
     }
+
+    _vip(c, isContinue){
+        if(VIPs.find(e => e.id == c.customer.id)){
+            console.log(`'====== Is VIP ======'`);
+            return {
+                continue: isContinue,  //last customer in the list
+                customer: c.customer,
+                origin: {
+                    //25.0623418,121.2345442
+                    //臺灣桃園國際機場/@25.0623418,121.2345442
+                    "address": "臺北市中山區中山北路二段91號",
+                    "coordinates": {
+                        "lat": 25.059308,
+                        "lng": 121.523262
+                    }
+                },
+                destination: {
+                    //25.0623418,121.2345442
+                    //臺灣桃園國際機場/@25.0623418,121.2345442
+                    "address": "臺灣桃園國際機場",
+                    "coordinates": {
+                        "lat": 25.0623418,
+                        "lng": 121.2345442
+                    }
+                }
+            };
+        }else{
+            return c;
+        }
+    }
+
     findACustomer(currentTime, currentChanceByTime) {
         //  Assumption: People is less likely to take TAXI on Sunday and Saturday
         var currentChangeOfTakingTaxiByTime = currentTime.getDay() == 0 ? currentChanceByTime / 4 : currentChanceByTime;
@@ -55,7 +95,7 @@ module.exports = class CustomerManager {
         for (var k = 0; k < this.customers.length; k++) {
             var customer = this.customers[k];
             //  Update this customer's status
-            if (customer.unavailableUntil >= currentTime) {
+            if (customer.unavailableUntil <= currentTime) {
                 customer.available = true;
                 //customers.set(v.id, v);
                 this.customers[k] = customer;
@@ -73,8 +113,11 @@ module.exports = class CustomerManager {
                     origin: origin,
                     destination: destination
                 };
+                var vip = this._vip(result, result.continue);
+
+                
                 console.log(`\t[${currentTime}]${result.customer.id} is requesting Taxi at`);
-                return result;
+                return vip;
             }
         }
         return {

@@ -8,15 +8,7 @@ module.exports = class TaxiManager {
     constructor(count){
         this.taxis = this.buildTaxis(count);
     }
-    getRandomPlateText(len) {
-        var emptyString = "";
-        var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        while (emptyString.length < len) {
-            emptyString += alphabet[Math.floor(Math.random() * alphabet.length)];
-        }
-        return emptyString;
-    }
+    
 
     updateTaxiStatus(taxi, currentTime, distance) {
         //  Take 1 hour for this customer, update Taxi
@@ -28,15 +20,44 @@ module.exports = class TaxiManager {
 
         newTime.setMinutes(currentTime.getMinutes() + distance * 7);    //  roughly 7 minutes for 1 km
         taxi.unavailableUntil = newTime;//new Date(newTime);
-
+        this.taxis.find((c, index) => {
+            if(c.plate == taxi.plate){
+                this.taxis[index] = taxi;
+            }
+        })
         return taxi;
     }
-
+    getRandomPlateText(len) {
+        var emptyString = "";
+        var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    
+        while (emptyString.length < len) {
+            emptyString += alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+        return emptyString;
+    }
+    getNextAvailableTaxi(taxis, currentTime) {
+        var result = null;
+        for (var i = 0; i < taxis.length; i++) {
+            var v = taxis[i];
+            if (v.unavailableUntil && v.unavailableUntil <= currentTime) {
+                v.available = true;
+                v.unavailableUntil = null;
+            }
+            if (v.available && v.chance > Math.random()) {
+                console.log(`\t${v.plate} is available!`);
+                result = v;
+                break;
+            }
+        }
+        return result;
+    }
+    
     buildTaxis(count) {
         var map = [];//new Map();
         for (var i = 0; i < count; i++) {
             var plateNoNumber = Math.floor(Math.random() * 9999).toString().padStart(4, '9');
-            var plateNoText = getRandomPlateText(2);
+            var plateNoText = this.getRandomPlateText(2);
             var plate = `${plateNoNumber}-${plateNoText}`;
             map.push(
                 {
@@ -49,7 +70,7 @@ module.exports = class TaxiManager {
         return map;
     }
     findAnAvailableTaxi(currentTime) {
-        var taxi = getNextAvailableTaxi(this.taxis, currentTime);
+        var taxi = this.getNextAvailableTaxi(this.taxis, currentTime);
         if (!taxi) {
             console.log(`No available Taxi found`);
             return null;
