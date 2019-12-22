@@ -63,16 +63,20 @@ Google Assistant ->> User: Response
     
     -   [Ingest Data into Bigquery with DataFlow](doc/dataflow-ingest-data-to-bigquery.md)
 
-    -   []()
+    -   [Batch upload files to BigQuery](doc/dataflow-batch-ingestion.md)
+
+-   Create DataStudio Report
+
+    -   [Create Report](doc/datastudio-create-reports.md)
     
 ## References
 
--   https://blog.johnwu.cc/article/gcp-kubernetes-connect-to-cloudsql.html
+-   [Kubernetes Connect to Cloud SQL](https://blog.johnwu.cc/article/gcp-kubernetes-connect-to-cloudsql.html)
 
--   https://github.com/GoogleCloudPlatform/kubernetes-bigquery-python/blob/master/pubsub/pubsub-pipe-image/utils.py#L37
+-   [Real-time data analysis using Google Kubernetes Engine, Redis or PubSub, and BigQuery](https://github.com/GoogleCloudPlatform/kubernetes-bigquery-python/blob/master/pubsub/pubsub-pipe-image/utils.py#L37)
 
--   https://cloud.google.com/docs/authentication/production?hl=zh-tw
+-   [GCP Authentication](https://cloud.google.com/docs/authentication/production)
 
-－  https://developers.google.com/assistant/actions/reference/nodejsv2/overview
+-   [Build fulfillment with the Actions on Google Node.js client library](https://developers.google.com/assistant/actions/reference/nodejsv2/overview)
 
 -   [Actions on Google Message Flow and Architecture](https://developers.google.com/assistant/actions/reference/nodejsv2/overview)
