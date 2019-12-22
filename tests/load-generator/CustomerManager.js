@@ -1,6 +1,6 @@
 const addresses = require('./data/simulation_addresses.json');
 const uuidv1 = require('uuid/v1');
-const VIPs = [9000001, 9000002];
+const VIPs = [0, 1, 2];
 
 function random(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -11,24 +11,24 @@ module.exports = class CustomerManager {
     }
     buildCustomers(count) {
         var customers = [];//new Map();
-        for (var i = 0; i < count; i++) {
-            customers.push({
-                id: i,
-                chance: Math.random(),
-                available: true,
-                unavailableUntil: null   //DateTime
-            });
-        }
         //  VIP
         for (var vip in VIPs) {
             customers.push({
                 id: vip,
                 chance: 1,
                 available: true,
-                unavailableUntil: null   //DateTime
+                unavailableUntil: null
             });
         }
-
+        for (var i = VIPs.length + 1; i < count; i++) {
+            customers.push({
+                id: i,
+                chance: Math.random(),
+                available: true,
+                unavailableUntil: null
+            });
+        }
+        console.log(customers);
         return customers;
     }
 
@@ -114,8 +114,6 @@ module.exports = class CustomerManager {
                     destination: destination
                 };
                 var vip = this._vip(result, result.continue);
-
-                
                 console.log(`\t[${currentTime}]${result.customer.id} is requesting Taxi at`);
                 return vip;
             }
