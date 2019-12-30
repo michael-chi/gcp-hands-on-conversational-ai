@@ -12,7 +12,6 @@
 ```mermaid
 sequenceDiagram
 
-
 User ->> Google Assistant: Hello
 Google Assistant ->> Dialogflow: Welcome Intent
 Dialogflow ->> Fulfillment: Webhook
