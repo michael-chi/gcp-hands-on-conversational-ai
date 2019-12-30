@@ -5,7 +5,7 @@ const {
     Confirmation,
     Suggestions
 } = require('actions-on-google');
-
+const IntegrationManager = require('../SystemIntegrationManager.js');
 const GoogleMap = require('../GoogleMap.js');
 module.exports = {
     setup: async function (app) {
@@ -64,7 +64,10 @@ module.exports = {
         app.intent('Request_Confirmation_Yes', (conv) => {
             console.log('=====>Request_Confirmation_Yes');
             console.log(`[Info]conv=${JSON.stringify(conv)}`);
-            conv.close(`已經為您叫車，車號：1688-TW`);
+            const integrator = new IntegrationManager({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'});
+            var plate = integrator.get(null);
+            //conv.close(`已經為您叫車，車號：1688-TW[${plate}]`);
+            conv.close(`已經為您叫車，車號：${plate}`);
         });
     }
 }
