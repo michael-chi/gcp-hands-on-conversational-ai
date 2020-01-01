@@ -15,6 +15,7 @@ class SystemIntegrationManager {
             return result;
         }catch(ex){
             console.log(`${JSON.stringify(this.option)}`);
+            console.error(`[Exception]Error invoking on-prem:${ex}`);
             return "TW-1688";
         }
     }
