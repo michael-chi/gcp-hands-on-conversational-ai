@@ -63,6 +63,8 @@ module.exports = {
         });
         app.intent('Request_Confirmation_Yes', async (conv) => {
             try{
+                conv.close(`已經為您叫車，車號: 1688-TW`);
+                return;
                 console.log('=====>Request_Confirmation_Yes');
                 console.log(`[Info]conv=${JSON.stringify(conv)}`);
                 console.log('Start Integration...');

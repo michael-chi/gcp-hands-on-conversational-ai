@@ -234,3 +234,7 @@ chmod 640 ./fullchain.pem
 sudo chmod 640 ./fullchain.pem
 sudo chmod 640 ./privkey.pem
 ```
+
+##  Issues
+
+[Container image "gke.gcr.io/knative/queue@sha256:942ab0604656acabca3ad4bb1eab3bdd1e87c6d3d49114026c9f7eec2b6f7169" already present on machine]()
