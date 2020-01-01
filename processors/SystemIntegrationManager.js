@@ -11,9 +11,10 @@ class SystemIntegrationManager {
     }
     async get(text) {
         try{
-            var result = await request(options);
+            var result = await request(this.option);
             return result;
         }catch(ex){
+            console.log(`${JSON.stringify(this.option)}`);
             return "TW-1688";
         }
     }
