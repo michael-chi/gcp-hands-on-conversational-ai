@@ -61,7 +61,7 @@ module.exports = {
             conv.ask(card);
             conv.ask(new Suggestions(['是', '否']));
         });
-        app.intent('Request_Confirmation_Yes', async (conv) => {
+        app.intent('Request_Confirmation_Yes', (conv) => {
             try{
                 // conv.close(`已經為您叫車，車號: 1688-TW`);
                 // return;
@@ -69,7 +69,7 @@ module.exports = {
                 console.log('Start Integration...');
                 console.log('JSON=' + JSON.stringify({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'}));
                 const integrator = new SystemIntegrationManager({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'});
-                var plate = await integrator.get(null);
+                var plate = integrator.get(null);
                 console.log('Done Integration...');
                 //conv.close(`已經為您叫車，車號：1688-TW[${plate}]`);
                 conv.close(`已經為您叫車，車號：${plate}`);
