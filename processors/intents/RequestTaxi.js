@@ -65,7 +65,7 @@ module.exports = {
             console.log('=====>Request_Confirmation_Yes');
             console.log(`[Info]conv=${JSON.stringify(conv)}`);
             const integrator = new IntegrationManager({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'});
-            var plate = integrator.get(null);
+            var plate = await integrator.get(null);
             //conv.close(`已經為您叫車，車號：1688-TW[${plate}]`);
             conv.close(`已經為您叫車，車號：${plate}`);
         });

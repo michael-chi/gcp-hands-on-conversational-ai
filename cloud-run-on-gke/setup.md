@@ -134,13 +134,13 @@ kubectl edit gateway knative-ingress-gateway --namespace knative-serving
 #     istio: ingressgateway
 #   servers:
 #   - hosts:
-#     - '*'
+#     - '*.michaelchi.net'
 #     port:
 #       name: http
 #       number: 80
 #       protocol: HTTP
 #   - hosts:
-#     - "*"
+#     - "*.michaelchi.net"
 #     port:
 #       name: https
 #       number: 443
@@ -186,7 +186,7 @@ gcloud beta run deploy $CLOUD_RUN_SERVICE --image $asia.gcr.io/kalschi-demo-001/
 -   更新環境變數
 
 ```shell
-gcloud beta run services update $CLOUD_RUN_SERVICE --update-env-vars PROJECT_ID=kalschi-chatbot-workshop-demo,LOCATION=global,\MAP_KEY=AIzaSyAbToxzDS7gN8t5Yp9zbBA909WampEXTqI,BIGDATA_TOPICNAME=kalschi-bot-event-publisher,LOCAL_SYSTEM_URL=http://192.168.1.2/
+gcloud beta run services update $CLOUD_RUN_SERVICE --platform gke --namespace $NAMESPACE --update-env-vars PROJECT_ID=kalschi-chatbot-workshop-demo,LOCATION=global,\MAP_KEY=AIzaSyAbToxzDS7gN8t5Yp9zbBA909WampEXTqI,BIGDATA_TOPICNAME=kalschi-bot-event-publisher,LOCAL_SYSTEM_URL=http://192.168.1.2/
 #   PROJECT_ID=kalschi-demo-001
 #   LOCATION=global
 #   MAP_KEY=AIzaSyAbToxzDS7gN8t5Yp9zbBA909WampEXTqI
@@ -210,3 +210,19 @@ gcloud container clusters update $CLUSTER_NAME --enable-autoscaling \
 ```shell
 kubectl descrive ksvc --namespace $NAMESPACE
 ```
+
+
+##  Godaddy
+
+```shell
+openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
+
+#   ...
+
+kubectl create --namespace istio-system secret tls istio-ingressgateway-certs --key private.pem --cert 214c2d3a774706a1.pem
+```
+
+
+-   Reference
+
+    -   https://stackoverflow.com/questions/43207922/how-do-i-get-the-private-key-for-a-godaddy-certificate-so-i-can-install-it-on-ub
