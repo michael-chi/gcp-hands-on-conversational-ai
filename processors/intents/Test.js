@@ -14,7 +14,7 @@ module.exports = {
     setup: function (app) {
         app.intent('TEST', (conv, input) => {
             try {
-                console.log('=====>Request_Confirmation_Yes');
+                console.log('=====>Test');
                 console.log('[Info]Start Integration...');
                 const integrator = new SystemIntegrationManager({ json: false, uri: process.env.LOCAL_SYSTEM_URL, method: 'GET' });
                 console.log('[Info]JSON=' + JSON.stringify({ json: false, uri: process.env.LOCAL_SYSTEM_URL, method: 'GET' }));
