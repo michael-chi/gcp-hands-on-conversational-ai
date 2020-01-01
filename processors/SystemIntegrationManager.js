@@ -10,11 +10,15 @@ class SystemIntegrationManager {
         this.option = option;
     }
     async get(text) {
+        console.log(`[INTEGRATION]${JSON.stringify(this.option)}`);
+        if(!this.option || !this.option.uri || this.option.uri == ''){
+            return "TW-1688";
+        }
+
         try{
             var result = await request(this.option);
             return result;
         }catch(ex){
-            console.log(`${JSON.stringify(this.option)}`);
             console.error(`[Exception]Error invoking on-prem:${ex}`);
             return "TW-1688";
         }
