@@ -10,9 +10,12 @@ class SystemIntegrationManager {
         this.option = option;
     }
     async get(text) {
-        var result = await request(options);
-
-        return result;
+        try{
+            var result = await request(options);
+            return result;
+        }catch(ex){
+            return "TW-1688";
+        }
     }
 }
 module.exports = SystemIntegrationManager;
