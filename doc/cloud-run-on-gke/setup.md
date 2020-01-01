@@ -178,12 +178,12 @@ gcloud beta run deploy $CLOUD_RUN_SERVICE --image asia.gcr.io/kalschi-demo-001/c
 -   將必要的環境變數傳入Cloud Run on Anthos, 在Container中會以環境變數的方式存取
 
 ```bash
-gcloud beta run services update $CLOUD_RUN_SERVICE --platform gke --namespace $NAMESPACE --update-env-vars PROJECT_ID=kalschi-chatbot-workshop-demo,LOCATION=global,\MAP_KEY=xxxxxx,BIGDATA_TOPICNAME=kalschi-bot-event-publisher,LOCAL_SYSTEM_URL=http://192.168.1.2/
+gcloud beta run services update $CLOUD_RUN_SERVICE --platform gke --namespace $NAMESPACE --update-env-vars PROJECT_ID=kalschi-chatbot-workshop-demo,LOCATION=global,\MAP_KEY=xxxxxx,BIGDATA_TOPICNAME=kalschi-bot-event-publisher,LOCAL_SYSTEM_URL=http://10.0.0.4/
 #   PROJECT_ID=kalschi-demo-001
 #   LOCATION=global
 #   MAP_KEY=xxxx
 #   BIGDATA_TOPICNAME=kalschi-bot-event-publisher
-#   LOCAL_SYSTEM_URL=http://192.168.1.2/
+#   LOCAL_SYSTEM_URL=http://10.0.0.4/
 ```
 
 ####    Auto Scaling
