@@ -9,13 +9,14 @@ const {
 } = require('actions-on-google');
 
 const GoogleMap = require('../GoogleMap.js');
+const SystemIntegrationManager = require('../SystemIntegrationManager.js');
 module.exports = {
     setup: function (app) {
         app.intent('TEST', async (conv, input) => {
             console.log('=====>Request_Confirmation_Yes');
             console.log(`[Info]conv=${JSON.stringify(conv)}`);
             console.log('Start Integration...');
-            const integrator = new IntegrationManager({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'});
+            const integrator = new SystemIntegrationManager({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'});
             console.log('JSON=' + JSON.stringify({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'}));
             var plate = await integrator.get(null);
             console.log('Done Integration...');

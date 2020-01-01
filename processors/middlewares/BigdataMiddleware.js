@@ -11,10 +11,10 @@ async function processRequest(conv, config) {
     console.log('Middleware Processing request...');
     //  conversationId
     const conversationId = conv.request.conversation.conversationId;
-    try{
+    try {
         console.log(`conv.request=${JSON.stringify(conv.request)}`);
         console.log(`conv.request=${JSON.stringify(conv.request)}`);
-    }catch{
+    } catch{
 
     }
     console.log(`Conversation Id:${conversationId}`);
@@ -60,7 +60,7 @@ async function processRequest(conv, config) {
 
         console.log(`[INFO][BigdataMiddleware]]Parameter in RequestTaxi-followup: ${JSON.stringify(to)}`);
         console.log(`[INFO][BigdataMiddleware]]Parameter in RequestTaxi-followup: ${JSON.stringify(conv.contexts.input['requesttaxi-followup'])}`);
-        
+
         const map = new GoogleMap(config);
         const origin = {
             lat: from.location.coordinates.latitude,
@@ -69,9 +69,9 @@ async function processRequest(conv, config) {
         const distance = await map.getDistance(origin, to);
         console.log(`You want to got to [${(to.lat)},${to.lng}] at ${to}`);
         var user = '';
-        try{
+        try {
             user = conv.request.user.profile.displayName;
-        }catch{
+        } catch (ex){
 
         }
         const message = {
@@ -85,7 +85,7 @@ async function processRequest(conv, config) {
             to_address: conv.contexts.input['requesttaxi-followup'].parameters['location.original'],
             distance_km: distance,         //TODO:should be calculated
             plate_no: "1688-TW",    //TODO:should retrieve from bigquery ?
-            customer_hash:user        //TODO:hash for customer identification
+            customer_hash: user        //TODO:hash for customer identification
         };
 
         //  Publish event to Pub/Sub
