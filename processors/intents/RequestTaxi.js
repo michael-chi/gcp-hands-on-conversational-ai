@@ -61,7 +61,7 @@ module.exports = {
             conv.ask(card);
             conv.ask(new Suggestions(['是', '否']));
         });
-        app.intent('Request_Confirmation_Yes', (conv) => {
+        app.intent('Request_Confirmation_Yes', async (conv) => {
             console.log('=====>Request_Confirmation_Yes');
             console.log(`[Info]conv=${JSON.stringify(conv)}`);
             const integrator = new IntegrationManager({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'});
