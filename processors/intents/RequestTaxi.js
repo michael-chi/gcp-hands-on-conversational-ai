@@ -73,7 +73,7 @@ module.exports = {
                 //conv.close(`已經為您叫車，車號：1688-TW[${plate}]`);
                 conv.close(`已經為您叫車，車號：${plate}`);
             }catch(ex){
-                console.log(`[ERROR]${ex}`);
+                console.log(`[ERROR][Request_Confirmation_Yes]${ex}`);
             }
         });
     }
