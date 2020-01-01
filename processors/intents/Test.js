@@ -13,6 +13,7 @@ const SystemIntegrationManager = require('../SystemIntegrationManager.js');
 module.exports = {
     setup: function (app) {
         app.intent('TEST', async (conv, input) => {
+            try{
             console.log('=====>Request_Confirmation_Yes');
             console.log(`[Info]conv=${JSON.stringify(conv)}`);
             console.log('[Info]Start Integration...');
@@ -22,6 +23,10 @@ module.exports = {
             console.log('[Info]Done Integration...');
             //conv.close(`已經為您叫車，車號：1688-TW[${plate}]`);
             conv.close(`已經為您叫車，車號：${plate}`);
+            }catch(ex){
+                console.log(`[ERROR][TEST]${ex}`);
+                console.error(`[ERROR][TEST]${ex}`);
+            }
         });
     }
 }
