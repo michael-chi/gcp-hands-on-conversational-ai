@@ -21,7 +21,7 @@ module.exports = {
                 var plate = integrator.get(null);
                 console.log('[Info]Done Integration...');
                 //conv.close(`已經為您叫車，車號：1688-TW[${plate}]`);
-                conv.close(`已經為您叫車，車號：${plate}`);
+                conv.close(`已經為您叫車，車號：${plate} :: ${process.env.LOCAL_SYSTEM_URL}`);
             } catch (ex) {
                 console.log(`[ERROR][TEST]${ex}`);
                 console.error(`[ERROR][TEST]${ex}`);
