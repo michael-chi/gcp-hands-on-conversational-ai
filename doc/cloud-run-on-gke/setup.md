@@ -92,13 +92,12 @@ gcloud container clusters describe $CLUSTER_NAME \
 #   Edit configmap, add allowed outbound source IP addresses
 kubectl edit configmap config-network --namespace knative-serving
 
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file will be
-# reopened with the relevant failures.
 #   -- configmap
 #   apiVersion: v1
 #   data:
-#     istio.sidecar.includeOutboundIPRanges: '10.40.0.0/14,10.232.0.0/20'
+#     istio.sidecar.includeOutboundIPRanges: '<clusterIpv4CidrBlock>,<10.232.0.0/20>' 
+#   ＃＃    例如
+#   ＃＃  istio.sidecar.includeOutboundIPRanges: '10.40.0.0/14,10.232.0.0/20'
 #   kind: ConfigMap
 #   metadata:
 ```
