@@ -1,5 +1,21 @@
 ##  Overview
 
+整個程式流程跟先前Fully managed Cloud Run一樣, 不同處只有將Cloud Run改為Cloud Run on Anthos
+
+```mermaid
+sequenceDiagram
+
+Google Assistant ->> Dialogflow: Request Taxi
+Dialogflow ->> (Cloud Run on Anthos): Send Intent Request
+(Cloud Run on Anthos) -->> Pub/Sub: Publish Event
+Note right of (Cloud Run on Anthos): Handled by middlewares
+(Cloud Run on Anthos) ->> Google Map API: Get Map Information
+Google Map API ->> (Cloud Run on Anthos): Return Geo Info
+(Cloud Run on Anthos) ->> Dialogflow: Respond
+Dialogflow ->> Google Assistant: Respond
+Pub/Sub ->> DataFlow: Process Streaming Data
+DataFlow ->> BigQuery: Ingest Data
+```
 ####   設定GKE Cluster
 
 -   [Enable HTTP](https://cloud.google.com/run/docs/gke/enabling-cluster-https)
@@ -157,7 +173,7 @@ kubectl edit gateway knative-ingress-gateway --namespace knative-serving
 kubectl get service istio-ingressgateway --namespace istio-system
 
 # NAME                   TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)                                                       
-# istio-ingressgateway   LoadBalancer   10.232.3.60   34.80.247.232   15020:31552/TCP,80:30627/TCP,443:30305/TCP,31400:30953/TCP,15029:31049/TCP,15030:31850/TCP,15031:32266/TCP,15032:30584/TCP,15443:30280/TCP   43m
+# istio-ingressgateway   LoadBalancer   10.232.3.60   12.34.247.232   15020:31552/TCP,80:30627/TCP,443:30305/TCP,31400:30953/TCP,15029:31049/TCP,15030:31850/TCP,15031:32266/TCP,15032:30584/TCP,15443:30280/TCP   43m
 
 export MY_DOMAIN=michaelchi.net
 kubectl patch configmap config-domain --namespace knative-serving --patch \
@@ -185,12 +201,12 @@ gcloud beta run deploy $CLOUD_RUN_SERVICE --image $asia.gcr.io/kalschi-demo-001/
 
 -   更新環境變數
 
-```shell
-gcloud beta run services update $CLOUD_RUN_SERVICE --platform gke --namespace $NAMESPACE --update-env-vars PROJECT_ID=kalschi-chatbot-workshop-demo,LOCATION=global,\MAP_KEY=AIzaSyAbToxzDS7gN8t5Yp9zbBA909WampEXTqI,BIGDATA_TOPICNAME=kalschi-bot-event-publisher,LOCAL_SYSTEM_URL=http://192.168.1.2/
+```bash
+gcloud beta run services update $CLOUD_RUN_SERVICE --platform gke --namespace $NAMESPACE --update-env-vars PROJECT_ID=kalschi-chatbot-workshop-demo,LOCATION=global,\MAP_KEY=xxxxxx,BIGDATA_TOPICNAME=kalschi-bot-event-publisher,LOCAL_SYSTEM_URL=http://192.168.1.2/
 #   PROJECT_ID=kalschi-demo-001
 #   LOCATION=global
-#   MAP_KEY=AIzaSyAbToxzDS7gN8t5Yp9zbBA909WampEXTqI
-#   TEST_URL=https://maps.googleapis.com/maps/api/staticmap?center=%E5%8F%B0%E5%8C%97%E7%81%AB%E8%BB%8A%E7%AB%99&zoom=18&size=600x300&maptype=roadmap&markers=color:red%7Clabel:Dest%7C25.033976,121.5645389&key=AIzaSyAbToxzDS7gN8t5Yp9zbBA909WampEXTqI
+#   MAP_KEY=xxxx
+#   TEST_URL=https://maps.googleapis.com/maps/api/staticmap?center=%E5%8F%B0%E5%8C%97%E7%81%AB%E8%BB%8A%E7%AB%99&zoom=18&size=600x300&maptype=roadmap&markers=color:red%7Clabel:Dest%7C25.033976,121.5645389&key=xxxxx
 #   BIGDATA_TOPICNAME=kalschi-bot-event-publisher
 #   LOCAL_SYSTEM_URL=http://192.168.1.2/
 ```
@@ -211,15 +227,13 @@ gcloud container clusters update $CLUSTER_NAME --enable-autoscaling \
 kubectl descrive ksvc --namespace $NAMESPACE
 ```
 
-
-##  Godaddy
+####  建立並安裝憑證
 
 ```shell
 openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
 
-#   ...
-
-kubectl create --namespace istio-system secret tls istio-ingressgateway-certs --key private.pem --cert 214c2d3a774706a1.pem
+#   ... create cert with the key generated above in your SSL authority, ex, GoDaddy
+kubectl create --namespace istio-system secret tls istio-ingressgateway-certs --key server.key --cert <GET CERT FROM YOUR AUTHORITY>.pem
 ```
 
 

@@ -30,7 +30,7 @@ kubectl set image deployment dialogflow-fulfillment dialogflow-fulfillment=asia.
 
 -   Now we also need to grant our service account permission to create custom metric. We do this by editing permission of our service account on GCP console
 
-<img src="../../doc/img/stackdriver-grant-permission.png" style="width:30%;height:30%"/>
+<img src="./img/stackdriver-grant-permission.png" style="width:30%;height:30%"/>
 
 -   Finally, rollout new images
 ```bash
