@@ -63,13 +63,12 @@ module.exports = {
         });
         app.intent('Request_Confirmation_Yes', async (conv) => {
             try{
-                conv.close(`已經為您叫車，車號: 1688-TW`);
-                return;
+                // conv.close(`已經為您叫車，車號: 1688-TW`);
+                // return;
                 console.log('=====>Request_Confirmation_Yes');
-                console.log(`[Info]conv=${JSON.stringify(conv)}`);
                 console.log('Start Integration...');
-                const integrator = new SystemIntegrationManager({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'});
                 console.log('JSON=' + JSON.stringify({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'}));
+                const integrator = new SystemIntegrationManager({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'});
                 var plate = await integrator.get(null);
                 console.log('Done Integration...');
                 //conv.close(`已經為您叫車，車號：1688-TW[${plate}]`);
