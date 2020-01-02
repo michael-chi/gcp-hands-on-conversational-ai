@@ -11,16 +11,15 @@
 ```mermaid
 sequenceDiagram
 
-Google Assistant ->> Dialogflow: Request Taxi
+
 Dialogflow ->> (Cloud Run on Anthos): Send Intent Request
 (Cloud Run on Anthos) -->> Pub/Sub: Publish Event
 Note right of (Cloud Run on Anthos): Handled by middlewares
-(Cloud Run on Anthos) ->> Google Map API: Get Map Information
-Google Map API ->> (Cloud Run on Anthos): Return Geo Info
+(Cloud Run on Anthos) ->> onprem API: Get plateno
+Note right of (Cloud Run on Anthos): VPN Tunnel
+onprem API ->> (Cloud Run on Anthos): Return plate no
 (Cloud Run on Anthos) ->> Dialogflow: Respond
-Dialogflow ->> Google Assistant: Respond
-Pub/Sub ->> DataFlow: Process Streaming Data
-DataFlow ->> BigQuery: Ingest Data
+
 ```
 
 ####    Permissions
@@ -203,6 +202,13 @@ gcloud container clusters update $CLUSTER_NAME --enable-autoscaling \
 kubectl descrive ksvc --namespace $NAMESPACE
 ```
 
+-   Check console logs
+
+```shell
+kubectl get pods --namespace $NAMESPACE
+#   get pods name
+kubectl logs <POD NAME> --namespace $NAMESPACE user-container
+```
 ####  建立並安裝憑證
 
 ```shell
@@ -216,6 +222,8 @@ kubectl create --namespace istio-system secret tls istio-ingressgateway-certs --
 ####    References
 
 -   [Godaddy自訂憑證Privae Key](https://stackoverflow.com/questions/43207922/how-do-i-get-the-private-key-for-a-godaddy-certificate-so-i-can-install-it-on-ub)
+
+-   [GKE/Isito/VPN](https://github.com/GoogleCloudPlatform/gke-istio-vpn-demo)
 
 -   Let's Encrypt憑證產生方式
 

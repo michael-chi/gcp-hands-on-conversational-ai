@@ -38,8 +38,12 @@ class SystemIntegrationManager {
         console.log(`[INTEGRATION]${JSON.stringify(this.option)}`);
 
         try{
-            var task = request(this.option);
-            return wait(task);
+            if(this.option.uri && this.option.uri != ''){
+                var task = request(this.option);
+                return wait(task);
+            }
+            else
+                return "TW-1688";
         }catch(ex){
             console.error(`[Exception]Error invoking on-prem:${ex}`);
             return "TW-1688222";
