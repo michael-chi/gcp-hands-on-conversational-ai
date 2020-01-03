@@ -7,6 +7,6 @@ steps:
     args: ['push', 'asia.gcr.io/kalschi-demo-001/conversational-ai-demo']
 # Deploy image to Cloud Run
 -   name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy', 'conversational-ai-demo-2', '--image', 'asia.gcr.io/kalschi-demo-001/conversational-ai-demo', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
+    args: ['run', 'deploy', 'conversational-ai-demo-2', '--image', 'asia.gcr.io/kalschi-demo-001/conversational-ai-demo', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated', '--project', 'kalschi-demo-001']
 images:
 -   asia.gcr.io/kalschi-demo-001/conversational-ai-demo
