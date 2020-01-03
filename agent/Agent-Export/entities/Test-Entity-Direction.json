@@ -1,0 +1,9 @@
+{
+  "id": "dd78f337-b7e3-4680-91ea-fcb1dea2da1c",
+  "name": "Test-Entity-Direction",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}

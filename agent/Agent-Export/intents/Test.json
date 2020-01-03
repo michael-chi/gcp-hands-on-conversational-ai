@@ -1,18 +1,12 @@
 {
   "id": "8b68d0d3-e84f-4085-8205-458eccfb88c6",
-  "name": "Test",
+  "name": "TEST",
   "auto": true,
   "contexts": [],
   "responses": [
     {
       "resetContexts": false,
-      "affectedContexts": [
-        {
-          "name": "Test-followup",
-          "parameters": {},
-          "lifespan": 2
-        }
-      ],
+      "affectedContexts": [],
       "parameters": [],
       "messages": [],
       "defaultResponsePlatforms": {},

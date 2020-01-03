@@ -1,0 +1,16 @@
+[
+  {
+    "value": "forward",
+    "synonyms": [
+      "forward",
+      "forwards"
+    ]
+  },
+  {
+    "value": "backword",
+    "synonyms": [
+      "backword",
+      "backwords"
+    ]
+  }
+]

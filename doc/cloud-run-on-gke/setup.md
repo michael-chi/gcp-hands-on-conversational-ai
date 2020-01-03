@@ -54,6 +54,7 @@ export ZONE=asia-east1-b
 export NETWORK=demo-vpc
 export SUBNET=data-subnet
 export NAMESPACE=run-on-gke-ns
+export PROJECt=my-gke-project
 
 gcloud config set compute/zone asia-east1-b
 gcloud services enable container.googleapis.com containerregistry.googleapis.com cloudbuild.googleapis.com
@@ -62,14 +63,9 @@ gcloud components install beta
 gcloud components install kubectl
 
 #   create GKE for cloud run
-gcloud beta container clusters create $CLUSTER_NAME \
---addons=HorizontalPodAutoscaling,HttpLoadBalancing,Istio,CloudRun \
---machine-type=n1-standard-4 \
---cluster-version=latest --zone=$ZONE \
---enable-stackdriver-kubernetes --enable-ip-alias \
---scopes cloud-platform \
---network $NETWORK --subnetwork $SUBNET \
---num-nodes 1
+gcloud config set project $PROJECT
+
+gcloud beta container --project $PROJECT clusters create $CLUSTER_NAME --zone $ZONE --no-enable-basic-auth --cluster-version "1.13.11-gke.14" --machine-type "n1-standard-4" --image-type "COS" --disk-type "pd-standard" --disk-size "100" --metadata disable-legacy-endpoints=true --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/bigquery","https://www.googleapis.com/auth/sqlservice.admin","https://www.googleapis.com/auth/datastore","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/pubsub","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append","https://www.googleapis.com/auth/source.full_control","https://www.googleapis.com/auth/cloud_debugger" --num-nodes "2" --enable-stackdriver-kubernetes --enable-ip-alias --network $NETWORK --subnetwork $SUBNET --default-max-pods-per-node "110" --addons HorizontalPodAutoscaling,HttpLoadBalancing,Istio,CloudRun --enable-autoupgrade --enable-autorepair
 
 #   set default location of cloud run
 gcloud config set run/cluster $CLUSTER_NAME
@@ -81,7 +77,7 @@ kubectl create namespace $NAMESPACE
 gcloud config set run/namespace $NAMESPACE
 
 #   Allow outbound network traffic
-gcloud container clusters describe $CLUSTER_NAME \
+gcloud container clusters describe $CLUSTER_NAME --zone $ZONE \
 | grep -e clusterIpv4Cidr -e servicesIpv4Cidr
 # ...
 #   clusterIpv4CidrBlock: 10.40.0.0/14
@@ -109,8 +105,11 @@ kubectl edit configmap config-network --namespace knative-serving
 #   Godaddy private key file: private.pem
 #   Godaddy certificate file: fullchain.pem
 kubectl create --namespace istio-system secret tls istio-ingressgateway-certs \
---key privkey.pem \
---cert fullchain.pem
+--key server.key \
+--cert 250bb4b4164de767.pem
+#   Delete secret
+#   kubectl delete --namespace istio-system secret tls istio-ingressgateway-certs
+
 
 #   Edit knative-ingress-gateway
 kubectl edit gateway knative-ingress-gateway --namespace knative-serving

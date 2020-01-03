@@ -1,0 +1,9 @@
+{
+  "id": "885c7408-9390-465c-9c92-7b4fa3d1970a",
+  "name": "Test-Entity-Move",
+  "isOverridable": true,
+  "isEnum": true,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}
