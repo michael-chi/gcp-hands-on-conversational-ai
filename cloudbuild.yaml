@@ -1,12 +1,12 @@
 steps:
 # Build the container image
--   name: 'asia.gcr.io/kalschi-demo-001/conversational-ai-demo:latest'
+-   name: 'Building container image'
     args: ['build', '-t', 'asia.gcr.io/kalschi-demo-001/conversational-ai-demo:latest', '.']
 # Push the image to Container Registry
--   name: 'gcr.io/cloud-builders/docker'
+-   name: 'Pusging to registry'
     args: ['push', 'asia.gcr.io/kalschi-demo-001/conversational-ai-demo:latest']
 # Deploy image to Cloud Run
--   name: 'gcr.io/cloud-builders/gcloud'
+-   name: 'Deploying to Cloud Run'
     args: ['run', 'deploy', 'conversational-ai-demo-2', '--image', 'asia.gcr.io/kalschi-demo-001/conversational-ai-demo:latest', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
 images:
 -   asia.gcr.io/kalschi-demo-001/conversational-ai-demo:latest
