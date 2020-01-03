@@ -38,15 +38,19 @@ class SystemIntegrationManager {
         console.log(`[INTEGRATION]${JSON.stringify(this.option)}`);
 
         try{
-            if(this.option.uri && this.option.uri != ''){
+            if(this.option && this.option.uri && this.option.uri != ''){
+                console.log(`[INFO]${this.option.uri} specified, invoking...`);
                 var task = request(this.option);
                 return wait(task);
             }
             else
+            {
+                console.log(`[INFO]No url specified, using defaults`);
                 return "TW-1688";
+            }
         }catch(ex){
             console.error(`[Exception]Error invoking on-prem:${ex}`);
-            return "TW-1688222";
+            return "TW-1688";
         }
     }
 }
