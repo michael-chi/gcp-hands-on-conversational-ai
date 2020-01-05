@@ -6,7 +6,12 @@ const config = {
     key: process.env.MAP_KEY,
     topic: process.env.BIGDATA_TOPICNAME
 };
-
+/*
+    1.  Receive frontend request
+    2.  Extract User's current GeoLocation and destination
+    3.  Construct event data for BigQuery
+    4.  Publish event data to Pub/Sub
+ */
 async function processRequest(conv, config) {
     console.log('Middleware Processing request...');
     //  conversationId
@@ -83,9 +88,9 @@ async function processRequest(conv, config) {
             to_latitude: to.lat,
             to_longitude: to.lng,
             to_address: conv.contexts.input['requesttaxi-followup'].parameters['location.original'],
-            distance_km: distance,         //TODO:should be calculated
-            plate_no: "1688-TW",    //TODO:should retrieve from bigquery ?
-            customer_hash: user        //TODO:hash for customer identification
+            distance_km: distance,
+            plate_no: "1688-TW",            //TODO:should retrieve from bigquery ?
+            customer_hash: user             //TODO:hash for customer identification
         };
 
         //  Publish event to Pub/Sub

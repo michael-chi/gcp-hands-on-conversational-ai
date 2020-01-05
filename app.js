@@ -13,5 +13,5 @@ expressApp.post('/test', (req,res) => {
         res.send(req.body);
     }
 );
-expressApp.listen(8080);
+expressApp.listen(8080);    //  Cloud Run now only supports port 8080
 console.log(`express server listening on port 8080...`);

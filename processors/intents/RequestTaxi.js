@@ -9,6 +9,10 @@ const SystemIntegrationManager = require('../SystemIntegrationManager.js');
 const GoogleMap = require('../GoogleMap.js');
 module.exports = {
     setup: async function (app) {
+        //  Customer is requesting a Taxi
+        //  1.  Construct destination information
+        //  2.  Get destination location via Google Map API and respond to user
+        //  3.  Wait user confirmation
         app.intent('RequestTaxi', async (conv, params) => {
             console.log('====>RequestTaxi');
             console.log(JSON.stringify(conv));
@@ -61,6 +65,11 @@ module.exports = {
             conv.ask(card);
             conv.ask(new Suggestions(['是', '否']));
         });
+
+        //  User confirms Taxi request
+        //  1.  Call Internal system (if exists)
+        //  2.  Return Assigned Taxi plate number to user
+        //  3.  Exit conversation
         app.intent('Request_Confirmation_Yes', (conv) => {
             try{
                 // conv.close(`已經為您叫車，車號: 1688-TW`);
