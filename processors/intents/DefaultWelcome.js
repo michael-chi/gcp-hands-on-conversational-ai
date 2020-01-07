@@ -24,6 +24,7 @@ module.exports = {
             console.log(JSON.stringify(conv));
             const { location } = conv.device;
             const { name } = conv.user;
+            console.log('Location Detected:' + JSON.stringify(location));
             if (confirmationGranted && name && location) {
                 conv.ask(`好的， ${name.display}, 我將您的上車地點設定為 ` +
                     `${location.formattedAddress}`);

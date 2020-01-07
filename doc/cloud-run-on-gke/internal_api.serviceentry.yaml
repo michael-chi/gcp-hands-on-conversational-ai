@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: internal-api
+spec:
+  hosts:
+    - internal-api.internal
+  http:
+    - route:
+        - destination:
+            host: internal-api.internal
+          headers:
+            request:
+             remove:
+                - x-forwarded-for
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: internal-api
+spec:
+  hosts:
+    - internal-api.internal
+  addresses:
+    - 10.0.0.4
+  endpoints:
+      - address: 10.0.0.4
+  ports:
+    - name: http
+      number: 80
+      protocol: HTTP
+  location: MESH_INTERNAL
+  resolution: DNS

@@ -13,7 +13,7 @@
     "startIntents": [
       {
         "intentId": "fdaf6235-75cf-447b-aa17-19014d1ba982",
-        "signInRequired": true
+        "signInRequired": false
       }
     ],
     "systemIntents": [],
@@ -36,7 +36,7 @@
   },
   "defaultTimezone": "Asia/Hong_Kong",
   "webhook": {
-    "url": "https://you.api.location/fulfillment",
+    "url": "https://dev-workshop-gke.dev-workshop-ns.michaelchi.net/fulfillment?key\u003dAIzaSyAbToxzDS7gN8t5Yp9zbBA909WampEXTqI",
     "username": "",
     "headers": {
       "": ""

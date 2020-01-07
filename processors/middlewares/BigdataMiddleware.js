@@ -6,15 +6,19 @@ const config = {
     key: process.env.MAP_KEY,
     topic: process.env.BIGDATA_TOPICNAME
 };
-
+/*
+    1.  Receive frontend request
+    2.  Extract User's current GeoLocation and destination
+    3.  Construct event data for BigQuery
+    4.  Publish event data to Pub/Sub
+ */
 async function processRequest(conv, config) {
     console.log('Middleware Processing request...');
     //  conversationId
     const conversationId = conv.request.conversation.conversationId;
-    try{
+    try {
         console.log(`conv.request=${JSON.stringify(conv.request)}`);
-        console.log(`conv.request=${JSON.stringify(conv.request)}`);
-    }catch{
+    } catch{
 
     }
     console.log(`Conversation Id:${conversationId}`);
@@ -60,7 +64,7 @@ async function processRequest(conv, config) {
 
         console.log(`[INFO][BigdataMiddleware]]Parameter in RequestTaxi-followup: ${JSON.stringify(to)}`);
         console.log(`[INFO][BigdataMiddleware]]Parameter in RequestTaxi-followup: ${JSON.stringify(conv.contexts.input['requesttaxi-followup'])}`);
-        
+
         const map = new GoogleMap(config);
         const origin = {
             lat: from.location.coordinates.latitude,
@@ -69,9 +73,9 @@ async function processRequest(conv, config) {
         const distance = await map.getDistance(origin, to);
         console.log(`You want to got to [${(to.lat)},${to.lng}] at ${to}`);
         var user = '';
-        try{
+        try {
             user = conv.request.user.profile.displayName;
-        }catch{
+        } catch (ex){
 
         }
         const message = {
@@ -83,22 +87,25 @@ async function processRequest(conv, config) {
             to_latitude: to.lat,
             to_longitude: to.lng,
             to_address: conv.contexts.input['requesttaxi-followup'].parameters['location.original'],
-            distance_km: distance,         //TODO:should be calculated
-            plate_no: "1688-TW",    //TODO:should retrieve from bigquery ?
-            customer_hash:user        //TODO:hash for customer identification
+            distance_km: distance,
+            plate_no: "1688-TW",            //TODO:Get real plat number from real system
+            customer_hash: user             //TODO:hash customer id
         };
 
-        //  Publish event to Pub/Sub
+        //  Construct Pub/Sub Wrapper object
         const publisher = new EventPublisher(config);
         console.log(`[INFO]Message:${JSON.stringify(message)}`);
         console.log(`[INFO]topic = ${config.topic}`);
+
+        //  Publish event to Pub/Sub
         await publisher.publish(config.topic, JSON.stringify(message));
+
     } catch (ex) {
         console.error(`[ERROR]Failed to process middleware request`);
         console.error(`[ERROR]${ex}`);
     }
 }
-//module.exports.BigdataMiddleware = BigdataMiddleware;
+
 module.exports.setup = function (app) {
     app.middleware((conv) => {
         if (conv.action == 'RequestTaxi.RequestTaxi-yes') {

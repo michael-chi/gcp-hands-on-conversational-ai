@@ -10,7 +10,7 @@ const app = dialogflow();
 const handlers = [];
 handlers.push(require('./processors/intents/RequestTaxi.js'));
 handlers.push(require('./processors/intents/DefaultWelcome.js'));
-//handlers.push(require('./processors/intents/Test.js'));
+handlers.push(require('./processors/intents/Test.js'));
 
 //  Add Middlewares below
 const middlewares = [];

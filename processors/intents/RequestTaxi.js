@@ -5,10 +5,14 @@ const {
     Confirmation,
     Suggestions
 } = require('actions-on-google');
-
+const SystemIntegrationManager = require('../SystemIntegrationManager.js');
 const GoogleMap = require('../GoogleMap.js');
 module.exports = {
     setup: async function (app) {
+        //  Customer is requesting a Taxi
+        //  1.  Construct destination information
+        //  2.  Get destination location via Google Map API and respond to user
+        //  3.  Wait user confirmation
         app.intent('RequestTaxi', async (conv, params) => {
             console.log('====>RequestTaxi');
             console.log(JSON.stringify(conv));
@@ -61,10 +65,26 @@ module.exports = {
             conv.ask(card);
             conv.ask(new Suggestions(['是', '否']));
         });
+
+        //  User confirms Taxi request
+        //  1.  Call Internal system (if exists)
+        //  2.  Return Assigned Taxi plate number to user
+        //  3.  Exit conversation
         app.intent('Request_Confirmation_Yes', (conv) => {
-            console.log('=====>Request_Confirmation_Yes');
-            console.log(`[Info]conv=${JSON.stringify(conv)}`);
-            conv.close(`已經為您叫車，車號：1688-TW`);
+            try{
+                // conv.close(`已經為您叫車，車號: 1688-TW`);
+                // return;
+                console.log('=====>Request_Confirmation_Yes');
+                console.log('Start Integration...');
+                console.log('JSON=' + JSON.stringify({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'}));
+                const integrator = new SystemIntegrationManager({json:false, uri:process.env.LOCAL_SYSTEM_URL,method:'GET'});
+                var plate = integrator.get(null);
+                console.log('Done Integration...');
+                //conv.close(`已經為您叫車，車號：1688-TW[${plate}]`);
+                conv.close(`已經為您叫車，車號：${plate}`);
+            }catch(ex){
+                console.log(`[ERROR][Request_Confirmation_Yes]${ex}`);
+            }
         });
     }
 }
