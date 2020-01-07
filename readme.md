@@ -19,7 +19,12 @@ Fulfillment -->> Dialogflow: Request Permissions
 Dialogflow -->> Google Assistant: Request Permissions
 Google Assistant -->> User: Request Permissions
 User ->> Google Assistant: Grant Permissions
-Google Assistant ->> User: Request Destination Info.
+Google Assistant ->> Dialogflow: Location Info
+Dialogflow ->> Fulfillment: Location Info
+Fulfillment ->> Fulfillment: Extract Location Info
+Fulfillment ->> Dialogflow: Request Destination Info
+Dialogflow ->> Google Assistant: Request Destination Info
+Google Assistant ->> User:Request Destination Info
 User ->> Google Assistant: Provide Destination
 Google Assistant ->> Dialogflow: Intent detection
 Dialogflow ->> Fulfillment: Invoke Webhook
