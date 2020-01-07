@@ -90,20 +90,23 @@ async function processRequest(conv, config) {
             to_address: conv.contexts.input['requesttaxi-followup'].parameters['location.original'],
             distance_km: distance,
             plate_no: "1688-TW",            //TODO:should retrieve from bigquery ?
-            customer_hash: user             //TODO:hash for customer identification
+            customer_hash: user             //TODO:hash customer id
         };
 
-        //  Publish event to Pub/Sub
+        //  Construct Pub/Sub Wrapper object
         const publisher = new EventPublisher(config);
         console.log(`[INFO]Message:${JSON.stringify(message)}`);
         console.log(`[INFO]topic = ${config.topic}`);
+
+        //  Publish event to Pub/Sub
         await publisher.publish(config.topic, JSON.stringify(message));
+
     } catch (ex) {
         console.error(`[ERROR]Failed to process middleware request`);
         console.error(`[ERROR]${ex}`);
     }
 }
-//module.exports.BigdataMiddleware = BigdataMiddleware;
+
 module.exports.setup = function (app) {
     app.middleware((conv) => {
         if (conv.action == 'RequestTaxi.RequestTaxi-yes') {
