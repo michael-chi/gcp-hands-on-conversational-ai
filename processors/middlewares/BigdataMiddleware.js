@@ -18,7 +18,6 @@ async function processRequest(conv, config) {
     const conversationId = conv.request.conversation.conversationId;
     try {
         console.log(`conv.request=${JSON.stringify(conv.request)}`);
-        console.log(`conv.request=${JSON.stringify(conv.request)}`);
     } catch{
 
     }
@@ -89,7 +88,7 @@ async function processRequest(conv, config) {
             to_longitude: to.lng,
             to_address: conv.contexts.input['requesttaxi-followup'].parameters['location.original'],
             distance_km: distance,
-            plate_no: "1688-TW",            //TODO:should retrieve from bigquery ?
+            plate_no: "1688-TW",            //TODO:Get real plat number from real system
             customer_hash: user             //TODO:hash customer id
         };
 
