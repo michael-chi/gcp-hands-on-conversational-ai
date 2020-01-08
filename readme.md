@@ -61,6 +61,8 @@ Google Assistant ->> User: Response
 
     -   [Secure Fulfillment Cloud Run with Endpoints](doc/run-secure-cloud-run.md)
 
+    -   [Deploy Fulfillment to Cloud Run on Anthos](doc/cloud-run-on-gke/setup.md)
+
 -   Ingest Book Taxi information to data warehouse
 
     -   [Create Pub/Sub Topic to receive Taxi inforamtio](doc/pubsub-setup.md)
