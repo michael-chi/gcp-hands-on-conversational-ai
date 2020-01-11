@@ -74,6 +74,10 @@ Google Assistant ->> User: Response
 -   Create DataStudio Report
 
     -   [Create Report](doc/datastudio-create-reports.md)
+
+-   VPN Setup
+
+    -   [Connect GCP VPC to Azure Virtual Network](doc/vpn-setup.md)
     
 ## References
 
