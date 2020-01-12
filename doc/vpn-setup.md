@@ -7,14 +7,13 @@ sequenceDiagram
 
 GCP VPC ->> GCP VPN Gateway: traffic
 GCP VPN Gateway ->> Tunnel: 
-
 rect rgba(255, 255, 0, .1)
         Tunnel --> Azure GW Connection: IKEv2
 end
-
 Azure GW Connection ->> Azure VPN Gateway: 
 Azure VPN Gateway ->> Azure VNet: traffic
 ```
+<img src="./img/vpn-overall-arch.png" style="width:50%;height:50%"/>
 
 ###    Azure Environment Setup
 
