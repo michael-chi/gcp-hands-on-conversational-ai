@@ -2,6 +2,20 @@
 
 To verify hybrid connection, I am creating a Virtual Network in my Azure subscription as well as a Virtual Network Gateway as my on-prem envirionment.
 
+```mermaid
+sequenceDiagram
+
+GCP VPC ->> GCP VPN Gateway: traffic
+GCP VPN Gateway ->> Tunnel: 
+
+rect rgba(255, 255, 0, .1)
+        Tunnel --> Azure GW Connection: IKEv2
+end
+
+Azure GW Connection ->> Azure VPN Gateway: 
+Azure VPN Gateway ->> Azure VNet: traffic
+```
+
 ###    Azure Environment Setup
 
 Here I have an Azure Virtual Network with below configuration
