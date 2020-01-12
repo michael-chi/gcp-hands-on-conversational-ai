@@ -92,3 +92,5 @@ We will first create a Virtual Network in Azure environment and a VPN with VPN G
 ```bash
 kubectl exec  -n <NAMESPACE> -it $(kubectl get pod -n <NAMESPACE> -o jsonpath='{.items[0].metadata.name}') -- ping <Remote Azure VM IP, ex 172.16.1.5>
 ```
+<img src="./img/vpn-verify-in-container-connectivity.png"/>
+
