@@ -26,11 +26,11 @@ module.exports = {
                 conv.ask('請提供' + missing_prompt);
             } else if (name == '王大一') {
                 console.log('name is Invalid');
-                conv.ask(`${name}已經onboard了`);
+                conv.ask(`${name}已經報到了`);
                 params['user_name'] = '';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_dep', 1, {'user_name': ''});
             } else {
-                conv.ask(`<speak>了解, ${name}<say-as interpret-as="date" format="yyyymmdd" detail="1">${datetime}</say-as>向<say-as interpret-as="characters">${user_dep}</say-as>報到, 請問這個資訊正確嗎？</speak>`);
+                conv.ask(`<speak>了解, ${name}將於<say-as interpret-as="date" format="yyyymmdd" detail="1">${datetime}</say-as>向<say-as interpret-as="characters">${user_dep}</say-as>報到, 請問這個資訊正確嗎？</speak>`);
             }
         });
     }
