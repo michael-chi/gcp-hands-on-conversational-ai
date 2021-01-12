@@ -58,11 +58,10 @@ module.exports = {
                 console.log('name is Invalid');
 
                 conv.ask(`${name}已經報到過了, 請提供正確的姓名`);
-                paramaters.user_name = '';
-                paramaters.user_name.original = '';
+                // paramaters.user_name = '';
+                // paramaters.user_name.original = '';
                 // conv.followup('get_user_info', paramaters);
 
-                params['user_name'] = '';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, paramaters);
                 conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
                 conv.contexts.set(idDialogContext, 2, paramaters);
