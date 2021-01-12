@@ -28,7 +28,7 @@ module.exports = {
                 console.log('name is Invalid');
                 conv.ask(`${name}已經onboard了`);
                 params['user_name'] = '';
-                app.setContext({'name':'automation_new-hire_onboarding_dialog_params_user_dep', 'lifespan': 1});
+                conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_dep', 1, {'user_name': ''});
             } else {
                 conv.ask('好的！');
             }
