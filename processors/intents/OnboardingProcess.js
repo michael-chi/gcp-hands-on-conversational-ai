@@ -19,7 +19,8 @@ module.exports = {
             console.log((conv));
             try{
                 console.log(conv.intent);
-                console.log(conv.queryResult.intent.name);
+                console.log('====>onv.body.intent');
+                console.log(conv.body.intent);
             }catch{
 
             }
