@@ -14,21 +14,14 @@ module.exports = {
         //  2.  Get destination location via Google Map API and respond to user
         //  3.  Wait user confirmation
         app.intent('automation.new-hire.onboarding', async (conv, params) => {
-            console.log('====>conv');
-            console.log(JSON.stringify(conv));
-            console.log('====>conv 2');
-            console.log(`${conv}`);
+
             try{
-                console.log('====>conv.body');
-                console.log(conv.body);
                 console.log('====>conv.body.queryResult.intent');
                 console.log(conv.body.queryResult.intent.name);            
             }catch{
 
             }
-            console.log('====>app');
-            console.log(JSON.stringify(app));
-            console.log('====>');
+
             const intentName = conv.intent
                     .trim()
                     .toLowerCase()
@@ -36,7 +29,7 @@ module.exports = {
             let intentNames = conv.body.queryResult.intent.name.split('/');
             let idDialogContext = `${intentNames[intentNames.length - 1]}_id_dialog_context`;
             let nameDialogContext = `${intentName}_dialog_context`;
-
+            console.log(`context=>>${idDialogContext}|${nameDialogContext}`);
             const [name, datetime, user_dep] = [params['user_name'], params['date-time'], params['user_dep']];
             console.log(`${name}|${datetime}|${user_dep}`);
             let missingSlots = [];
@@ -45,6 +38,7 @@ module.exports = {
                 missingSlots.push('user_name');
                 missing_prompt += '姓名,';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, { 'user_name': '' });
+                conv.contexts.set('automationnew-hireonboarding-followup', 1);
                 conv.contexts.set(idDialogContext, 2);
                 conv.contexts.set(nameDialogContext, 2);
                 conv.ask('請提供以下資訊：' + missing_prompt);
@@ -53,6 +47,7 @@ module.exports = {
                 missingSlots.push('date-time');
                 missing_prompt += '報到時間,';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_date-time', 1, { 'date-time': '' });
+                conv.contexts.set('automationnew-hireonboarding-followup', 1);
                 conv.contexts.set(idDialogContext, 2);
                 conv.contexts.set(nameDialogContext, 2);
                 conv.ask('請提供以下資訊：' + missing_prompt);
@@ -61,6 +56,7 @@ module.exports = {
                 missingSlots.push('user_dep'); 
                 missing_prompt += '部門,';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_dep', 1, { 'user_dep': '' });
+                conv.contexts.set('automationnew-hireonboarding-followup', 1);
                 conv.contexts.set(idDialogContext, 2);
                 conv.contexts.set(nameDialogContext, 2);
                 conv.ask('請提供以下資訊：' + missing_prompt);
@@ -70,6 +66,7 @@ module.exports = {
                 conv.ask(`${name}已經報到過了, 請提供正確的姓名`);
                 params['user_name'] = '';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, { 'user_name': '' });
+                conv.contexts.set('automationnew-hireonboarding-followup', 1);
                 conv.contexts.set(idDialogContext, 2);
                 conv.contexts.set(nameDialogContext, 2);
                 
