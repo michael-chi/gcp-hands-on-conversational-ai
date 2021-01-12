@@ -78,7 +78,8 @@ module.exports = {
                 conv.ask(`${name}已經報到過了, 請提供正確的姓名`);
                 paramaters.user_name = '';
                 paramaters.user_name.original = '';
-                updateContexts(conv, existingSlotFillingContexts, paramaters,
+                //updateContexts(conv, existingSlotFillingContexts, parameter_intent_name, follow_up_intentName, idDialogContextIntent, nameDialogContext, paramaters)
+                updateContexts(conv, existingSlotFillingContexts,
                     'automation_new-hire_onboarding_dialog_params_user_name',
                     'automationnew-hireonboarding-followup',
                     idDialogContext,
@@ -101,7 +102,7 @@ module.exports = {
                 // conv.contexts.set(idDialogContext, 2, paramaters);
                 // conv.contexts.set(nameDialogContext, 2, paramaters);
                 // conv.contexts.set(nameDialogContext2, 2, paramaters);
-                updateContexts(conv, existingSlotFillingContexts, paramaters,
+                updateContexts(conv, existingSlotFillingContexts,
                     'automation_new-hire_onboarding_dialog_params_user_name',
                     'automationnew-hireonboarding-followup',
                     idDialogContext,
@@ -120,7 +121,7 @@ module.exports = {
                 // conv.contexts.set(idDialogContext, 2, paramaters);
                 // conv.contexts.set(nameDialogContext, 2, paramaters);
                 // conv.contexts.set(nameDialogContext2, 2, paramaters);
-                updateContexts(conv, existingSlotFillingContexts, paramaters,
+                updateContexts(conv, existingSlotFillingContexts,
                     'automation_new-hire_onboarding_dialog_params_date-time',
                     'automationnew-hireonboarding-followup',
                     idDialogContext,
@@ -140,7 +141,7 @@ module.exports = {
                 // conv.contexts.set(nameDialogContext, 2, paramaters);
                 // conv.contexts.set(nameDialogContext2, 2, paramaters);
                 // conv.contexts.set(nameDialogContext2, 2, paramaters);
-                updateContexts(conv, existingSlotFillingContexts, paramaters,
+                updateContexts(conv, existingSlotFillingContexts,
                     'automation_new-hire_onboarding_dialog_params_user_dep',
                     'automationnew-hireonboarding-followup',
                     idDialogContext,
