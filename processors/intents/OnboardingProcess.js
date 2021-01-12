@@ -25,10 +25,14 @@ module.exports = {
             const intentName = conv.intent
                 .trim()
                 .toLowerCase()
-                .replace(/\s/g, "_").replace(".", "_");
+                .replace(/\s/g, "_");
+
             let intentNames = conv.body.queryResult.intent.name.split('/');
+
             let idDialogContext = `${intentNames[intentNames.length - 1]}_id_dialog_context`;
-            let nameDialogContext = `${intentName}_dialog_context`;
+            let nameDialogContext = `${intentName}_id_dialog_context`;
+            let nameDialogContext2 = `${conv.intent}_dialog_context`;
+
             console.log(`context=>>${idDialogContext}|${nameDialogContext}`);
             const [name, datetime, user_dep] = [params['user_name'], params['date-time'], params['user_dep']];
             console.log(`${name}|${datetime}|${user_dep}`);
@@ -43,15 +47,15 @@ module.exports = {
                 'date-time':datetime,
                 'date-time.original':datetime
                 };
-            // const slotFillingRegex = /.*contexts\/(?<contextName>.*dialog_params.*)/;
-            // let existingSlotFillingContexts = [];
-            // for (const context of conv.contexts) {
-            //     const isSlotFillingContext = slotFillingRegex.test(context.name);
-            //     if (isSlotFillingContext) {
-            //         const match = slotFillingRegex.exec(context.name);
-            //         existingSlotFillingContexts.push(match.groups.contextName);
-            //     }
-            // }
+            const slotFillingRegex = /.*contexts\/(?<contextName>.*dialog_params.*)/;
+            let existingSlotFillingContexts = [];
+            for (const context of conv.contexts) {
+                const isSlotFillingContext = slotFillingRegex.test(context.name);
+                if (isSlotFillingContext) {
+                    const match = slotFillingRegex.exec(context.name);
+                    existingSlotFillingContexts.push(match.groups.contextName);
+                }
+            }
 
 
             if (name == '王大一') {
@@ -66,7 +70,7 @@ module.exports = {
                 conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
                 conv.contexts.set(idDialogContext, 2, paramaters);
                 conv.contexts.set(nameDialogContext, 2, paramaters);
-
+                conv.contexts.set(nameDialogContext2, 2, paramaters);
             } else if (!name) {
                 missingSlots.push('user_name');
                 missing_prompt += '姓名,';
@@ -74,6 +78,7 @@ module.exports = {
                 conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
                 conv.contexts.set(idDialogContext, 2, paramaters);
                 conv.contexts.set(nameDialogContext, 2, paramaters);
+                conv.contexts.set(nameDialogContext2, 2, paramaters);
                 conv.ask('請提供以下資訊：' + missing_prompt);
                 // conv.followup('get_user_info', paramaters);
             }
@@ -84,6 +89,7 @@ module.exports = {
                 conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
                 conv.contexts.set(idDialogContext, 2, paramaters);
                 conv.contexts.set(nameDialogContext, 2, paramaters);
+                conv.contexts.set(nameDialogContext2, 2, paramaters);
                 conv.ask('請提供以下資訊：' + missing_prompt);
                 // conv.followup('get_user_info', paramaters);
             }
@@ -94,6 +100,7 @@ module.exports = {
                 conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
                 conv.contexts.set(idDialogContext, 2, paramaters);
                 conv.contexts.set(nameDialogContext, 2, paramaters);
+                conv.contexts.set(nameDialogContext2, 2, paramaters);
                 conv.ask('請提供以下資訊：' + missing_prompt);
                 // conv.followup('get_user_info', paramaters);
             }
