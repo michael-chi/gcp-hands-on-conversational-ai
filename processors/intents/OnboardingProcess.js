@@ -24,11 +24,11 @@ module.exports = {
             if (!user_dep) { missingSlots.push('user_dep'); missing_prompt += '部門,'; }
             if (name == '王大一') {
                 console.log('name is Invalid');
-                conv.ask(`${name}已經報到了`);
+                conv.ask(`${name}已經報到了, 請提供正確的姓名`);
                 params['user_name'] = '';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_dep', 1, {'user_name': ''});
             } else if (missing_prompt != '') {
-                conv.ask('請提供' + missing_prompt);
+                conv.ask('請提供以下資訊：' + missing_prompt);
             } else {
                 conv.ask(`<speak>了解, ${name}將於<say-as interpret-as="date" format="yyyymmdd" detail="1">${datetime}</say-as>向<say-as interpret-as="characters">${user_dep}</say-as>報到, 請問這個資訊正確嗎？</speak>`);
             }
