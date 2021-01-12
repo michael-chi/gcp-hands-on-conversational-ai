@@ -30,7 +30,7 @@ module.exports = {
                 params['user_name'] = '';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_dep', 1, {'user_name': ''});
             } else {
-                conv.ask('好的！');
+                conv.ask('<speak>了解, $user_name將於<say-as interpret-as="date" format="yyyymmdd" detail="1">$date-time</say-as>向$user_dep報到, 請問這個資訊正確嗎？</speak>');
             }
         });
     }
