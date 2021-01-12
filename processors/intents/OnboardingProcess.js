@@ -25,7 +25,7 @@ module.exports = {
             const intentName = conv.intent
                     .trim()
                     .toLowerCase()
-                    .replace(/\s/g, "_");
+                    .replace(/\s/g, "_").replace(".","_");
             let intentNames = conv.body.queryResult.intent.name.split('/');
             let idDialogContext = `${intentNames[intentNames.length - 1]}_id_dialog_context`;
             let nameDialogContext = `${intentName}_dialog_context`;
