@@ -29,7 +29,6 @@ module.exports = {
             conv.contexts.set(follow_up_intentName, 1, paramaters);
             conv.contexts.set(idDialogContextIntent, 2, paramaters);
             conv.contexts.set(nameDialogContext, 2, paramaters);
-            //conv.contexts.set(nameDialogContext2, 2, paramaters);
         }
         //  Customer is requesting a Taxi
         //  1.  Construct destination information
@@ -78,30 +77,17 @@ module.exports = {
                 conv.ask(`${name}已經報到過了, 請提供正確的姓名`);
                 paramaters.user_name = '';
                 paramaters.user_name.original = '';
-                //updateContexts(conv, existingSlotFillingContexts, parameter_intent_name, follow_up_intentName, idDialogContextIntent, nameDialogContext, paramaters)
                 updateContexts(conv, existingSlotFillingContexts,
                     'automation_new-hire_onboarding_dialog_params_user_name',
                     'automationnew-hireonboarding-followup',
                     idDialogContext,
                     nameDialogContext,
                     paramaters);
-                // existingSlotFillingContexts.forEach(contextName => conv.contexts.delete(contextName));
-                // conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, paramaters);
-                // conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
-                // conv.contexts.set(idDialogContext, 2, paramaters);
-                // conv.contexts.set(nameDialogContext, 2, paramaters);
-                // conv.contexts.set(nameDialogContext2, 2, paramaters);
+
             } else if (!name) {
                 missingSlots.push('user_name');
                 missing_prompt += '姓名,';
 
-                // Delete slot filling contexts for other parameters
-                // existingSlotFillingContexts.forEach(contextName => conv.contexts.delete(contextName));
-                // conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, paramaters);
-                // conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
-                // conv.contexts.set(idDialogContext, 2, paramaters);
-                // conv.contexts.set(nameDialogContext, 2, paramaters);
-                // conv.contexts.set(nameDialogContext2, 2, paramaters);
                 updateContexts(conv, existingSlotFillingContexts,
                     'automation_new-hire_onboarding_dialog_params_user_name',
                     'automationnew-hireonboarding-followup',
@@ -109,18 +95,11 @@ module.exports = {
                     nameDialogContext,
                     paramaters);
                 conv.ask('請提供以下資訊：' + missing_prompt);
-                // conv.followup('get_user_info', paramaters);
             }
             else if (!datetime) {
                 missingSlots.push('date-time');
                 missing_prompt += '報到時間,';
-                // Delete slot filling contexts for other parameters
-                // existingSlotFillingContexts.forEach(contextName => conv.contexts.delete(contextName));
-                // conv.contexts.set('automation_new-hire_onboarding_dialog_params_date-time', 1, paramaters);
-                // conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
-                // conv.contexts.set(idDialogContext, 2, paramaters);
-                // conv.contexts.set(nameDialogContext, 2, paramaters);
-                // conv.contexts.set(nameDialogContext2, 2, paramaters);
+
                 updateContexts(conv, existingSlotFillingContexts,
                     'automation_new-hire_onboarding_dialog_params_date-time',
                     'automationnew-hireonboarding-followup',
@@ -128,19 +107,11 @@ module.exports = {
                     nameDialogContext,
                     paramaters);
                 conv.ask('請提供以下資訊：' + missing_prompt);
-                // conv.followup('get_user_info', paramaters);
             }
             else if (!user_dep) {
                 missingSlots.push('user_dep');
                 missing_prompt += '部門,';
-                // Delete slot filling contexts for other parameters
-                // existingSlotFillingContexts.forEach(contextName => conv.contexts.delete(contextName));
-                // conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_dep', 1, paramaters);
-                // conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
-                // conv.contexts.set(idDialogContext, 2, paramaters);
-                // conv.contexts.set(nameDialogContext, 2, paramaters);
-                // conv.contexts.set(nameDialogContext2, 2, paramaters);
-                // conv.contexts.set(nameDialogContext2, 2, paramaters);
+
                 updateContexts(conv, existingSlotFillingContexts,
                     'automation_new-hire_onboarding_dialog_params_user_dep',
                     'automationnew-hireonboarding-followup',
@@ -149,8 +120,6 @@ module.exports = {
                     paramaters);
                 conv.ask('請提供以下資訊：' + missing_prompt);                
                 
-
-                // conv.followup('get_user_info', paramaters);
             }
             else {
                 conv.ask(`<speak>了解, ${name}將於<say-as interpret-as="date" format="yyyymmdd" detail="1">${datetime}</say-as>向<say-as interpret-as="characters">${user_dep}</say-as>報到, 請問這個資訊正確嗎？</speak>`);
