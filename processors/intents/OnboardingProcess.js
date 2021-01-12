@@ -14,8 +14,11 @@ module.exports = {
         //  2.  Get destination location via Google Map API and respond to user
         //  3.  Wait user confirmation
         app.intent('automation.new-hire.onboarding', async (conv, params) => {
-            console.log('====>automation.new-hire.onboarding');
+            console.log('====>conv');
             console.log(JSON.stringify(conv));
+            console.log('====>app');
+            console.log(JSON.stringify(app));
+            console.log('====>');
             const intentName = conv.intent
                     .trim()
                     .toLowerCase()
