@@ -43,15 +43,15 @@ module.exports = {
                 'date-time':datetime,
                 'date-time.original':datetime
                 };
-            const slotFillingRegex = /.*contexts\/(?<contextName>.*dialog_params.*)/;
-            let existingSlotFillingContexts = [];
-            for (const context of conv.contexts) {
-                const isSlotFillingContext = slotFillingRegex.test(context.name);
-                if (isSlotFillingContext) {
-                    const match = slotFillingRegex.exec(context.name);
-                    existingSlotFillingContexts.push(match.groups.contextName);
-                }
-            }
+            // const slotFillingRegex = /.*contexts\/(?<contextName>.*dialog_params.*)/;
+            // let existingSlotFillingContexts = [];
+            // for (const context of conv.contexts) {
+            //     const isSlotFillingContext = slotFillingRegex.test(context.name);
+            //     if (isSlotFillingContext) {
+            //         const match = slotFillingRegex.exec(context.name);
+            //         existingSlotFillingContexts.push(match.groups.contextName);
+            //     }
+            // }
 
 
             if (name == '王大一') {
