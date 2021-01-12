@@ -34,6 +34,18 @@ module.exports = {
             console.log(`${name}|${datetime}|${user_dep}`);
             let missingSlots = [];
             var missing_prompt = '';
+
+            const slotFillingRegex = /.*contexts\/(?<contextName>.*dialog_params.*)/;
+            let existingSlotFillingContexts = [];
+            for (const context of conv.contexts) {
+                const isSlotFillingContext = slotFillingRegex.test(context.name);
+                if (isSlotFillingContext) {
+                    const match = slotFillingRegex.exec(context.name);
+                    existingSlotFillingContexts.push(match.groups.contextName);
+                }
+            }
+
+            
             if (!name) {
                 missingSlots.push('user_name');
                 missing_prompt += '姓名,';
@@ -65,10 +77,11 @@ module.exports = {
                 console.log('name is Invalid');
                 conv.ask(`${name}已經報到過了, 請提供正確的姓名`);
                 params['user_name'] = '';
-                conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, { 'user_name': '','user_name.original': '' });
-                conv.contexts.set('automationnew-hireonboarding-followup', 1, { 'user_name': '','user_name.original': '' });
-                conv.contexts.set(idDialogContext, 2, { 'user_name': '' ,'user_name.original': ''});
-                conv.contexts.set(nameDialogContext, 2, { 'user_name': '','user_name.original': '' });
+                conv.followup('get_user_info', { 'user_name': '' ,'user_name.original': ''});
+                // conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, { 'user_name': '','user_name.original': '' });
+                // conv.contexts.set('automationnew-hireonboarding-followup', 1, { 'user_name': '','user_name.original': '' });
+                // conv.contexts.set(idDialogContext, 2, { 'user_name': '' ,'user_name.original': ''});
+                // conv.contexts.set(nameDialogContext, 2, { 'user_name': '','user_name.original': '' });
                 
             } else {
                 conv.ask(`<speak>了解, ${name}將於<say-as interpret-as="date" format="yyyymmdd" detail="1">${datetime}</say-as>向<say-as interpret-as="characters">${user_dep}</say-as>報到, 請問這個資訊正確嗎？</speak>`);
