@@ -13,14 +13,17 @@ module.exports = {
         //  1.  Construct destination information
         //  2.  Get destination location via Google Map API and respond to user
         //  3.  Wait user confirmation
-        app.intent('automation.new-hire.onboarding', async (conv, params) => {
+        app.intent('automation.new-hire.onboarding', async (conv, params, a, b, c) => {
             console.log('====>conv');
+            console.log(`${a} | ${b} | ${c}`)
             console.log(JSON.stringify(conv));
-            console.log((conv));
+            console.log('====>conv 2');
+            console.log(`${conv}`);
             try{
-                console.log(conv.intent);
-                console.log('====>onv.body.intent');
-                console.log(conv.body.intent);
+                console.log('====>conv.body');
+                console.log(conv.body);
+                console.log('====>conv.body.intent');
+                console.log(conv.body.intent);            
             }catch{
 
             }
