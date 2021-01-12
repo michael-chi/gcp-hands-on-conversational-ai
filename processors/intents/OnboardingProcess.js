@@ -23,6 +23,7 @@ module.exports = {
                 missingSlots.push('user_name');
                 missing_prompt += '姓名,';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, { 'user_name': '' });
+                conv.contexts.set('automationnew-hireonboarding-followup', 1);
                 conv.ask('請提供以下資訊：' + missing_prompt);
             }
             else if (!datetime) {
@@ -41,9 +42,9 @@ module.exports = {
             }
             else if (name == '王大一') {
                 console.log('name is Invalid');
-                conv.ask(`${name}已經報到了, 請提供正確的姓名`);
+                conv.ask(`${name}已經報到過了, 請提供正確的姓名`);
                 params['user_name'] = '';
-                conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_dep', 1, { 'user_name': '' });
+                conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, { 'user_name': '' });
                 conv.contexts.set('automationnew-hireonboarding-followup', 1);
                 
             } else {
