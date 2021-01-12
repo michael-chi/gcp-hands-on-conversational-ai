@@ -43,15 +43,15 @@ module.exports = {
                 'date-time':datetime,
                 'date-time.original':datetime
                 };
-            // const slotFillingRegex = /.*contexts\/(?<contextName>.*dialog_params.*)/;
-            // let existingSlotFillingContexts = [];
-            // for (const context of conv.contexts) {
-            //     const isSlotFillingContext = slotFillingRegex.test(context.name);
-            //     if (isSlotFillingContext) {
-            //         const match = slotFillingRegex.exec(context.name);
-            //         existingSlotFillingContexts.push(match.groups.contextName);
-            //     }
-            // }
+            const slotFillingRegex = /.*contexts\/(?<contextName>.*dialog_params.*)/;
+            let existingSlotFillingContexts = [];
+            for (const context of conv.contexts) {
+                const isSlotFillingContext = slotFillingRegex.test(context.name);
+                if (isSlotFillingContext) {
+                    const match = slotFillingRegex.exec(context.name);
+                    existingSlotFillingContexts.push(match.groups.contextName);
+                }
+            }
 
 
             if (!name) {
@@ -62,7 +62,7 @@ module.exports = {
                 conv.contexts.set(idDialogContext, 2, paramaters);
                 conv.contexts.set(nameDialogContext, 2, paramaters);
                 conv.ask('請提供以下資訊：' + missing_prompt);
-                conv.followup('get_user_info', paramaters);
+                // conv.followup('get_user_info', paramaters);
             }
             else if (!datetime) {
                 missingSlots.push('date-time');
@@ -72,7 +72,7 @@ module.exports = {
                 conv.contexts.set(idDialogContext, 2, paramaters);
                 conv.contexts.set(nameDialogContext, 2, paramaters);
                 conv.ask('請提供以下資訊：' + missing_prompt);
-                conv.followup('get_user_info', paramaters);
+                // conv.followup('get_user_info', paramaters);
             }
             else if (!user_dep) {
                 missingSlots.push('user_dep');
@@ -82,7 +82,7 @@ module.exports = {
                 conv.contexts.set(idDialogContext, 2, paramaters);
                 conv.contexts.set(nameDialogContext, 2, paramaters);
                 conv.ask('請提供以下資訊：' + missing_prompt);
-                conv.followup('get_user_info', paramaters);
+                // conv.followup('get_user_info', paramaters);
             }
             else if (name == '王大一') {
                 console.log('name is Invalid');
