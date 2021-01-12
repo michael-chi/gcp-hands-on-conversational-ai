@@ -15,7 +15,6 @@ module.exports = {
         //  3.  Wait user confirmation
         app.intent('automation.new-hire.onboarding', async (conv, params) => {
             console.log('====>conv');
-            console.log(`${a} | ${b} | ${c}`)
             console.log(JSON.stringify(conv));
             console.log('====>conv 2');
             console.log(`${conv}`);
