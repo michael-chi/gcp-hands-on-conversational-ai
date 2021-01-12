@@ -7,6 +7,6 @@ spec:
     app: dialogflow-fulfillment
   ports:
   - protocol: TCP
-    port: 33333
+    port: 443
     targetPort: 8080
   type: LoadBalancer

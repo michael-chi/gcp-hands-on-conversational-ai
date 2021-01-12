@@ -25,6 +25,7 @@ module.exports = {
             if (missing_prompt != '') {
                 conv.ask('請提供' + missing_prompt);
             } else if (name == '王大一') {
+                console.log('name is Invalid');
                 conv.ask(`${name}已經onboard了`);
                 params['user_name'] = '';
                 app.setContext({'name':'automation_new-hire_onboarding_dialog_params_user_dep', 'lifespan': 1});

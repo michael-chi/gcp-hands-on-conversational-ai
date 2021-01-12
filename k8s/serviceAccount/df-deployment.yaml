@@ -14,14 +14,14 @@ spec:
         spec:
             containers:
             -   name: dialogflow-fulfillment
-                image: asia.gcr.io/kalschi-demo-001/conversational-ai-demo:latest
+                image: gcr.io/kalschi-agones/conversational-ai-demo:0.01
                 imagePullPolicy: Always
                 ports:
                     -   name: http
                         containerPort: 8080
                 env:
                     -   name: PROJECT_ID
-                        value: kalschi-demo-001
+                        value: kalschi-agones
                     -   name: LOCATION
                         value: global
                     -   name: NAMESPACE
