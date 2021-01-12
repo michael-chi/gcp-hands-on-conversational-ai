@@ -16,6 +16,13 @@ module.exports = {
         app.intent('automation.new-hire.onboarding', async (conv, params) => {
             console.log('====>conv');
             console.log(JSON.stringify(conv));
+            console.log((conv));
+            try{
+                console.log(conv.intent);
+                console.log(conv.queryResult.intent.name);
+            }catch{
+
+            }
             console.log('====>app');
             console.log(JSON.stringify(app));
             console.log('====>');
