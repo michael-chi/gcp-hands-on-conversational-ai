@@ -39,14 +39,14 @@ module.exports = {
             let missingSlots = [];
             var missing_prompt = '';
 
-            var paramaters = { 
-                'user_name': name, 
+            var paramaters = {
+                'user_name': name,
                 'user_name.original': name,
-                'user_dep':user_dep,
-                'user_dep.original':user_dep,
-                'date-time':datetime,
-                'date-time.original':datetime
-                };
+                'user_dep': user_dep,
+                'user_dep.original': user_dep,
+                'date-time': datetime,
+                'date-time.original': datetime
+            };
             const slotFillingRegex = /.*contexts\/(?<contextName>.*dialog_params.*)/;
             let existingSlotFillingContexts = [];
             for (const context of conv.contexts) {
@@ -65,7 +65,8 @@ module.exports = {
                 paramaters.user_name = '';
                 paramaters.user_name.original = '';
                 // conv.followup('get_user_info', paramaters);
-
+                // Delete slot filling contexts for other parameters
+                existingSlotFillingContexts.forEach(contextName => conv.contexts.delete(contextName));
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, paramaters);
                 conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
                 conv.contexts.set(idDialogContext, 2, paramaters);
@@ -74,6 +75,9 @@ module.exports = {
             } else if (!name) {
                 missingSlots.push('user_name');
                 missing_prompt += '姓名,';
+
+                // Delete slot filling contexts for other parameters
+                existingSlotFillingContexts.forEach(contextName => conv.contexts.delete(contextName));
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, paramaters);
                 conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
                 conv.contexts.set(idDialogContext, 2, paramaters);
@@ -85,6 +89,8 @@ module.exports = {
             else if (!datetime) {
                 missingSlots.push('date-time');
                 missing_prompt += '報到時間,';
+                // Delete slot filling contexts for other parameters
+                existingSlotFillingContexts.forEach(contextName => conv.contexts.delete(contextName));
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_date-time', 1, paramaters);
                 conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
                 conv.contexts.set(idDialogContext, 2, paramaters);
@@ -96,6 +102,8 @@ module.exports = {
             else if (!user_dep) {
                 missingSlots.push('user_dep');
                 missing_prompt += '部門,';
+                // Delete slot filling contexts for other parameters
+                existingSlotFillingContexts.forEach(contextName => conv.contexts.delete(contextName));
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_dep', 1, paramaters);
                 conv.contexts.set('automationnew-hireonboarding-followup', 1, paramaters);
                 conv.contexts.set(idDialogContext, 2, paramaters);
