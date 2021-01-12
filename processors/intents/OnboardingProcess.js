@@ -22,7 +22,7 @@ module.exports = {
                 console.log('====>conv.body');
                 console.log(conv.body);
                 console.log('====>conv.body.queryResult.intent');
-                console.log(conv.body.queryResult.intent);            
+                console.log(conv.body.queryResult.intent.name);            
             }catch{
 
             }
@@ -33,7 +33,8 @@ module.exports = {
                     .trim()
                     .toLowerCase()
                     .replace(/\s/g, "_");
-            //let idDialogContext = `${conv.intent.}_id_dialog_context`;
+            let intentNames = conv.body.queryResult.intent.name.split('/');
+            let idDialogContext = `${intentNames[intentNames.length - 1]}_id_dialog_context`;
             let nameDialogContext = `${intentName}_dialog_context`;
 
             const [name, datetime, user_dep] = [params['user_name'], params['date-time'], params['user_dep']];
@@ -44,7 +45,7 @@ module.exports = {
                 missingSlots.push('user_name');
                 missing_prompt += '姓名,';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, { 'user_name': '' });
-                //conv.contexts.set(idDialogContext, 2);
+                conv.contexts.set(idDialogContext, 2);
                 conv.contexts.set(nameDialogContext, 2);
                 conv.ask('請提供以下資訊：' + missing_prompt);
             }
@@ -52,7 +53,7 @@ module.exports = {
                 missingSlots.push('date-time');
                 missing_prompt += '報到時間,';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_date-time', 1, { 'date-time': '' });
-                //conv.contexts.set(idDialogContext, 2);
+                conv.contexts.set(idDialogContext, 2);
                 conv.contexts.set(nameDialogContext, 2);
                 conv.ask('請提供以下資訊：' + missing_prompt);
             }
@@ -60,7 +61,7 @@ module.exports = {
                 missingSlots.push('user_dep'); 
                 missing_prompt += '部門,';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_dep', 1, { 'user_dep': '' });
-                //conv.contexts.set(idDialogContext, 2);
+                conv.contexts.set(idDialogContext, 2);
                 conv.contexts.set(nameDialogContext, 2);
                 conv.ask('請提供以下資訊：' + missing_prompt);
             }
@@ -69,7 +70,7 @@ module.exports = {
                 conv.ask(`${name}已經報到過了, 請提供正確的姓名`);
                 params['user_name'] = '';
                 conv.contexts.set('automation_new-hire_onboarding_dialog_params_user_name', 1, { 'user_name': '' });
-                //conv.contexts.set(idDialogContext, 2);
+                conv.contexts.set(idDialogContext, 2);
                 conv.contexts.set(nameDialogContext, 2);
                 
             } else {
