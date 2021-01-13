@@ -3,6 +3,10 @@ var express = require('express')
 var bodyParser = require('body-parser')
 const expressApp = express().use(bodyParser.json());
 expressApp.post('/fulfillment', agent);
+expressApp.post('/test', (req,res) => {
+    console.log(JSON.stringify(req));
+    res.send("ok");
+});
 expressApp.get('/test', (req,res) => {
         try{
             console.log(`[INFO]===> TEST <===`);
