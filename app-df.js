@@ -1,11 +1,17 @@
-var agent = require('./index').agent;
+
+const functions = require('firebase-functions');
+const { WebhookClient } = require('dialogflow-fulfillment');
+const { Card, Suggestion } = require('dialogflow-fulfillment');
+
 var express = require('express')
 var bodyParser = require('body-parser')
 const expressApp = express().use(bodyParser.json());
-expressApp.post('/fulfillment', agent);
-expressApp.post('/test', (req,res) => {
-    console.log(JSON.stringify(req.body));
+expressApp.post('/fulfillment', (req,res) => {
+    console.log(JSON.stringify(req));
     res.send("ok");
+});
+expressApp.post('/test', (req,res) => {
+    const agent = new WebhookClient({ req, res });
 });
 expressApp.get('/test', (req,res) => {
         try{
