@@ -9,6 +9,7 @@ const {
 //  https://github.com/actions-on-google/actions-on-google-nodejs/issues/345
 module.exports = {
     setup: async function (app) {
+        /*
         function getExistingIntents(conv){
             const slotFillingRegex = /.*contexts\/(?<contextName>.*dialog_params.*)/;
             let existingSlotFillingContexts = [];
@@ -30,7 +31,7 @@ module.exports = {
             conv.contexts.set(idDialogContextIntent, 2, paramaters);
             conv.contexts.set(nameDialogContext, 2, paramaters);
         }
-
+        */
         app.intent('automation.new-hire.onboarding - no', async (conv, params) => {
             var paramaters = {
                 'user_name': "",
@@ -41,7 +42,7 @@ module.exports = {
                 'date-time.original': ""
             };
             conv.ask('好的, 那麼請重新提供資料');
-            conv.followup('get_user_info',paramaters);
+            conv.followup('get_user_info', paramaters);
         });
     }
 }
