@@ -9,7 +9,7 @@ const app = dialogflow();
 //  Add Intent handlers below
 const handlers = [];
 handlers.push(require('./processors/intents/OnboardingProcess.js'));
-
+handlers.push(require('./processors/intents/OnboardingProcess-Confirmation.js'));
 //  Setup Intent Handlers
 handlers.forEach(element => {
     element.setup(app);

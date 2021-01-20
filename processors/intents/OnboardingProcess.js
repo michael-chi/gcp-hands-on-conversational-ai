@@ -30,10 +30,7 @@ module.exports = {
             conv.contexts.set(idDialogContextIntent, 2, paramaters);
             conv.contexts.set(nameDialogContext, 2, paramaters);
         }
-        //  Customer is requesting a Taxi
-        //  1.  Construct destination information
-        //  2.  Get destination location via Google Map API and respond to user
-        //  3.  Wait user confirmation
+
         app.intent('automation.new-hire.onboarding', async (conv, params) => {
             const intentName = conv.intent
                 .trim()
